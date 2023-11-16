@@ -9,7 +9,7 @@ def SaveSlot(SaveSlot, Dictionary):
 
     with open('saves.json', mode='w') as outfile:
         json.dump(data, outfile, indent=4)
-    
+
 def GetSave(SaveSlot):
     
     with open('saves.json', mode='r') as infile:
@@ -17,7 +17,7 @@ def GetSave(SaveSlot):
     
     return data[SaveSlot]
 
-def GetAllSave(SaveSlot):
+def GetAllSave():
     
     with open('saves.json', mode='r') as infile:
         data = json.load(infile)

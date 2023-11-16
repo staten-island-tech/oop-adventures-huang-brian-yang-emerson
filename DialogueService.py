@@ -1,10 +1,11 @@
 import time
 
-def Dialogue(Speaker, sentence):
+def Dialogue(Speaker, sentence, times):
 
     print(Speaker + ": ", end="", flush=True)
-    time.sleep(0.5)
+    time.sleep(0.05)
 
     for char in sentence:
-        time.sleep(0.05)
+        time.sleep(times)
         print(char, end="", flush=True)
+    

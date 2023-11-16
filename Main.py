@@ -1,3 +1,6 @@
-import Event, DialogueService, SaveService
+import DialogueService, SaveService, EventService, SequenceService
 
-Event.Event(1, 0)
+def Main():
+    SequenceService.MainMenu()
+
+Main()
