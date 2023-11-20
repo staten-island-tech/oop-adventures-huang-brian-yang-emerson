@@ -1,0 +1,44 @@
+[
+    {
+        "Name": "Architect",
+        "Chance": 20,
+        "Items": 
+        {
+            "Statue": 
+            {
+                "Population change": 0,
+                "Gold change": -10,
+                "Happiness change": 1,
+                "LUCK": 10
+            },
+            "Wall": 
+            {
+                "Population change": 0,
+                "Gold change": -100,
+                "Happiness change": 10,
+                "LUCK": 20
+            }
+        }
+    },
+    {
+        "Name": "Billy",
+        "Chance": 10,
+        "Items": 
+        {
+            "Funny looking Frog": 
+            {
+                "Population change": 0,
+                "Gold change": -2,
+                "Happiness change": 0,
+                "LUCK": 5
+            },
+            "Single Pebble":
+            {
+                "Population change": 0,
+                "Gold change": -1,
+                "Happiness change": 0,
+                "LUCK": 5
+            }
+        }
+    }
+]
