@@ -23,3 +23,13 @@
 ###         [Royal Advisor]: "Let me repeat that for you, my Lord.
 ### If no:
 ###     [Royal Advisor]: "Alright then. Take care, Lord [Your name]!"
+
+### Everyday:
+### Advisor tells you your stats, then advises you if some stats are low.
+### Visitors come in and asks for requests. You can accept or decline.
+### Every 10 days, a trader comes in to try to trade some good things for money.
+
+### Day 20
+### [Advisor]: "My lord, there is trouble!"
+### [Advisor]: "The nearby kingdom is planning to invade! What should we do!"
+### *Train the military/Try negotiating/Find allies/Ignore [1,2,3,4]*
