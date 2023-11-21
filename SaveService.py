@@ -17,6 +17,21 @@ def NewSaveSlot():
         if AConfirm == "y":
             Confirm = True
 
+    with open('saves.json', mode='r') as infile:
+        data: list[dict] = json.load(infile)
+    
+    data.append(
+        {
+            "Name": Name,
+            "Day": 0,
+            "Luck": 0,
+            "Population": 50,
+            "Gold": 50, 
+        }
+    )
+
+
+
 
 def SaveSlot(SaveSlot, Dictionary):
 

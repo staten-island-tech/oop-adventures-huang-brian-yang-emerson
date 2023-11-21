@@ -38,6 +38,9 @@ def MainMenu():
         else:
             SaveService.NewSaveSlot()
 
+def tutorial():
+    pass
+
 
 
         
