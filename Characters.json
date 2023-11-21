@@ -17,6 +17,13 @@
                 "Gold change": -100,
                 "Happiness change": 10,
                 "LUCK": 20
+            },
+            "Apartment buildings":
+            {
+                "Population change": 10,
+                "Gold change": -50,
+                "Happiness change":5,
+                "LUCK": 10
             }
         }
     },
