@@ -1,6 +1,7 @@
 import DialogueService, SaveService, EventService, SequenceService
 
 def Main():
-    SequenceService.MainMenu()
+    SaveID = SequenceService.MainMenu()
+    SequenceService.tutorial()
 
 Main()

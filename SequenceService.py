@@ -1,13 +1,12 @@
-import DialogueService, SaveService
-
-
+import DialogueService, SaveService, time
 
 def MainMenu():
     SaveSlotsData: list[dict] = SaveService.GetAllSave()
 
     if len(SaveSlotsData) == 0:
-        DialogueService.Dialogue("", "You Dont Have A Active Save Slot. Would You Like Creating A New One? ")
-        Confirmation = input("Y/N only: ").lower()
+        print("No Slots Available. Creating New Save Slot...")
+        time.sleep(3)
+        data = SaveService.NewSaveSlot()
 
     else:
         DialogueService.Dialogue("", "You Have Previous Save Sessions, Would You Like To Display Them?", 0.05)
@@ -33,10 +32,12 @@ def MainMenu():
                 print(entry)
 
             DialogueService.Dialogue("", f"Exit Or Choose Save Slot? (E / 1 - {len(SaveSlotsData)})", 0.05)
-            Answer = input("Y/N").lower()        
+            Answer = input("Y/N").lower()
 
         else:
-            SaveService.NewSaveSlot()
+            data = SaveService.NewSaveSlot()
+
+    return data
 
 def tutorial():
     pass

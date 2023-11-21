@@ -30,8 +30,12 @@ def NewSaveSlot():
         }
     )
 
+    with open('saves.json', mode='w') as outfile:
+        json.dump(data, outfile, indent=4)
 
+    print("New Slot Saved!")
 
+    return len(data)
 
 def SaveSlot(SaveSlot, Dictionary):
 
@@ -56,3 +60,10 @@ def GetAllSave():
         data = json.load(infile)
     
     return data
+
+def DeleteSlot(SlotID):
+    Data: list[dict] = GetAllSave()
+    Data.remove(SlotID)
+
+    with open('saves.json', mode='r') as outfile:
+        json.dump(Data, outfile)

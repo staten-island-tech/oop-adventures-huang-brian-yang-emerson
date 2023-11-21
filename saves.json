@@ -1,18 +1,9 @@
 [
     {
-        "Name": "Hobin",
-        "Luck": 10,
-        "Population": 200,
-        "Happiness": 800,
-        "Day": 1000,
-        "Gold": 10
-    },
-    {
-        "Name": "Yesbin",
-        "Luck": 120,
-        "Population": 212300,
-        "Happiness": 812300,
-        "Day": 1045300,
-        "Gold": 134530
+        "Name": "e",
+        "Day": 0,
+        "Luck": 0,
+        "Population": 50,
+        "Gold": 50
     }
 ]
