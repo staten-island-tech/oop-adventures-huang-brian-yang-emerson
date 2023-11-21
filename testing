@@ -1,0 +1,13 @@
+import json
+
+test = open("Characters.json", encoding="utf8")
+
+data = json.load(test)
+
+for i in data:
+    print(i['Name'])
+    print(i['Chance'])
+    for e in i["Items"]:
+        print(e+":")
+        for n in e:
+            print(n)
