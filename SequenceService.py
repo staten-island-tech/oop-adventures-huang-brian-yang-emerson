@@ -27,12 +27,12 @@ def MainMenu():
                         'Gold': n['Gold']
                     }
                 )
-
+                
             for entry in list:
                 print(entry)
 
             DialogueService.Dialogue("", f"Exit Or Choose Save Slot? (E / 1 - {len(SaveSlotsData)})", 0.05)
-            Answer = input("Y/N").lower()
+            Answer = input("Input: ").lower()
 
         else:
             data = SaveService.NewSaveSlot()

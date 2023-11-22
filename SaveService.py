@@ -24,6 +24,7 @@ def NewSaveSlot():
         {
             "Name": Name,
             "Day": 0,
+            "Happiness": 50,
             "Luck": 0,
             "Population": 50,
             "Gold": 50, 
@@ -63,7 +64,7 @@ def GetAllSave():
 
 def DeleteSlot(SlotID):
     Data: list[dict] = GetAllSave()
-    Data.remove(SlotID)
+    Data.pop(SlotID)
 
-    with open('saves.json', mode='r') as outfile:
-        json.dump(Data, outfile)
+    with open('saves.json', mode='w') as outfile:
+        json.dump(Data, outfile, indent=4)
