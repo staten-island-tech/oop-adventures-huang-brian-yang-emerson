@@ -1,6 +1,19 @@
 [
+
+
+
+
+    
     {
         "Name": "Yes",
+        "Day": 0,
+        "Happiness": 50,
+        "Luck": 0,
+        "Population": 50,
+        "Gold": 50
+    },
+    {
+        "Name": "Nuh Uh",
         "Day": 0,
         "Happiness": 50,
         "Luck": 0,

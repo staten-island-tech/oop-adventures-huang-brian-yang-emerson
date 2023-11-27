@@ -48,12 +48,12 @@ def SaveSlot(SaveSlot, Dictionary):
     with open('saves.json', mode='w') as outfile:
         json.dump(data, outfile, indent=4)
 
-def GetSave(SaveSlot):
+def GetSave(SaveID):
     
     with open('saves.json', mode='r') as infile:
         data = json.load(infile)
     
-    return data[SaveSlot]
+    return data[SaveID - 1]
 
 def GetAllSave():
     
