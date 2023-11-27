@@ -1,9 +1,23 @@
 [
+
+
+
+
+    
     {
-        "Name": "Cheesburger",
-        "Luck": 10,
-        "Population": 200,
-        "Happiness": 800,
-        "Day": 1000
+        "Name": "Yes",
+        "Day": 0,
+        "Happiness": 50,
+        "Luck": 0,
+        "Population": 50,
+        "Gold": 50
+    },
+    {
+        "Name": "Nuh Uh",
+        "Day": 0,
+        "Happiness": 50,
+        "Luck": 0,
+        "Population": 50,
+        "Gold": 50
     }
 ]
