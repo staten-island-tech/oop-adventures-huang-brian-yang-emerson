@@ -32,4 +32,4 @@
 ### Day 20
 ### [Advisor]: "My lord, there is trouble!"
 ### [Advisor]: "The nearby kingdom is planning to invade! What should we do!"
-### *Train the military/Try negotiating/Find allies/Ignore [1,2,3,4]*
+### *Prepare the military/Try negotiating/Find allies/Ignore [1,2,3,4]*
