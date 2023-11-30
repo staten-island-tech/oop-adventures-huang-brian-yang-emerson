@@ -1,8 +1,4 @@
-import DialogueService, SaveService, EventService, SequenceService, time
+import Dungeons
 
-def Main():
-    SaveID = SequenceService.MainMenu()
-    print(SaveService.GetSave(SaveID))
-    SequenceService.tutorial()
-
-Main()
+D = Dungeons.Dungeon("Grassy Hills", "Easy")
+print(D.StartDungeon("yes"))
