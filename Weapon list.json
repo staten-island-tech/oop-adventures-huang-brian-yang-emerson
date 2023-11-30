@@ -2,37 +2,76 @@
     {
         "Name": "Bronze Sword",
         "Rarity": "Common",
-        "Grade": "Normal",
-        "Attack": 10,
-        "SPECIAL": [],
-        "Durability": 100,
-        "Info": "The beginner's sword."
+        "Attack": 10
     },
     {
         "Name": "Iron Sword",
         "Rarity": "Uncommon",
-        "Grade": "Normal",
-        "Attack": 15,
-        "SPECIAL": [],
-        "Durability": 200,
-        "Info": "The average sword."
+        "Attack": 15
     },
     {
         "Name": "Obsidian Sword",
         "Rarity": "Rare",
-        "Grade": "Normal",
-        "Attack": 20,
-        "SPECIAL": ["Bleed"],
-        "Durability": 400,
-        "Info": "Looking sharp!."
+        "Attack": 20
+    },
+    {
+        "Name": "Dragon-slaying Sword",
+        "Rarity": "Mythical",
+        "Attack": 30
     },
     {
         "Name": "Hero's Sword",
         "Rarity": "Legendary",
-        "Grade": "Normal",
-        "Attack": 100,
-        "SPECIAL": ["Bleed","Burn"],
-        "Durability": 1000,
-        "Info": "Strikes down all evil"
+        "Attack": 100
+    },
+    {
+        "Name": "Wooden Crossbow",
+        "Rarity": "Common",
+        "Attack": 10
+    },
+    {
+        "Name": "Metal Crossbow",
+        "Rarity": "Uncommon",
+        "Attack": 20
+    },
+    {
+        "Name": "Shotgun",
+        "Rarity": "Rare",
+        "Attack": 40
+    },
+    {
+        "Name": "Dragon Spear",
+        "Rarity": "Mythical",
+        "Attack": 80
+    },
+    {
+        "Name": "Evil-purging Gatling Gun",
+        "Rarity": "Legendary",
+        "Attack": 150
+    },
+    {
+        "Name": "Stone Hammer",
+        "Rarity": "Common",
+        "Attack": 10
+    },
+    {
+        "Name": "Metal Hammer",
+        "Rarity": "Uncommon",
+        "Attack": 30
+    },
+    {
+        "Name": "Fortress Crusher",
+        "Rarity": "Rare",
+        "Attack": 90
+    },
+    {
+        "Name": "Bone Crusher",
+        "Rarity": "Mythical",
+        "Attack": 150
+    },
+    {
+        "Name": "Thor's hammer",
+        "Rarity": "Legendary",
+        "Attack": 300
     }
 ]
