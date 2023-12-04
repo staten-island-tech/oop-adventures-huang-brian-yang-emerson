@@ -6,7 +6,8 @@
             "HP": 0,
             "Strength": 0,
             "Vitality": 0,
-            "Luck": 0
+            "Luck": 0,
+            "Gold": 0
         },
 
         "Inventory": [

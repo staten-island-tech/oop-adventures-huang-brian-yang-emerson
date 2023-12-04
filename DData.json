@@ -1,6 +1,6 @@
 [
     {
-        "Grassy Hills": {
+        "Grass Isle": {
             "Enemy": [
                 {
                     "Name": "Tribal Goblin",
@@ -39,5 +39,8 @@
                 }   
             ]
         }
+    },
+    {
+        "Frosty Hills"
     }
 ]
