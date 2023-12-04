@@ -3,7 +3,7 @@
         "Grass Isle": {
             "Enemy": [
                 {
-                    "Name": "Tribal Goblin",
+                    "Name": "Goblin",
                     "HP": "100",
                     "Attack": 5,
                     "Exp": 5,
@@ -42,9 +42,10 @@
                     "Hp": 10000,
                     "Attack": 10000,
                     "Exp": 1.6,
-                    "Chance": 0.01
+                    "Chance": 0.1
                 }
             ]
         }
     }
 ]
+
