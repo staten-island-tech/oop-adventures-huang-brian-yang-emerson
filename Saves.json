@@ -66,6 +66,7 @@
         "Inventory": [
             {
                 "Item": "Bronze Sword",
+                "Wearing": true,
                 "Rarity": "Common",
                 "Grade": "Normal",
                 "Type": "Weapon",
