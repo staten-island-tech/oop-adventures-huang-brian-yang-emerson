@@ -15,3 +15,4 @@ Emerson = Shop("Emerson",["Apple","Banana"],[5,5])
 Emerson.intro(Emerson.name)
 
 Emerson.GiveShopInventory(Emerson.items, Emerson.costs)
+

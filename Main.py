@@ -1,4 +1,8 @@
-import Dungeons
+from Game import Game, time
 
-D = Dungeons.Dungeon("Grassy Hills", "Easy")
-print(D.StartDungeon("yes"))
+def Main():
+    StartGame = Game()
+    StartGame.MainMenu()
+
+if __name__ == "__main__":
+    Main()
