@@ -3,3 +3,5 @@ class Combat:
         self.enemyName = enemyName
         self.enemyHP = enemyHP
         self.enemyStatuses = enemyStatuses
+    def PlayerAttack(self,enemyHP):
+        print("")
