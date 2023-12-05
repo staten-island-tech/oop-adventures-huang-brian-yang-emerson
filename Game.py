@@ -101,25 +101,65 @@ class Game:
             os.system('cls')
     
     def PlayGame(self):
+        os.system('cls')
         Data = self.GetAllSave()
 
-        print("""
-        ╔══════════════════════════════════════════════════════════════════════════════════════╗
-        ║ Current Detected Saves:                                                              ║
-        ║                                                                                      ║
-        ║ Available Actions:                                                                   ║
-        ║ N - New Save                                                                         ║
-        ║ S - Select Save                                                                      ║
-        ║ R - Return To The Main Menu                                                          ║
-        ║                                                                                      ║
-        ╚══════════════════════════════════════════════════════════════════════════════════════╝
-        """.center(80), end="")
+        print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
+        print("║ Current Detected Saves:                                                              ║")
+        
+        max_length = 88 
+        for i, save in enumerate(Data):
+            save_line = f"║ Save {i}: {save['Name']}"
+            save_line += ' ' * (max_length - len(save_line) - 1) + '║'
+            print(save_line)
+        
+        print("║" + ' ' * (max_length - 2) + "║")
+        print("║ Available Actions:                                                                   ║")
+        print("║ N - New Save                                                                         ║")
+        print("║ S - Select Save                                                                      ║")
+        print("║ R - Return To The Main Menu                                                          ║")
+        print("║" + ' ' * (max_length - 2) + "║")
+        print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
 
         SavesMenuChoice = Answer(['N', 'S', 'R'])
 
         if SavesMenuChoice == 0:
             pass
+                
         elif SavesMenuChoice == 1:
-            pass
+            os.system('cls')         
+            current_selection = 0 
+
+            while True:
+                print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
+                print("║ Select Saves:                                                                        ║")
+                
+                max_length = 88 
+                for i, save in enumerate(Data):
+                    arrow = ' <--' if i == current_selection else ''
+                    save_line = f"║ Save {i}: {save['Name']}{arrow}"
+                    save_line += ' ' * (max_length - len(save_line) - 1) + '║'
+                    print(save_line)
+                print("║                                                                                      ║")
+                print("║ Available Actions:                                                                   ║")
+                print("║ W/S - Move Up/Down Respectfully                                                      ║")
+                print("║ P - Select Save                                                                      ║")
+                print("║ R - Return Saves Screen                                                              ║")
+                print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+                SavesChoice = Answer(['W', 'S', 'P', 'R'])
+                
+                if SavesChoice == 0:
+                    os.system('cls')
+                    current_selection = max(0, current_selection - 1)
+
+                elif SavesChoice == 1:
+                    os.system('cls')
+                    current_selection = min(len(Data) - 1, current_selection + 1)
+
+                elif SavesChoice == 2:
+                    break
+                elif SavesChoice == 3:
+                    self.PlayGame()
+                    break
         else:
             self.MainMenu()
