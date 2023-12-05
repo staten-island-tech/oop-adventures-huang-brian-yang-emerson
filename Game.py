@@ -46,15 +46,6 @@ class Game:
                     os.system('cls')
                     self.loading_done = True
                     break
-    
-    # << Playing Functions >> # 
-    def GetAllSave(self):
-        with open('Saves.json', mode='r') as infile:
-            AllSaveData: list[dict] = json.load(infile)
-        return AllSaveData
-    
-    def GetSave(self, SaveID):
-        return self.GetAllSaves()[SaveID]
 
     def MainMenu(self):
         if not self.loading_done:
@@ -98,8 +89,36 @@ class Game:
         else:
             print("Good choice! See you next time (or hopefully not)!".center(80))
             time.sleep(2)
-            os.system('cls')
+            os.abort()
     
+
+    # << Playing Functions >> # 
+    def GetAllSave(self):
+        with open('Saves.json', mode='r') as infile:
+            AllSaveData: list[dict] = json.load(infile)
+        return AllSaveData
+    
+    def GetSave(self, SaveID):
+        return self.GetAllSaves()[SaveID]
+    
+    def NewSave(self):
+        os.system('cls')
+        print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
+        print("║ Are You Sure You Want To Start A New Save?                                           ║")
+        print("║                                                                                      ║")
+        print("║ Available Actions:                                                                   ║")
+        print("║ Y - Yes                                                                              ║")
+        print("║ N - No                                                                               ║")
+        print("║                                                                                      ║")
+        print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+
+        Choice = Answer(['Y', 'N'])
+        if Choice == 0:
+            pass
+        else:
+            self.PlayGame()
+
+        
     def PlayGame(self):
         os.system('cls')
         Data = self.GetAllSave()
@@ -113,18 +132,18 @@ class Game:
             save_line += ' ' * (max_length - len(save_line) - 1) + '║'
             print(save_line)
         
-        print("║" + ' ' * (max_length - 2) + "║")
+        print("║                                                                                      ║")
         print("║ Available Actions:                                                                   ║")
         print("║ N - New Save                                                                         ║")
         print("║ S - Select Save                                                                      ║")
         print("║ R - Return To The Main Menu                                                          ║")
-        print("║" + ' ' * (max_length - 2) + "║")
+        print("║                                                                                      ║")
         print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
 
         SavesMenuChoice = Answer(['N', 'S', 'R'])
 
         if SavesMenuChoice == 0:
-            pass
+            self.NewSave()
                 
         elif SavesMenuChoice == 1:
             os.system('cls')         
