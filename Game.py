@@ -4,7 +4,7 @@ from itertools import cycle
 def Dialogue(Author, Text, Time):
     for char in Text:
         print(f"{Author}: " + char)
-        time.sleep(time)
+        time.sleep(Time)
 
 def Answer(Options: list):
     Confirmaton = input(f"{'/'.join(Options)}: ").upper()
@@ -13,6 +13,19 @@ def Answer(Options: list):
         Confirmaton = input(f"{'/'.join(Options)}: ").upper()
     
     return Options.index(Confirmaton)
+
+def CoolBoxDialogue(ListOfDialogue: list[str], AvailableActions: list[str], MaxLength):
+    LOD = ListOfDialogue
+    print("╔" + "═"*(MaxLength-1) + "╗")
+
+    for dialogue in ListOfDialogue:
+        NeededLine = (MaxLength - len(dialogue)) * "═"
+        print(f"║{dialogue}" + NeededLine)
+
+    print(f"║                                                                                      ║")
+    print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+
+    return Answer(AvailableActions)
 
 class Game:
     def __init__(self):
@@ -99,7 +112,7 @@ class Game:
         return AllSaveData
     
     def GetSave(self, SaveID):
-        return self.GetAllSaves()[SaveID]
+        return self.GetAllSave()[SaveID]
     
     def NewSave(self):
         os.system('cls')
@@ -113,12 +126,33 @@ class Game:
         print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
 
         Choice = Answer(['Y', 'N'])
+
         if Choice == 0:
             pass
         else:
             self.PlayGame()
+    
+    def SelectedSave(self, SaveID):
+        os.system('cls')
 
-        
+        Data = self.GetSave(SaveID=SaveID)
+
+        print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
+        print(f"║ Selected Save: {Data['Name']}                                                       ║")
+        print("║                                                                                      ║")
+        print("║ Available Actions:                                                                   ║")
+        print("║ U - Use Save                                                                         ║")
+        print("║ R - Return To Save Menu                                                              ║")
+        print("║                                                                                      ║")
+        print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+
+        SelectedSaveOption = Answer(['U', 'R'])
+
+        if SelectedSaveOption == 0:
+            pass
+        else:
+            self.PlayGame()
+
     def PlayGame(self):
         os.system('cls')
         Data = self.GetAllSave()
@@ -176,7 +210,8 @@ class Game:
                     current_selection = min(len(Data) - 1, current_selection + 1)
 
                 elif SavesChoice == 2:
-                    break
+                    self.SelectedSave(current_selection)
+                
                 elif SavesChoice == 3:
                     self.PlayGame()
                     break
