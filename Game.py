@@ -115,6 +115,9 @@ class Game:
             AllSaveData: list[dict] = json.load(infile)
         return AllSaveData
 
+    def GetSave(self, SaveID):
+        return self.GetAllSave()[SaveID]
+
     def NewSave(self):
         os.system('cls')
         dialogues = ["Are You Sure You Want To Start A New Save?"]
