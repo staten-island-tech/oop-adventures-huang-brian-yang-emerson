@@ -8,7 +8,11 @@ class Shop:
     def GiveShopInventory(self,items,costs):
         print("Inventory")
         for i in range(len(items)):
-            print(items[i]+": "+str(costs[i])+"G")
+            print("||    "+items[i]+": "+str(costs[i])+"G")
+    def Buy(self,items,boughtItem):
+        print("You bought "+boughtItem+".")
+        items.pop(boughtItem)
+        self.items = items
 
 Emerson = Shop("Emerson",["Apple","Banana"],[5,5])
 
