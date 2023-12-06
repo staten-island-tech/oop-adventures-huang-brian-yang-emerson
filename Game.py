@@ -96,7 +96,6 @@ class Game:
             ]
             
             self.Load("Pretending To Load The Game...", 10, f"Tip: {random.choice(Tips)}")
-            self.PlayGame()
 
         elif MainMenuChoice == 1:
             self.Information()
@@ -114,6 +113,9 @@ class Game:
         with open('Saves.json', mode='r') as infile:
             AllSaveData: list[dict] = json.load(infile)
         return AllSaveData
+    
+    def GetSave(self, SaveID):
+        return self.GetAllSave()[SaveID]
 
     def NewSave(self):
         os.system('cls')
@@ -218,6 +220,7 @@ class Game:
                 break        
 
     def PlayGame(self):
+        print('yes')
         os.system('cls')
         Data = self.GetAllSave()
 
