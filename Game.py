@@ -14,19 +14,24 @@ def Answer(Options: list):
     
     return Options.index(Confirmaton)
 
-def CoolBoxDialogue(ListOfDialogue: list[str], AvailableActions: list[str], MaxLength):
-    LOD = ListOfDialogue
+def CoolBoxDialogue(ListOfDialogue: list[str], AvailableActions: list[str], ActionOAnswer, MaxLength):
     print("╔" + "═"*(MaxLength-1) + "╗")
 
     for dialogue in ListOfDialogue:
-        NeededLine = (MaxLength - len(dialogue)) * "═"
+        NeededLine = (MaxLength - len(dialogue) - 1) * " " + "║"
         print(f"║{dialogue}" + NeededLine)
 
-    print(f"║                                                                                      ║")
-    print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+    print(f"║" + " "*(MaxLength-1) + "║")
+    print("║Available Actions:" + " "*(MaxLength - 19) + "║")
 
-    return Answer(AvailableActions)
+    for Action in AvailableActions:
+        print(f"║{Action}" + " "*(MaxLength - len(Action) - 1) + "║" )
 
+    print(f"║" + " "*(MaxLength-1) + "║")
+    print(f"╚" + "═"*(MaxLength-1) + "╝")
+
+    return Answer(ActionOAnswer)
+    
 class Game:
     def __init__(self):
         self.loading_done = False
@@ -66,29 +71,29 @@ class Game:
         
         os.system("cls")
 
-        print("""
-        ╔══════════════════════════════════════════════════════════════════════════════════════╗
-        ║                                                                                      ║
-        ║     Welcome To --> Genric text dengen gme                                            ║
-        ║     Possibly The Worst Game You'll Ever Play                                         ║
-        ║     Please Feel Free To Exit The Game Anytime And Anywhere                           ║
-        ║                                                                                      ║
-        ║     Options For The Main Menu:                                                       ║
-        ║     P - Play                                                                         ║
-        ║     I - Info                                                                         ║
-        ║     F - Future Plans                                                                 ║
-        ║     E - Exit The Game <--- (Psst. This One)                                          ║
-        ║                                                                                      ║
-        ╚══════════════════════════════════════════════════════════════════════════════════════╝
-        """.center(80), end="")
+        dialogues = [
+            "Welcome To --> Genric text dengen gme",
+            "Possibly The Worst Game You'll Ever Play",
+            "Please Feel Free To Exit The Game Anytime And Anywhere",
+            "Options For The Main Menu:"
+        ]
 
-        MainMenuChoice = Answer(["P", "I", "F", "E"])
+        actions = [
+            "P - Play",
+            "I - Info",
+            "F - Future Plans",
+            "E - Exit The Game <--- (Psst. This One)"
+        ]
+
+        answers = ["P", "I", "F", "E"]
+
+        MainMenuChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if MainMenuChoice == 0:
             Tips = [
                 "Please Try To Exit The Game As Soon As Possible",
                 "Don't chew Double Trouble Gum while running! Unless you've had years of didgeridoo lessons.",
-                ]
+            ]
             
             self.Load("Pretending To Load The Game...", 10, f"Tip: {random.choice(Tips)}")
             self.PlayGame()
@@ -103,117 +108,132 @@ class Game:
             print("Good choice! See you next time (or hopefully not)!".center(80))
             time.sleep(2)
             os.abort()
-    
 
     # << Playing Functions >> # 
     def GetAllSave(self):
         with open('Saves.json', mode='r') as infile:
             AllSaveData: list[dict] = json.load(infile)
         return AllSaveData
-    
-    def GetSave(self, SaveID):
-        return self.GetAllSave()[SaveID]
-    
+
     def NewSave(self):
         os.system('cls')
-        print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
-        print("║ Are You Sure You Want To Start A New Save?                                           ║")
-        print("║                                                                                      ║")
-        print("║ Available Actions:                                                                   ║")
-        print("║ Y - Yes                                                                              ║")
-        print("║ N - No                                                                               ║")
-        print("║                                                                                      ║")
-        print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+        dialogues = ["Are You Sure You Want To Start A New Save?"]
+        actions = ["Y - Yes", "N - No"]
+        answers = ["Y", "N"]
 
-        Choice = Answer(['Y', 'N'])
+        Choice = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if Choice == 0:
-            pass
+            os.system('cls')
+            print("╔═════════════════════╗")
+            print("║Please Select A Name.║")
+            print(f"╚═════════════════════╝")
+
+            Name = input("Name: ")
+            print(f"You chose: {Name}, Are You Sure? (Name cannot be the same as any other save name.)")
+
+            while Answer(["Y", "N"]) == 1 or Name in [i['Name'] for i in self.GetAllSave()]:
+                os.system('cls')
+                print("╔═════════════════════╗")
+                print("║Please Select A Name.║")
+                print(f"╚═════════════════════╝")
+
+                Name = input("Name: ")
+                print(f"You chose: {Name}, Are You Sure? (Name cannot be the same as any other save name.)")
+            
+                NewData = {
+                    "Name": Name,
+
+                    "Stats": {
+                        "HP": 100,
+                        "Strength": 0,
+                        "Vitality": 0,
+                        "Luck": 0,
+                        "Gold": 0
+                    },
+
+                    "Misc": {
+
+                    },
+
+                    "Inventory": [
+
+                    ]
+                }
+
+                Data = self.GetAllSave()
+                Data.append(NewData)
+
+                with open('Saves.json', mode='w') as outfile:
+                    json.dump(Data, outfile)
+
+                return len(Data) - 1, NewData
+
         else:
             self.PlayGame()
-    
-    def SelectedSave(self, SaveID):
-        os.system('cls')
 
+    def SelectedSave(self, SaveID):
         Data = self.GetSave(SaveID=SaveID)
 
-        print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
-        print(f"║ Selected Save: {Data['Name']}                                                       ║")
-        print("║                                                                                      ║")
-        print("║ Available Actions:                                                                   ║")
-        print("║ U - Use Save                                                                         ║")
-        print("║ R - Return To Save Menu                                                              ║")
-        print("║                                                                                      ║")
-        print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+        dialogues = [f"Selected Save: {Data['Name']}"]
+        actions = ["U - Use Save", "R - Return To Save Menu"]
+        answers = ["U", "R"]
 
-        SelectedSaveOption = Answer(['U', 'R'])
+        SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if SelectedSaveOption == 0:
-            pass
+            self.Load("Loading Save", 5, "You should leave the game NOW")
+            return SaveID, Data
+        
         else:
             self.PlayGame()
+
+    def SaveMenu(self, Data):
+        os.system('cls')         
+        current_selection = 0 
+
+        while True:
+            dialogues = ["Select Saves:"]
+                
+            dialogues += [f"Save {i}: {save['Name']}" + (' <--' if i == current_selection else '') for i, save in enumerate(Data)]
+
+            actions = ["W/S - Move Up/Down Respectfully", "P - Select Save", "R - Return Saves Screen"]
+            answers = ["W", "S", "P", "R"]
+
+            SavesChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
+                
+            if SavesChoice == 0:
+                os.system('cls')
+                current_selection = max(0, current_selection - 1)
+
+            elif SavesChoice == 1:
+                os.system('cls')
+                current_selection = min(len(Data) - 1, current_selection + 1)
+
+            elif SavesChoice == 2:
+                self.SelectedSave(current_selection)
+                
+            elif SavesChoice == 3:
+                self.PlayGame()
+                break        
 
     def PlayGame(self):
         os.system('cls')
         Data = self.GetAllSave()
 
-        print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
-        print("║ Current Detected Saves:                                                              ║")
-        
-        max_length = 88 
-        for i, save in enumerate(Data):
-            save_line = f"║ Save {i}: {save['Name']}"
-            save_line += ' ' * (max_length - len(save_line) - 1) + '║'
-            print(save_line)
-        
-        print("║                                                                                      ║")
-        print("║ Available Actions:                                                                   ║")
-        print("║ N - New Save                                                                         ║")
-        print("║ S - Select Save                                                                      ║")
-        print("║ R - Return To The Main Menu                                                          ║")
-        print("║                                                                                      ║")
-        print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
+        dialogues = ["Current Detected Saves:"]
+        dialogues += [f"Save {i}: {save['Name']}" for i, save in enumerate(Data)]
 
-        SavesMenuChoice = Answer(['N', 'S', 'R'])
+        actions = ["N - New Save", "S - Select Save", "R - Return To The Main Menu"]
+        answers = ["N", "S", "R"]
+
+        SavesMenuChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if SavesMenuChoice == 0:
             self.NewSave()
-                
+                    
         elif SavesMenuChoice == 1:
-            os.system('cls')         
-            current_selection = 0 
+            self.SaveMenu(Data)
 
-            while True:
-                print("╔══════════════════════════════════════════════════════════════════════════════════════╗")
-                print("║ Select Saves:                                                                        ║")
-                
-                max_length = 88 
-                for i, save in enumerate(Data):
-                    arrow = ' <--' if i == current_selection else ''
-                    save_line = f"║ Save {i}: {save['Name']}{arrow}"
-                    save_line += ' ' * (max_length - len(save_line) - 1) + '║'
-                    print(save_line)
-                print("║                                                                                      ║")
-                print("║ Available Actions:                                                                   ║")
-                print("║ W/S - Move Up/Down Respectfully                                                      ║")
-                print("║ P - Select Save                                                                      ║")
-                print("║ R - Return Saves Screen                                                              ║")
-                print("╚══════════════════════════════════════════════════════════════════════════════════════╝")
-                SavesChoice = Answer(['W', 'S', 'P', 'R'])
-                
-                if SavesChoice == 0:
-                    os.system('cls')
-                    current_selection = max(0, current_selection - 1)
-
-                elif SavesChoice == 1:
-                    os.system('cls')
-                    current_selection = min(len(Data) - 1, current_selection + 1)
-
-                elif SavesChoice == 2:
-                    self.SelectedSave(current_selection)
-                
-                elif SavesChoice == 3:
-                    self.PlayGame()
-                    break
         else:
             self.MainMenu()
