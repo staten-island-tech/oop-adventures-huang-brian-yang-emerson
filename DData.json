@@ -4,35 +4,35 @@
             "Enemy": [
                 {
                     "Name": "Goblin",
-                    "HP": "100",
+                    "HP": "50",
                     "Attack": 5,
                     "Exp": 5,
                     "Chance": 70
                 },
                 {
                     "Name": "Spear Goblin",
-                    "HP": "100",
+                    "HP": "50",
                     "Attack": 5,
                     "Exp": 10,
                     "Chance": 20
                 },                
                 {
                     "Name": "Goblin Brawler",
-                    "HP": "50",
+                    "HP": "25",
                     "Attack": 10,
                     "Exp": 10,
                     "Chance": 5
                 },
                 {
                     "Name": "Chief Goblin",
-                    "HP": "150",
+                    "HP": "75",
                     "Attack": 8,
                     "Exp": 15,
                     "Chance": 4
                 },
                 {
                     "Name": "Goblin Gang",
-                    "HP": "200",
+                    "HP": "100",
                     "Attack": 2,
                     "Exp": 25,
                     "Chance": 1
