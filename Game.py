@@ -141,33 +141,33 @@ class Game:
                 Name = input("Name: ")
                 print(f"You chose: {Name}, Are You Sure? (Name cannot be the same as any other save name.)")
             
-                NewData = {
-                    "Name": Name,
+            NewData = {
+                "Name": Name,
 
-                    "Stats": {
-                        "HP": 100,
-                        "Strength": 0,
-                        "Vitality": 0,
-                        "Luck": 0,
-                        "Gold": 0
-                    },
+                "Stats": {
+                    "HP": 100,
+                    "Strength": 0,
+                    "Vitality": 0,
+                    "Luck": 0,
+                    "Gold": 0
+                },
 
-                    "Misc": {
+                "Misc": {
 
-                    },
+                },
 
-                    "Inventory": [
+                "Inventory": [
 
-                    ]
-                }
+                ]
+            }
 
-                Data = self.GetAllSave()
-                Data.append(NewData)
+            Data = self.GetAllSave()
+            Data.append(NewData)
 
-                with open('Saves.json', mode='w') as outfile:
-                    json.dump(Data, outfile)
+            with open('Saves.json', mode='w') as outfile:
+                json.dump(Data, outfile)
 
-                return len(Data) - 1, NewData
+            return len(Data) - 1, NewData
 
         else:
             self.PlayGame()
@@ -230,7 +230,7 @@ class Game:
         SavesMenuChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if SavesMenuChoice == 0:
-            self.NewSave()
+            return self.NewSave()
                     
         elif SavesMenuChoice == 1:
             self.SaveMenu(Data)
