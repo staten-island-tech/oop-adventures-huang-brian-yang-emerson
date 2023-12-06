@@ -1,3 +1,5 @@
+import random
+
 class Enemy:
     def __init__(self, name, hp, maxhp, attack, exp, chance, desc):
         self.name = name
@@ -17,3 +19,6 @@ whalen= Enemy("WHALAN",10000,10000,100,1000,0.01,"The final project. This enemy 
 
 whalen.Encounter(whalen.name)
 whalen.Check(whalen.name, whalen.hp, whalen.maxhp, whalen.desc)
+    
+def attack(self):
+    return random.randint(self.attack * 0.9 , self.attack * 1.1)
