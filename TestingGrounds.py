@@ -35,14 +35,18 @@ List = [
     }
 ]
 
-print(i for i in enumerate(List))
 
 current = 1
 
 yes = [f"Save {i}: {save['Name']}" + (' <--' if i == current else '') for i, save in enumerate(List)]
 
-print(yes)
 
 dict = {'self': 'yes', 'no': 'l', 'sss': 'ssss'}
-for entry in dict:
-    print(entry)
+
+
+Map = [[' ' for i in range(10)] for i in range(8)]
+Map[1][4] = 'P'
+Map[2][3] = 'B'
+
+for i in Map:
+    print("".join(i))
