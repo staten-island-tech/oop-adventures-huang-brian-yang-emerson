@@ -237,7 +237,7 @@ class Game:
 
         if SelectedSaveOption == 0:
             self.Load("Loading Save", 5, "Please Leave The Game")
-            return SaveID, Data            
+            return SaveID, Data 
 
         elif SelectedSaveOption == 1:
             self.DeleteSave(SaveID)
@@ -266,7 +266,10 @@ class Game:
             return self.NewSave()
                     
         elif SavesMenuChoice == 1:
-            return self.SaveMenu(Data)
+            if len(Data) > 0:
+                return self.SaveMenu(Data)
+            else:
+                return self.PlayGame()
 
         else:
             self.MainMenu()
@@ -298,4 +301,4 @@ class Game:
                 
             elif SavesChoice == 3:
                 self.PlayGame()
-                break        
+                break
