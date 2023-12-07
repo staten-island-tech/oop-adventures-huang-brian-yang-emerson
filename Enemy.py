@@ -19,6 +19,14 @@ class Enemy:
         self.hp = hp -10
         print(name+" took 10 damage.")
     def DoDamage(self):
+        self.CurrentEffects = {
+            'Poison': {
+                'Strength': 1,
+                'Rounds': 10,
+            }
+        }
+    
+    def attack(self):
         return random.randint(self.attack * 0.9 , self.attack * 1.1)
 
 

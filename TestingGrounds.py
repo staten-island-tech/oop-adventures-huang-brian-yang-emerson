@@ -1,3 +1,5 @@
+import os, time
+
 def Answer(Options: list):
     Confirmaton = input(f"{'/'.join(Options)}: ").upper()
 
@@ -7,7 +9,6 @@ def Answer(Options: list):
     return Options.index(Confirmaton)
 
 def CoolBoxDialogue(ListOfDialogue: list[str], AvailableActions: list[str], ActionOAnswer, MaxLength):
-    LOD = ListOfDialogue
     print("╔" + "═"*(MaxLength-1) + "╗")
 
     for dialogue in ListOfDialogue:
@@ -25,4 +26,23 @@ def CoolBoxDialogue(ListOfDialogue: list[str], AvailableActions: list[str], Acti
 
     return Answer(ActionOAnswer)
 
-CoolBoxDialogue(["Saves Detected:", "Where1", "Where2"], ["W/S: Go Down", "P: Select Save", "R: Return"], ["W", "S", "P", "R"], 100)
+List = [
+    {
+        'Name': "yes"
+    },
+    {
+        "Name": "yes"
+    }
+]
+
+print(i for i in enumerate(List))
+
+current = 1
+
+yes = [f"Save {i}: {save['Name']}" + (' <--' if i == current else '') for i, save in enumerate(List)]
+
+print(yes)
+
+dict = {'self': 'yes', 'no': 'l', 'sss': 'ssss'}
+for entry in dict:
+    print(entry)
