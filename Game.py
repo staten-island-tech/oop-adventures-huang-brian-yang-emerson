@@ -57,7 +57,7 @@ class Game:
             for i in cycle(LoadingSprites):
                 if LT != LTS:
                     os.system('cls')
-                    print(f"{i} {Message} {i}\n {tip}".center(80), end="")
+                    print(f"{i} {Message} {i}\n {tip}", end="")
                     time.sleep(0.5)
                     LT += 1
                 elif LT == LTS:
@@ -204,7 +204,7 @@ class Game:
         SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if SelectedSaveOption == 0:
-            self.Load("Loading Save", 5, "Please Leave The Game".center(80))
+            self.Load("Loading Save", 5, "Please Leave The Game")
             return SaveID, Data
         
         elif SelectedSaveOption == 1:

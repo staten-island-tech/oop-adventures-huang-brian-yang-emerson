@@ -41,43 +41,7 @@
         ]
     },
     {
-        "Name": "I hate this",
-        "Stats": {
-            "HP": 100,
-            "Strength": 0,
-            "Vitality": 0,
-            "Luck": 0,
-            "Gold": 0
-        },
-        "Misc": {},
-        "Inventory": []
-    },
-    {
-        "Name": "l",
-        "Stats": {
-            "HP": 100,
-            "Strength": 0,
-            "Vitality": 0,
-            "Luck": 0,
-            "Gold": 0
-        },
-        "Misc": {},
-        "Inventory": []
-    },
-    {
-        "Name": "no",
-        "Stats": {
-            "HP": 100,
-            "Strength": 0,
-            "Vitality": 0,
-            "Luck": 0,
-            "Gold": 0
-        },
-        "Misc": {},
-        "Inventory": []
-    },
-    {
-        "Name": "h",
+        "Name": "Whopper Jr",
         "Stats": {
             "HP": 100,
             "Strength": 0,
