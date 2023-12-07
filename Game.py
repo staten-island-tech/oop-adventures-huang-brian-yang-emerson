@@ -96,7 +96,6 @@ class Game:
             ]
             
             self.Load("Pretending To Load The Game...", 10, f"Tip: {random.choice(Tips)}")
-            self.PlayGame()
 
         elif MainMenuChoice == 1:
             self.Information()
@@ -107,13 +106,32 @@ class Game:
         else:
             print("Good choice! See you next time (or hopefully not)!".center(80))
             time.sleep(2)
+            os.system('cls')
             os.abort()
+
+
 
     # << Playing Functions >> # 
     def GetAllSave(self):
         with open('Saves.json', mode='r') as infile:
             AllSaveData: list[dict] = json.load(infile)
         return AllSaveData
+    
+    def GetSave(self, SaveID):
+        return self.GetAllSave()[SaveID]
+
+    def DeleteSave(self, SaveID):
+        os.system('cls')
+        DeleteChoice = CoolBoxDialogue(['Are You Sure You Want To Delete This Save?', "You Won't Be Able To Recover This File Once Delete"], ['Y - Yes', 'N - No'], ['Y', 'N'], 88)
+       
+        if DeleteChoice == 0:
+            Data = self.GetAllSave()
+            Data.pop(SaveID)
+
+            with open('Saves.json', mode='w') as outfile:
+                json.dump(Data, outfile, indent=4)
+
+        self.SaveMenu(self.GetAllSave())
 
     def GetSave(self, SaveID):
         return self.GetAllSave()[SaveID]
@@ -168,26 +186,29 @@ class Game:
             Data.append(NewData)
 
             with open('Saves.json', mode='w') as outfile:
-                json.dump(Data, outfile)
+                json.dump(Data, outfile, indent=4)
 
             return len(Data) - 1, NewData
-
+        
         else:
             self.PlayGame()
 
     def SelectedSave(self, SaveID):
+        os.system('cls')
         Data = self.GetSave(SaveID=SaveID)
 
         dialogues = [f"Selected Save: {Data['Name']}"]
-        actions = ["U - Use Save", "R - Return To Save Menu"]
-        answers = ["U", "R"]
+        actions = ["U - Use Save", "D - Delete Save", "R - Return To Save Menu"]
+        answers = ["U", "D", "R"]
 
         SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if SelectedSaveOption == 0:
-            self.Load("Loading Save", 5, "You should leave the game NOW")
+            self.Load("Loading Save", 5, "Please Leave The Game".center(80))
             return SaveID, Data
         
+        elif SelectedSaveOption == 1:
+            self.DeleteSave(SaveID)
         else:
             self.PlayGame()
 
@@ -214,13 +235,14 @@ class Game:
                 current_selection = min(len(Data) - 1, current_selection + 1)
 
             elif SavesChoice == 2:
-                self.SelectedSave(current_selection)
+                return self.SelectedSave(current_selection)
                 
             elif SavesChoice == 3:
                 self.PlayGame()
                 break        
 
     def PlayGame(self):
+        print('yes')
         os.system('cls')
         Data = self.GetAllSave()
 
@@ -240,3 +262,5 @@ class Game:
 
         else:
             self.MainMenu()
+    
+    # Tavern (The Starting Place Of The Game) #

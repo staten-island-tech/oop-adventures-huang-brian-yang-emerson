@@ -35,10 +35,14 @@ List = [
     }
 ]
 
-print(enumerate(List))
+print(i for i in enumerate(List))
 
 current = 1
 
 yes = [f"Save {i}: {save['Name']}" + (' <--' if i == current else '') for i, save in enumerate(List)]
 
 print(yes)
+
+dict = {'self': 'yes', 'no': 'l', 'sss': 'ssss'}
+for entry in dict:
+    print(entry)
