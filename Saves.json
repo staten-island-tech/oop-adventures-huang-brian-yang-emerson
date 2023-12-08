@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Name Template 1",
+        "Name": "Whopper",
         "Stats": {
             "HP": 0,
             "Strength": 0,
@@ -41,7 +41,7 @@
         ]
     },
     {
-        "Name": "I hate this",
+        "Name": "Whopper Jr",
         "Stats": {
             "HP": 100,
             "Strength": 0,
@@ -53,37 +53,14 @@
         "Inventory": []
     },
     {
-        "Name": "l",
+        "Name": "Brian Huang",
         "Stats": {
+            "Gold": 0,
             "HP": 100,
             "Strength": 0,
-            "Vitality": 0,
             "Luck": 0,
-            "Gold": 0
-        },
-        "Misc": {},
-        "Inventory": []
-    },
-    {
-        "Name": "no",
-        "Stats": {
-            "HP": 100,
-            "Strength": 0,
-            "Vitality": 0,
-            "Luck": 0,
-            "Gold": 0
-        },
-        "Misc": {},
-        "Inventory": []
-    },
-    {
-        "Name": "h",
-        "Stats": {
-            "HP": 100,
-            "Strength": 0,
-            "Vitality": 0,
-            "Luck": 0,
-            "Gold": 0
+            "Level": 1,
+            "Vitality": 0
         },
         "Misc": {},
         "Inventory": []

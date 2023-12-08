@@ -57,7 +57,7 @@ class Game:
             for i in cycle(LoadingSprites):
                 if LT != LTS:
                     os.system('cls')
-                    print(f"{i} {Message} {i}\n {tip}".center(80), end="")
+                    print(f"{i} {Message} {i}\n {tip}", end="")
                     time.sleep(0.5)
                     LT += 1
                 elif LT == LTS:
@@ -166,11 +166,12 @@ class Game:
                 "Name": Name,
 
                 "Stats": {
+                    "Gold": 0,
                     "HP": 100,
                     "Strength": 0,
-                    "Vitality": 0,
                     "Luck": 0,
-                    "Gold": 0
+                    "Level": 1,
+                    "Vitality": 0
                 },
 
                 "Misc": {
@@ -192,25 +193,83 @@ class Game:
         
         else:
             self.PlayGame()
+    
+    def RenameSave(self, SaveID):
+        os.system('cls')
+        Data = self.GetAllSave()
+
+        RenameChoice = CoolBoxDialogue(['Are You Sure You Want To Rename This Save?'], ['Y - Yes', 'N - No'], ['Y', 'N'], 88)
+
+        if RenameChoice == 0:
+            os.system('cls')
+            print("╔═════════════════════╗")
+            print("║Please Select A Name.║")
+            print(f"╚═════════════════════╝")
+
+            Name = input("Name: ")
+            print(f"You chose: {Name}, Are You Sure? (Name cannot be the same as any other save name.)")
+
+            while Answer(["Y", "N"]) == 1 or Name in [i['Name'] for i in self.GetAllSave()]:
+                os.system('cls')
+                print("╔═════════════════════╗")
+                print("║Please Select A Name.║")
+                print(f"╚═════════════════════╝")
+
+                Name = input("Name: ")
+                print(f"You chose: {Name}, Are You Sure? (Name cannot be the same as any other save name.)")
+
+            Data[SaveID]['Name'] = Name
+
+            with open('Saves.json', mode='w') as outfile:
+                json.dump(Data, outfile, indent=4)
+
+        self.SaveMenu(self.GetAllSave())
 
     def SelectedSave(self, SaveID):
         os.system('cls')
         Data = self.GetSave(SaveID=SaveID)
 
         dialogues = [f"Selected Save: {Data['Name']}"]
-        actions = ["U - Use Save", "D - Delete Save", "R - Return To Save Menu"]
-        answers = ["U", "D", "R"]
+        actions = ["U - Use Save", "N - Rename Save", "D - Delete Save", "R - Return To Save Menu"]
+        answers = ["U", "D", "N", "R"]
 
         SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if SelectedSaveOption == 0:
-            self.Load("Loading Save", 5, "Please Leave The Game".center(80))
-            return SaveID, Data
-        
+            self.Load("Loading Save", 5, "Please Leave The Game")
+            return SaveID, Data            
+
         elif SelectedSaveOption == 1:
             self.DeleteSave(SaveID)
+        
+        elif SelectedSaveOption == 2:
+            self.RenameSave(SaveID)
+            
         else:
             self.PlayGame()
+    
+    # First Function To Be Called #
+    def PlayGame(self):
+        print('yes')
+        os.system('cls')
+        Data = self.GetAllSave()
+
+        dialogues = ["Current Detected Saves:"]
+        dialogues += [f"Save {i}: {save['Name']}" for i, save in enumerate(Data)]
+
+        actions = ["N - New Save", "S - Select Save", "R - Return To The Main Menu"]
+        answers = ["N", "S", "R"]
+
+        SavesMenuChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
+
+        if SavesMenuChoice == 0:
+            return self.NewSave()
+                    
+        elif SavesMenuChoice == 1:
+            return self.SaveMenu(Data)
+
+        else:
+            self.MainMenu()
 
     def SaveMenu(self, Data):
         os.system('cls')         
@@ -240,27 +299,3 @@ class Game:
             elif SavesChoice == 3:
                 self.PlayGame()
                 break        
-
-    def PlayGame(self):
-        print('yes')
-        os.system('cls')
-        Data = self.GetAllSave()
-
-        dialogues = ["Current Detected Saves:"]
-        dialogues += [f"Save {i}: {save['Name']}" for i, save in enumerate(Data)]
-
-        actions = ["N - New Save", "S - Select Save", "R - Return To The Main Menu"]
-        answers = ["N", "S", "R"]
-
-        SavesMenuChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
-
-        if SavesMenuChoice == 0:
-            return self.NewSave()
-                    
-        elif SavesMenuChoice == 1:
-            self.SaveMenu(Data)
-
-        else:
-            self.MainMenu()
-    
-    # Tavern (The Starting Place Of The Game) #
