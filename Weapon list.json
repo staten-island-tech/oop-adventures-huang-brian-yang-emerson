@@ -1,0 +1,77 @@
+[
+    {
+        "Name": "Bronze Sword",
+        "Rarity": "Common",
+        "Attack": 10
+    },
+    {
+        "Name": "Iron Sword",
+        "Rarity": "Uncommon",
+        "Attack": 15
+    },
+    {
+        "Name": "Obsidian Sword",
+        "Rarity": "Rare",
+        "Attack": 20
+    },
+    {
+        "Name": "Dragon-slaying Sword",
+        "Rarity": "Mythical",
+        "Attack": 30
+    },
+    {
+        "Name": "Hero's Sword",
+        "Rarity": "Legendary",
+        "Attack": 100
+    },
+    {
+        "Name": "Wooden Crossbow",
+        "Rarity": "Common",
+        "Attack": 10
+    },
+    {
+        "Name": "Metal Crossbow",
+        "Rarity": "Uncommon",
+        "Attack": 20
+    },
+    {
+        "Name": "Shotgun",
+        "Rarity": "Rare",
+        "Attack": 40
+    },
+    {
+        "Name": "Dragon Spear",
+        "Rarity": "Mythical",
+        "Attack": 80
+    },
+    {
+        "Name": "Evil-purging Gatling Gun",
+        "Rarity": "Legendary",
+        "Attack": 150
+    },
+    {
+        "Name": "Stone Hammer",
+        "Rarity": "Common",
+        "Attack": 10
+    },
+    {
+        "Name": "Metal Hammer",
+        "Rarity": "Uncommon",
+        "Attack": 30
+    },
+    {
+        "Name": "Fortress Crusher",
+        "Rarity": "Rare",
+        "Attack": 90
+    },
+    {
+        "Name": "Bone Crusher",
+        "Rarity": "Mythical",
+        "Attack": 150
+    },
+    {
+        "Name": "Thor's hammer",
+        "Rarity": "Legendary",
+        "Attack": 300
+    }
+]

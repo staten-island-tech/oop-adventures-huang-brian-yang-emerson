@@ -23,11 +23,22 @@ def NewSaveSlot():
     data.append(
         {
             "Name": Name,
-            "Day": 0,
-            "Happiness": 50,
-            "Luck": 0,
-            "Population": 50,
-            "Gold": 50, 
+            "Stats":
+            {
+                "Strength": 1,
+                "Vitality": 1,
+                "Speed": 1,
+                "Stamina": 1,
+                "Luck": 1
+            },
+            "Inventory":
+            [
+                {
+                    "Item": "Bronze Sword",
+                    "Quantity": 1,
+                    "Type": "Weapon"
+                }
+            ]
         }
     )
 

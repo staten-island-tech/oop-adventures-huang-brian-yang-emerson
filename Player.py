@@ -1,4 +1,5 @@
 import json, os
+import Enemy
 
 class Player:
     def __init__(self, SaveID, Stats) -> None:
@@ -31,3 +32,5 @@ class Player:
                     os.abort()
                 else:
                     self.UpdateStats()
+
+
