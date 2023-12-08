@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Whopper Jr",
+        "Name": "I Hate Whoppers",
         "Stats": {
             "Gold": 0,
             "HP": 100,
@@ -9,7 +9,9 @@
             "Level": 1,
             "Vitality": 0
         },
-        "Misc": {},
+        "Misc": {
+            "TutorialDone": false
+        },
         "Inventory": []
     }
 ]

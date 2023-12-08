@@ -2,8 +2,9 @@ import time, os, random, json
 from itertools import cycle
 
 def Dialogue(Author, Text, Time):
+    print(f"{Author}: ", end="")
     for char in Text:
-        print(f"{Author}: " + char)
+        print(char, end="")
         time.sleep(Time)
 
 def Answer(Options: list):
@@ -31,7 +32,17 @@ def CoolBoxDialogue(ListOfDialogue: list[str], AvailableActions: list[str], Acti
     print(f"╚" + "═"*(MaxLength-1) + "╝")
 
     return Answer(ActionOAnswer)
-    
+
+def GenerateTip():
+    Tips = [
+        "Please Try To Exit The Game As Soon As Possible",
+        "Don't chew Double Trouble Gum while running! Unless you've had years of didgeridoo lessons.",
+        "The Red Square Quits The Game"
+
+    ]
+
+    return "Tip: " + random.choice(Tips)
+                
 class PreGame:
     def __init__(self):
         self.loading_done = False
@@ -67,7 +78,7 @@ class PreGame:
 
     def MainMenu(self):
         if not self.loading_done:
-            self.Load("Loading Game...", 25, "Please Feel Free To Close The Program During This Process.")
+            self.Load("Loading Game...", 25, GenerateTip())
         
         os.system("cls")
 
@@ -79,36 +90,32 @@ class PreGame:
         ]
 
         actions = [
+            "E - Exit The Game <--- (Psst. This One)",
             "P - Play",
             "I - Info",
             "F - Future Plans",
-            "E - Exit The Game <--- (Psst. This One)"
         ]
 
-        answers = ["P", "I", "F", "E"]
+        answers = ["E", "P", "I", "F",]
 
         MainMenuChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
 
-        if MainMenuChoice == 0:
-            Tips = [
-                "Please Try To Exit The Game As Soon As Possible",
-                "Don't chew Double Trouble Gum while running! Unless you've had years of didgeridoo lessons.",
-            ]
-            
-            self.Load("Pretending To Load The Game...", 10, f"Tip: {random.choice(Tips)}")
-            return self.PlayGame()
+        if MainMenuChoice == 0:  
+            print("Good choice! See you next time (or hopefully not)!".center(80))
+            time.sleep(2)
+            os.system('cls')
+            os.abort()
 
         elif MainMenuChoice == 1:
-            self.Information()
+
+            self.Load("Pretending To Load The Game...", 10, f"Tip: {GenerateTip()}")
+            return self.PlayGame()          
 
         elif MainMenuChoice == 2:
             self.FuturePlans()
 
         else:
-            print("Good choice! See you next time (or hopefully not)!".center(80))
-            time.sleep(2)
-            os.system('cls')
-            os.abort()
+            self.Information()
 
 
 
@@ -176,7 +183,7 @@ class PreGame:
                 },
 
                 "Misc": {
-
+                    'TutorialDone': False
                 },
 
                 "Inventory": [
@@ -193,7 +200,7 @@ class PreGame:
             return len(Data) - 1, NewData
         
         else:
-            self.PlayGame()
+            return self.PlayGame()
     
     def RenameSave(self, SaveID):
         os.system('cls')
@@ -224,7 +231,7 @@ class PreGame:
             with open('Saves.json', mode='w') as outfile:
                 json.dump(Data, outfile, indent=4)
 
-            self.Load("Registered New Save File. Starting Game...", 10, "Tip: No Tips Available. Please Leave The Game.")
+            self.Load("Registered New Save File. Starting Game...", 10, GenerateTip())
 
         self.SaveMenu(self.GetAllSave())
 
@@ -239,8 +246,8 @@ class PreGame:
         SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
         if SelectedSaveOption == 0:
-            self.Load("Loading Save", 5, "Please Leave The Game")
-            return SaveID, Data 
+            self.Load("Loading Save", 5, GenerateTip())
+            return SaveID, Data
 
         elif SelectedSaveOption == 1:
             self.DeleteSave(SaveID)
@@ -253,7 +260,6 @@ class PreGame:
     
     # First Function To Be Called #
     def PlayGame(self):
-        print('yes')
         os.system('cls')
         Data = self.GetAllSave()
 
@@ -303,14 +309,23 @@ class PreGame:
                 return self.SelectedSave(current_selection)
                 
             elif SavesChoice == 3:
-                self.PlayGame()
-                break
+                return self.PlayGame()
 
-class Game:
+class PostMenu:
     def __init__(self, SaveID, SaveData) -> None:
         self.SaveID = SaveData
         self.SaveData = SaveData
     
     def TavernStart(self):
-        if self.SaveData:
-            pass
+        os.system("cls")
+        if self.SaveData['Misc']['TutorialDone'] == False:
+            Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
+            Dialogue("Villager", "Would you like a tutorial on the game?\n", 0.05)
+            TutorialChoice = Answer(['Y', 'N'])
+
+            if TutorialChoice == 0:
+                os.system('cls')
+                Dialogue("Villager", "Alright. Here Are The Basics. 1. Quitting The Game. It is always important to know how to quit the game!\n", 0.05)
+                Dialogue("Villager", "To Quit The Game You SHOULD Always Click The Red Square Thingy\n", 0.1)
+            else:
+                self.SaveData['Misc']['TutorialDone'] == True

@@ -1,10 +1,10 @@
-import json, os
+import json, os, random
 
 class Player:
     def __init__(self, SaveID, Stats) -> None:
         self.SaveID = SaveID
         self.Stats: list = Stats
-        print(Stats)
+        print(SaveID, Stats)
     
     def UpdateStats(self):
         with open('Saves.json', mode='r') as infile:
@@ -30,5 +30,17 @@ class Player:
                 if self.Stats["Stats"]["HP"] < 1:
                     print("You Have Died! Your Last Health Points Have Been Saved. Please quit the game forever and leave.")
                     os.abort()
+
                 else:
                     self.UpdateStats()
+
+    def attack(self):
+        Found = False
+
+        for item in self.Stats["Inventory"]:
+            if item['Type'] == "Weapon" and item.get("Equipped", None) == True:
+                Found = True
+                return random.randint(0.9 * item['Attck'], 1.1 * item['Attack'])
+
+            if not Found:
+                return random.randint(9, 11)
