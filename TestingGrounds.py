@@ -44,9 +44,9 @@ yes = [f"Save {i}: {save['Name']}" + (' <--' if i == current else '') for i, sav
 dict = {'self': 'yes', 'no': 'l', 'sss': 'ssss'}
 
 
-Map = [[' ' for i in range(10)] for i in range(8)]
-Map[1][4] = 'P'
-Map[2][3] = 'B'
+Map  = [["#" for i in range(5)] for i in range(5)]
+
+Map[2][2] = "P"
 
 for i in Map:
-    print("".join(i))
+    print(''.join(i))
