@@ -4,6 +4,7 @@ class Player:
     def __init__(self, SaveID, Stats) -> None:
         self.SaveID = SaveID
         self.Stats: list = Stats
+        print(Stats)
     
     def UpdateStats(self):
         with open('Saves.json', mode='r') as infile:

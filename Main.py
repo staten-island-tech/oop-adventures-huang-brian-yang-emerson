@@ -1,10 +1,17 @@
-from Game import Game, time
+import Game, Effects, Enemy, Player
 
 def Main():
-    StartGame = Game()
-    StartGame.MainMenu()
-    SaveID, SaveData = StartGame.PlayGame()
-    print(f"Debug Menu: Loaded Save {SaveID}\n{SaveData}")
+    PreGame = Game.PreGame()
+
+    # << PreGame Should Return The Data >> #
+    SaveID, SaveData = PreGame.MainMenu()
+
+    # << Register The Player >> #
+    player = Player.Player(SaveID, SaveData)
+
+    #
+
+    # << 
 
 if __name__ == "__main__":
     Main()

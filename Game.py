@@ -32,7 +32,7 @@ def CoolBoxDialogue(ListOfDialogue: list[str], AvailableActions: list[str], Acti
 
     return Answer(ActionOAnswer)
     
-class Game:
+class PreGame:
     def __init__(self):
         self.loading_done = False
         pass
@@ -96,6 +96,7 @@ class Game:
             ]
             
             self.Load("Pretending To Load The Game...", 10, f"Tip: {random.choice(Tips)}")
+            return self.PlayGame()
 
         elif MainMenuChoice == 1:
             self.Information()
@@ -223,6 +224,8 @@ class Game:
             with open('Saves.json', mode='w') as outfile:
                 json.dump(Data, outfile, indent=4)
 
+            self.Load("Registered New Save File. Starting Game...", 10, "Tip: No Tips Available. Please Leave The Game.")
+
         self.SaveMenu(self.GetAllSave())
 
     def SelectedSave(self, SaveID):
@@ -272,7 +275,7 @@ class Game:
                 return self.PlayGame()
 
         else:
-            self.MainMenu()
+            return self.MainMenu()
 
     def SaveMenu(self, Data):
         os.system('cls')         
@@ -302,3 +305,12 @@ class Game:
             elif SavesChoice == 3:
                 self.PlayGame()
                 break
+
+class Game:
+    def __init__(self, SaveID, SaveData) -> None:
+        self.SaveID = SaveData
+        self.SaveData = SaveData
+    
+    def TavernStart(self):
+        if self.SaveData:
+            pass
