@@ -20,6 +20,7 @@
                 "Item": "Bronze Sword",
                 "Rarity": "Common",
                 "Grade": "Normal",
+                "Equipped": false,
                 "Type": "Weapon",
                 "Quantity": 1,
                 "Special": [],
