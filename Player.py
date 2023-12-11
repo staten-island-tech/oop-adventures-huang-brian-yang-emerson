@@ -15,10 +15,10 @@ class Player:
         with open('Saves.json', mode='w') as outfile:
             json.dump(AllData, outfile)
     
-    def TakeDamage(self, Damage):
+    def TakeDamage(self, Enemy):
         for item in self.Stats["Inventory"]:
             if item["Type"] == "Armor" and item.get("Wearing", None) == True:
-                Damage *= ((100 - item["Defense"]) / 100)
+                Damage *= ((Enemy.attack - item["Defense"]) / 100)
                 item["Durability"] -= Damage.round()
                 
 
