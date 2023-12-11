@@ -1,5 +1,6 @@
 import random
 
+
 class Enemy:
     def __init__(self, name, hp, maxhp, attack, exp, chance, desc):
         self.name = name
