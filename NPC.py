@@ -8,7 +8,7 @@ class Shop:
     def intro(self):
         print("Hello, wanderer! I'm "+self.name+"! Would you like to look into my inventory?")
     def GiveShopInventory(self):
-        os.system("cls")
+        #os.system("cls")
         print("Inventory")
         for i in range(len(self.items)):
             if i == Selected:
@@ -27,9 +27,16 @@ class Shop:
         Navigate = Navigate.upper()
 
         if Navigate == "W":
-            Selected -= 1
+            if not Selected < 0:
+                Selected -= 1
+            else:
+                Selected = len(self.items)
         if Navigate == "S":
-            Selected += 1
+            if not Selected > len(self.items)-2:
+                Selected += 1
+            else:
+                Selected = 0
+        
         return Selected
 
 
@@ -41,6 +48,7 @@ Selected = 0
 
 
 for i in range(10):
+    print(Selected)
     Emerson.GiveShopInventory()
     Emerson.Buy(Emerson.items[Selected])
     Selected = Emerson.NavigateShop(Selected)

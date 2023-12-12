@@ -36,7 +36,8 @@ for i in range(100):
 
     Template = [["." for i in range(10)] for i in range(5)]
     Template[4] = ["#" for i in range(10)]
-    Template[3][3] = "#"
+    for i in range(4):
+        Template[i+1][3] = "#"
     Template[y][x] = "P"
 
     e = Map(Template)
