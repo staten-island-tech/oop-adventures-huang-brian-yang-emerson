@@ -12,15 +12,15 @@ class Shop:
         print("Inventory")
         for i in range(len(self.items)):
             if i == Selected:
-                print("||    "+self.items[i]+": "+str(self.costs[i])+"G       <==")
+                print("|| ==> "+self.items[i]+": "+str(self.costs[i])+"G")
             else:
-                print("||    "+self.items[i]+": "+str(self.costs[i])+"G")
+                print("||     "+self.items[i]+": "+str(self.costs[i])+"G")
     def Buy(self, boughtItem):
         buying = input("Buy "+boughtItem+"? (Y/N) ")
         buying = buying.upper()
         if buying == "Y":
             print("You bought "+boughtItem+".")
-            self.items.pop(boughtItem)
+            self.items.remove(boughtItem)
             self.items = self.items
     def NavigateShop(self,Selected):
         Navigate = input()
