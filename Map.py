@@ -14,12 +14,20 @@ class Map:
         y = xy[1]
         if movement == "W":
             y -= 1
+            if y < 0:
+                y += 1
         if movement == "S":
             y += 1
+            if y > len(self.map):
+                y -= 1
         if movement == "D":
             x += 1
+            if x > len(self.map[y])-1:
+                x -= 1
         if movement == "A":
             x -= 1
+            if x < 0:
+                x += 1
         if not self.map[y][x] == "#":
             xy[0] = x
             xy[1] = y

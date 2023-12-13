@@ -1,4 +1,4 @@
-import os
+import os, time
 
 class Shop:
     def __init__(self,name,items,costs):
@@ -7,14 +7,22 @@ class Shop:
         self.costs = costs
     def intro(self):
         print("Hello, wanderer! I'm "+self.name+"! Would you like to look into my inventory?")
+        time.sleep(3)
     def GiveShopInventory(self):
-        #os.system("cls")
-        print("Inventory")
+        os.system("cls")
+        print("Inventory:")
         for i in range(len(self.items)):
             if i == Selected:
                 print("|| ==> "+self.items[i]+": "+str(self.costs[i])+"G")
             else:
                 print("||     "+self.items[i]+": "+str(self.costs[i])+"G")
+        
+        print()
+
+        print("╔═════════════════════╗")
+        print("║  W/S        Up/Down ║")
+        print("║  A           Select ║")
+        print("╚═════════════════════╝")
     def Buy(self, boughtItem):
         buying = input("Buy "+boughtItem+"? (Y/N) ")
         buying = buying.upper()
@@ -36,6 +44,8 @@ class Shop:
                 Selected += 1
             else:
                 Selected = 0
+        if Navigate == "A":
+            self.Buy(self.items[Selected])
         
         return Selected
 
@@ -50,5 +60,4 @@ Selected = 0
 for i in range(10):
     print(Selected)
     Emerson.GiveShopInventory()
-    Emerson.Buy(Emerson.items[Selected])
     Selected = Emerson.NavigateShop(Selected)
