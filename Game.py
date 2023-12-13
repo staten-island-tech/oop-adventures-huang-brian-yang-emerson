@@ -329,6 +329,9 @@ class PostMenu:
 		self.SaveID = SaveData
 		self.SaveData = SaveData
 
+	def ClampCoords(PlayerCoord, GameMapCoorder):
+		pass
+
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
 		Dialogue("Villager", "Would you like a tutorial on the game?\n", 0.05)
@@ -356,7 +359,9 @@ class PostMenu:
 			Map[GoalCoords[0]][GoalCoords[1]] = "G"
 
 			while playerCoords != GoalCoords:
-				CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+
+
 
 	def TavernStart(self):
 		os.system("cls")
