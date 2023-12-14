@@ -1,51 +1,201 @@
 [
     {
-        "Grass Isle": {
-            "Enemy": [
-                {
-                    "Name": "Goblin",
-                    "HP": "50",
-                    "Attack": 5,
-                    "Exp": 5,
-                    "Chance": 70
-                },
-                {
-                    "Name": "Spear Goblin",
-                    "HP": "50",
-                    "Attack": 5,
-                    "Exp": 10,
-                    "Chance": 20
-                },                
-                {
-                    "Name": "Goblin Brawler",
-                    "HP": "25",
-                    "Attack": 10,
-                    "Exp": 10,
-                    "Chance": 5
-                },
-                {
-                    "Name": "Chief Goblin",
-                    "HP": "75",
-                    "Attack": 8,
-                    "Exp": 15,
-                    "Chance": 4
-                },
-                {
-                    "Name": "Goblin Gang",
-                    "HP": "100",
-                    "Attack": 2,
-                    "Exp": 25,
-                    "Chance": 1
-                },
-                {
-                    "Name": "Gumballer",
-                    "Hp": 10000,
-                    "Attack": 10000,
-                    "Exp": 1.6,
-                    "Chance": 0.1
-                }
-            ]
-        }
+        "Dungeon": "Grass Isle",
+        "Enemies": 
+        [
+            {
+                "Name": "Goblin",
+                "HP": 50,
+                "Attack": 5,
+                "Exp": 5,
+                "Chance": 70,
+                "Desc": "The average enemy"
+            },
+            {
+                "Name": "Spear Goblin",
+                "HP": 50,
+                "Attack": 5,
+                "Exp": 10,
+                "Chance": 20,
+                "Desc": "Enemy with pokey stick"
+            },                
+            {
+                "Name": "Goblin Brawler",
+                "HP": 25,
+                "Attack": 10,
+                "Exp": 10,
+                "Chance": 5,
+                "Desc": "This brawler packs a punch"
+            },
+            {
+                "Name": "Chief Goblin",
+                "HP": 75,
+                "Attack": 20,
+                "Exp": 15,
+                "Chance": 4,
+                "Desc": "The big boss"
+            },
+            {
+                "Name": "Goblin Gang",
+                "HP": 100,
+                "Attack": 2,
+                "Exp": 25,
+                "Chance": 1,
+                "Desc": "A group of Goblin gangs up on you!"
+            }
+        ]
+    },
+    {
+        "Dungeon": "Desert Pyramid",
+        "Enemies":
+        [
+            {
+                "Name": "Sandman",
+                "Hp": 100,
+                "Attack": 10,
+                "Exp": 25,
+                "Chance": 70,
+                "Desc": "A man that is made of sand"
+            },
+            {
+                "Name": "Sandstone Golem",
+                "Hp": 150,
+                "Attack": 15,
+                "Exp": 30,
+                "Chance": 20,
+                "Desc": "Made of very sturdy and compact sandstone."
+            },
+            {
+                "Name": "Cursed Mummy",
+                "Hp": 100,
+                "Attack": 30,
+                "Exp": 30,
+                "Chance": 5,
+                "Desc": "A sinister presence wrapped under many layers of bandages."
+            },
+            {
+                "Name": "Pharoah",
+                "Hp": 300,
+                "Attack": 20,
+                "Exp": 40,
+                "Chance": 4,
+                "Desc": "The last king of this dungeon."
+            },
+            {
+                "Name": "Eyed Coffin",
+                "Hp": 400,
+                "Attack": 5,
+                "Exp": 50,
+                "Chance": 1,
+                "Desc": "The darkness consumes all..."
+            }
+        ]
+    },
+    {
+        "Dungeon":"The Depths",
+        "Enemies":
+        [
+            {
+                "Name": "Man-fish",
+                "Hp": 400,
+                "Attack": 30,
+                "Exp": 50,
+                "Chance": 70,
+                "Desc": "A fearsome warrior with the body of a hard-made warrior and a head of a fish"
+            },
+            {
+                "Name": "Barnicles",
+                "Hp": 500,
+                "Attack": 50,
+                "Exp": 60,
+                "Chance": 20,
+                "Desc": "Wiggly worm wearing an armor of barnicles"
+            },
+            {
+                "Name": "Stronger Fish",
+                "Hp": 400,
+                "Attack": 60,
+                "Exp": 70,
+                "Chance": 5,
+                "Desc": "Fish-man, but better"
+            },
+            {
+                "Name": "Shark-man",
+                "Hp": 750,
+                "Attack": 75,
+                "Exp": 80,
+                "Chance": 4,
+                "Desc": "De facto boss of the West Trading Company"
+            },
+            {
+                "Name": "Kraken",
+                "Hp": 1000,
+                "Attack": 100,
+                "Exp": 100,
+                "Chance": 1,
+                "Desc": "Monster from the depths. It just wants hugs..."
+            }
+        ]
+    },
+    {
+        "Dungeon": "Dark Purgatory",
+        "Enemies":
+        [
+            {
+                "Name": "Shadows",
+                "Hp": 1000,
+                "Attack": 100,
+                "Exp": 100,
+                "Chance": 70,
+                "Desc": "A silhouette watches you from the dark"
+            },
+            {
+                "Name": "Lost soul",
+                "Hp": 1500,
+                "Attack": 100,
+                "Exp": 200,
+                "Chance": 20,
+                "Desc": "Its eyes wander aimlessly"
+            },
+            {
+                "Name": "Devil",
+                "Hp": 500,
+                "Attack": 200,
+                "Exp": 200,
+                "Chance": 5,
+                "Desc": "Flames dark as their soul"
+            },
+            {
+                "Name": "Demon king",
+                "Hp": 3000,
+                "Attack": 200,
+                "Exp": 400,
+                "Chance": 4,
+                "Desc": "Ruler of Heck"
+            },
+            {
+                "Name": "Death",
+                "Hp": 5000,
+                "Attack": 500,
+                "Exp": 500,
+                "Chance": 1,
+                "Desc": "The End... NO MERCY"
+            }
+        ]
+    },
+    {
+        "Dungeon": "END",
+        "Enemies":
+        [
+            {
+                "Name": "WHALEN",
+                "Hp": 10000,
+                "Attack": 1000,
+                "Exp": 1000,
+                "Chance": 100,
+                "Desc": "The final HERO. Luminates the dark with his forehead."
+            }
+        ]
     }
 ]
 
