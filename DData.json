@@ -5,7 +5,7 @@
         [
             {
                 "Name": "Goblin",
-                "HP": 50,
+                "Hp": 50,
                 "Attack": 5,
                 "Exp": 5,
                 "Chance": 70,
@@ -13,7 +13,7 @@
             },
             {
                 "Name": "Spear Goblin",
-                "HP": 50,
+                "Hp": 50,
                 "Attack": 5,
                 "Exp": 10,
                 "Chance": 20,
@@ -21,7 +21,7 @@
             },                
             {
                 "Name": "Goblin Brawler",
-                "HP": 25,
+                "Hp": 25,
                 "Attack": 10,
                 "Exp": 10,
                 "Chance": 5,
@@ -29,7 +29,7 @@
             },
             {
                 "Name": "Chief Goblin",
-                "HP": 75,
+                "Hp": 75,
                 "Attack": 20,
                 "Exp": 15,
                 "Chance": 4,
@@ -37,7 +37,7 @@
             },
             {
                 "Name": "Goblin Gang",
-                "HP": 100,
+                "Hp": 100,
                 "Attack": 2,
                 "Exp": 25,
                 "Chance": 1,
@@ -193,7 +193,7 @@
                 "Attack": 1000,
                 "Exp": 1000,
                 "Chance": 100,
-                "Desc": "The final HERO. Luminates the dark with his forehead."
+                "Desc": "The Final HERO. Luminates the dark with his forehead."
             }
         ]
     }

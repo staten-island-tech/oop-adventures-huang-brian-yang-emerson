@@ -28,12 +28,4 @@ class Enemy:
 
 
 
-whalen= Enemy("WHALAN",10000,10000,100,1000,0.01,"The final project. This enemy has a handsome beard and a forehead that luminates the dark.")
-
-whalen.Encounter()
-
-whalen.Check()
-whalen.Desc()
-
-
     
