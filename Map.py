@@ -20,9 +20,10 @@ class Map:
             x += 1
         if movement == "A":
             x -= 1
-        if not self.map[y][x] == "#":
-            xy[0] = x
-            xy[1] = y
+        if not self.map[y]:
+            a == "#":
+                xy[0] = x
+                xy[1] = y
 
         return xy
         

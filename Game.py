@@ -53,14 +53,14 @@ class PreGame:
 		print("Information: Clean Up On Isle 9 Please".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
-		self.MainMenu()
+		return self.MainMenu()
 
 	def FuturePlans(self):
 		print("Future Plans As Of Currently:".center(80))
 		print("1. Finish The Game".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
-		self.MainMenu()
+		return self.MainMenu()
 
 	def Load(self, Message, LTS):
 			LoadingSprites = ['|', '/', '-', '\\', '|', '/', '-', '\\']
@@ -122,10 +122,10 @@ class PreGame:
 			return self.PlayGame()
 
 		elif MainMenuChoice == 2:
-			self.FuturePlans()
+			return self.FuturePlans()
 
 		else:
-			self.Information()
+			return self.Information()
 
 
 
@@ -257,8 +257,6 @@ class PreGame:
 		SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
 		if SelectedSaveOption == 0:
-			print(f"{SaveID}, {Data}")
-			time.sleep(50)
 			self.Load("Loading Save", 5)
 			return SaveID, Data
 
@@ -288,7 +286,9 @@ class PreGame:
 			return self.NewSave()
 
 		elif SavesMenuChoice == 1:
+			print("ooga")
 			if len(Data) > 0:
+				print('nuh uh')
 				return self.SaveMenu(Data)
 			else:
 				return self.PlayGame()
@@ -330,7 +330,18 @@ class PostMenu:
 		self.SaveData = SaveData
 
 	def ClampCoords(PlayerCoord, GameMapCoorder):
-		pass
+		if PlayerCoord[0] > GameMapCoorder[0]:
+			PlayerCoord[0] = GameMapCoorder[0]
+		if PlayerCoord[0] < 0:
+			PlayerCoord[0] == 0
+		
+		if PlayerCoord[1] > GameMapCoorder[1]:
+			PlayerCoord[1] == GameMapCoorder[1]
+		if PlayerCoord[1] < 0:
+			PlayerCoord[1] == 0
+
+		return PlayerCoord
+		
 
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
@@ -360,6 +371,21 @@ class PostMenu:
 
 			while playerCoords != GoalCoords:
 				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+				if Movement == 0:
+					playerCoords[1] += 1
+					playerCoords = self.ClampCoords(playerCoords, (4, 4))
+
+				elif Movement == 1:
+					playerCoords[0] -= 1
+					playerCoords = self.ClampCoords(playerCoords, (4, 4))
+
+				elif Movement == 2:
+					playerCoords[1] -= 1
+					playerCoords = self.ClampCoords(playerCoords, (4, 4))	
+
+				elif Movement == 3:
+					playerCoords[0] += 1
+					playerCoords = self.ClampCoords(playerCoords, (4, 4))					
 
 
 

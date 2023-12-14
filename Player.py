@@ -21,11 +21,9 @@ class Player:
                 Damage *= ((Enemy.attack - item["Defense"]) / 100)
                 item["Durability"] -= Damage.round()
                 
-
                 if item["Durability"] < 1:
                     self.Stats["inventory"].remove(item)
                     print("Your Armor Has Broke! You Will No Longer Get Reduced Damage Until Another Armor Is Equipped")
-
 
                 if self.Stats["Stats"]["HP"] < 1:
                     print("You Have Died! Your Last Health Points Have Been Saved. Please quit the game forever and leave.")
