@@ -27,9 +27,11 @@ class Shop:
         buying = input("Buy "+boughtItem+"? (Y/N) ")
         buying = buying.upper()
         if buying == "Y":
+            os.system("clr")
             print("You bought "+boughtItem+".")
             self.items.remove(boughtItem)
             self.items = self.items
+            time.sleep(3)
     def NavigateShop(self,Selected):
         Navigate = input()
         Navigate = Navigate.upper()
@@ -57,7 +59,7 @@ Emerson.intro()
 Selected = 0
 
 
-for i in range(10):
+for i in range(100):
     print(Selected)
     Emerson.GiveShopInventory()
     Selected = Emerson.NavigateShop(Selected)
