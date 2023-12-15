@@ -42,3 +42,4 @@ class Player:
 
             if not Found:
                 return random.randint(9, 11)
+            

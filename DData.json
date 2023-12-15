@@ -1,6 +1,7 @@
 [
     {
         "Dungeon": "Grass Isle",
+        "LevelReq": 0,
         "Enemies": 
         [
             {
@@ -47,6 +48,7 @@
     },
     {
         "Dungeon": "Desert Pyramid",
+        "LevelReq": 25,
         "Enemies":
         [
             {
@@ -93,6 +95,7 @@
     },
     {
         "Dungeon":"The Depths",
+        "LevelReq": 50,
         "Enemies":
         [
             {
@@ -139,6 +142,7 @@
     },
     {
         "Dungeon": "Dark Purgatory",
+        "LevelReq": 75,
         "Enemies":
         [
             {
@@ -185,15 +189,16 @@
     },
     {
         "Dungeon": "END",
+        "LevelReq": 100,
         "Enemies":
         [
             {
-                "Name": "WHALEN",
+                "Name": "You",
                 "Hp": 10000,
                 "Attack": 1000,
                 "Exp": 1000,
                 "Chance": 100,
-                "Desc": "The Final HERO. Luminates the dark with his forehead."
+                "Desc": "The Final HERO?"
             }
         ]
     }

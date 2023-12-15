@@ -22,17 +22,17 @@ class Battle:
         pass
     def PlayerTurn(self):
         os.system("cls")
-        print("What do you do?")
-        print("╔═════════════════════╗")
-        print("║ 1[Fight]   2[Act]   ║")
-        print("║ 3[Item]    4[Mercy] ║")        
-        print("╚═════════════════════╝")
-        Action = input("1,2,3,4 ")
-        print(Action)
+        print("What do you do?".center(80))
+        print("          ╔═══════════════════════╗          ".center(80))
+        print("          ║ 1[FIGHT]    2[CHECK]  ║          ".center(80))
+        print("   You    ║ 3[ITEMS]    4[DEFEND] ║   Enemy  ".center(80))        
+        print("          ╚═══════════════════════╝          ".center(80))
+        print("[1][2][3][4]")
+        Action = int(input())
+
         if Action == 1:
-            self.Fight()
-    def Fight(self):
-        print("You deal # Damage")
+            Opponent.TakeDamage()
+
 enemyInfo(0,0)
 
 os.system("cls")
