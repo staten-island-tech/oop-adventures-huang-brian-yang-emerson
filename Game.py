@@ -53,14 +53,14 @@ class PreGame:
 		print("Information: Clean Up On Isle 9 Please".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
-		self.MainMenu()
+		return self.MainMenu()
 
 	def FuturePlans(self):
 		print("Future Plans As Of Currently:".center(80))
 		print("1. Finish The Game".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
-		self.MainMenu()
+		return self.MainMenu()
 
 	def Load(self, Message, LTS):
 			LoadingSprites = ['|', '/', '-', '\\', '|', '/', '-', '\\']
@@ -122,10 +122,10 @@ class PreGame:
 			return self.PlayGame()
 
 		elif MainMenuChoice == 2:
-			self.FuturePlans()
+			return self.FuturePlans()
 
 		else:
-			self.Information()
+			return self.Information()
 
 
 
@@ -257,8 +257,6 @@ class PreGame:
 		SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
 		if SelectedSaveOption == 0:
-			print(f"{SaveID}, {Data}")
-			time.sleep(50)
 			self.Load("Loading Save", 5)
 			return SaveID, Data
 
@@ -288,7 +286,9 @@ class PreGame:
 			return self.NewSave()
 
 		elif SavesMenuChoice == 1:
+			print("ooga")
 			if len(Data) > 0:
+				print('nuh uh')
 				return self.SaveMenu(Data)
 			else:
 				return self.PlayGame()
@@ -323,11 +323,24 @@ class PreGame:
 
 			elif SavesChoice == 3:
 				return self.PlayGame()
-
+			
 class PostMenu:
 	def __init__(self, SaveID, SaveData) -> None:
-		self.SaveID = SaveData
+		self.SaveID = SaveID
 		self.SaveData = SaveData
+
+	def ClampCoords(self, PlayerCoord: list, GameMapCoorder: list):
+		if PlayerCoord[0] > GameMapCoorder[0]:
+			PlayerCoord[0] = GameMapCoorder[0]
+		if PlayerCoord[0] < 0:
+			PlayerCoord[0] = 0
+
+		if PlayerCoord[1] > GameMapCoorder[1]:
+			PlayerCoord[1] = GameMapCoorder[1]
+		if PlayerCoord[1] < 0:
+			PlayerCoord[1] = 0
+
+		return PlayerCoord
 
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
@@ -341,9 +354,9 @@ class PostMenu:
 			time.sleep(5)
 			Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
 
-			Map = [["#" for i in range(5)] for i in range(5)]
+			Map = [["[]" for i in range(5)] for i in range(5)]
 			Map[2][2] = "P"
-			playerCoords = (2, 2)
+			playerCoords = [2, 2]
 
 			for i in Map:
 				print(''.join(i))
@@ -353,10 +366,33 @@ class PostMenu:
 			time.sleep(3)
 			os.system('cls')
 			GoalCoords = (random.choice([0, 1, 3, 4,]), random.choice([0, 1, 3, 4,]))
-			Map[GoalCoords[0]][GoalCoords[1]] = "G"
+			Map[GoalCoords[0]][GoalCoords[1]] = "[G]"
+			
+		while tuple(playerCoords) != GoalCoords:
+			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
 
-			while playerCoords != GoalCoords:
-				CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+			MapCoorder = [4, 4]
+
+			Previous = playerCoords[:]
+
+			if Movement == 0:
+				playerCoords[0] -= 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+
+			elif Movement == 1:
+				playerCoords[1] -= 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+
+			elif Movement == 2:
+				playerCoords[0] += 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
+
+			elif Movement == 3:
+				playerCoords[1] += 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+
+			Map[Previous[0]][Previous[1]] = '[]'
+			Map[playerCoords[0]][playerCoords[1]] = '[P]'
 
 	def TavernStart(self):
 		os.system("cls")

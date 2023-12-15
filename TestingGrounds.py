@@ -50,3 +50,4 @@ Map[2][2] = "P"
 
 for i in Map:
     print(''.join(i))
+
