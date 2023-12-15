@@ -329,7 +329,7 @@ class PostMenu:
 		self.SaveID = SaveData
 		self.SaveData = SaveData
 
-	def ClampCoords(PlayerCoord, GameMapCoorder):
+	def ClampCoords(PlayerCoord: list, GameMapCoorder: list):
 		if PlayerCoord[0] > GameMapCoorder[0]:
 			PlayerCoord[0] = GameMapCoorder[0]
 		if PlayerCoord[0] < 0:
@@ -355,9 +355,9 @@ class PostMenu:
 			time.sleep(5)
 			Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
 
-			Map = [["#" for i in range(5)] for i in range(5)]
+			Map = [["[]" for i in range(5)] for i in range(5)]
 			Map[2][2] = "P"
-			playerCoords = (2, 2)
+			playerCoords = [2, 2]
 
 			for i in Map:
 				print(''.join(i))
@@ -369,23 +369,24 @@ class PostMenu:
 			GoalCoords = (random.choice([0, 1, 3, 4,]), random.choice([0, 1, 3, 4,]))
 			Map[GoalCoords[0]][GoalCoords[1]] = "G"
 
-			while playerCoords != GoalCoords:
+			while tuple(playerCoords) != GoalCoords:
 				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+				MapCoorder = [4, 4]
 				if Movement == 0:
 					playerCoords[1] += 1
-					playerCoords = self.ClampCoords(playerCoords, (4, 4))
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
 
 				elif Movement == 1:
 					playerCoords[0] -= 1
-					playerCoords = self.ClampCoords(playerCoords, (4, 4))
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
 
 				elif Movement == 2:
 					playerCoords[1] -= 1
-					playerCoords = self.ClampCoords(playerCoords, (4, 4))	
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
 
 				elif Movement == 3:
 					playerCoords[0] += 1
-					playerCoords = self.ClampCoords(playerCoords, (4, 4))					
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)					
 
 
 

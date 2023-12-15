@@ -50,3 +50,6 @@ Map[2][2] = "P"
 
 for i in Map:
     print(''.join(i))
+
+lister = [2, 2]
+print(tuple(lister))
