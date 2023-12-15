@@ -17,8 +17,14 @@ def enemyInfo(dungeonNum,enemyNum):
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Desc'])
     return enemy
 
+class Battle:
+    def __init__(self) -> None:
+        pass
+    def PlayerTurn(self):
+        os.system("cls")
+        print("What do you do?")
 enemyInfo(0,0)
 
 Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5])
 
-Enemy.Encounter()
+Opponent.Encounter()

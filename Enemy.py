@@ -1,4 +1,4 @@
-import random
+import random,time
 
 class Enemy:
     def __init__(self, name, hp, maxhp, attack, exp, chance, desc):
@@ -15,6 +15,8 @@ class Enemy:
             print('"'+str(self.desc))
     def Encounter(self):
         print(self.name+" blocks the way!")
+        time.sleep(3)
+
     def TakeDamage(self):
         self.hp = self.hp -10
         print(self.name+" took 10 damage.")
