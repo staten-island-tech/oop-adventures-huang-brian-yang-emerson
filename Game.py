@@ -367,8 +367,9 @@ class PostMenu:
 			os.system('cls')
 			GoalCoords = (random.choice([0, 1, 3, 4,]), random.choice([0, 1, 3, 4,]))
 			Map[GoalCoords[0]][GoalCoords[1]] = "[G]"
-			
+
 		while tuple(playerCoords) != GoalCoords:
+			os.syetem('cls')
 			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
 
 			MapCoorder = [4, 4]
@@ -392,7 +393,17 @@ class PostMenu:
 				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
 
 			Map[Previous[0]][Previous[1]] = '[]'
-			Map[playerCoords[0]][playerCoords[1]] = '[P]'
+
+			if Map[playerCoords[0]][playerCoords[1]] == "[G]":
+				Map[playerCoords[0]][playerCoords[1]] = '[GP]'
+				time.sleep(2)
+				break
+
+			else:
+				Map[playerCoords[0]][playerCoords[1]] = "[P]"
+		
+		os.system('cls')
+		Dialogue('Villager', "Oh, Nice You Actually Did It. I'm Too Lazy To Explain Anything Else, You Can Figure It Out On Your Own.", 0.05)
 
 	def TavernStart(self):
 		os.system("cls")
