@@ -323,25 +323,24 @@ class PreGame:
 
 			elif SavesChoice == 3:
 				return self.PlayGame()
-
+			
 class PostMenu:
 	def __init__(self, SaveID, SaveData) -> None:
-		self.SaveID = SaveData
+		self.SaveID = SaveID
 		self.SaveData = SaveData
 
-	def ClampCoords(PlayerCoord: list, GameMapCoorder: list):
+	def ClampCoords(self, PlayerCoord: list, GameMapCoorder: list):
 		if PlayerCoord[0] > GameMapCoorder[0]:
 			PlayerCoord[0] = GameMapCoorder[0]
 		if PlayerCoord[0] < 0:
-			PlayerCoord[0] == 0
-		
+			PlayerCoord[0] = 0
+
 		if PlayerCoord[1] > GameMapCoorder[1]:
-			PlayerCoord[1] == GameMapCoorder[1]
+			PlayerCoord[1] = GameMapCoorder[1]
 		if PlayerCoord[1] < 0:
-			PlayerCoord[1] == 0
+			PlayerCoord[1] = 0
 
 		return PlayerCoord
-		
 
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
@@ -367,28 +366,33 @@ class PostMenu:
 			time.sleep(3)
 			os.system('cls')
 			GoalCoords = (random.choice([0, 1, 3, 4,]), random.choice([0, 1, 3, 4,]))
-			Map[GoalCoords[0]][GoalCoords[1]] = "G"
+			Map[GoalCoords[0]][GoalCoords[1]] = "[G]"
+			
+		while tuple(playerCoords) != GoalCoords:
+			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
 
-			while tuple(playerCoords) != GoalCoords:
-				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
-				MapCoorder = [4, 4]
-				if Movement == 0:
-					playerCoords[1] += 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+			MapCoorder = [4, 4]
 
-				elif Movement == 1:
-					playerCoords[0] -= 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+			Previous = playerCoords[:]
 
-				elif Movement == 2:
-					playerCoords[1] -= 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
+			if Movement == 0:
+				playerCoords[0] -= 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
 
-				elif Movement == 3:
-					playerCoords[0] += 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)					
+			elif Movement == 1:
+				playerCoords[1] -= 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
 
+			elif Movement == 2:
+				playerCoords[0] += 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
 
+			elif Movement == 3:
+				playerCoords[1] += 1
+				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+
+			Map[Previous[0]][Previous[1]] = '[]'
+			Map[playerCoords[0]][playerCoords[1]] = '[P]'
 
 	def TavernStart(self):
 		os.system("cls")
