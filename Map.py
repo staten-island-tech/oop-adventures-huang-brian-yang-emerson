@@ -14,23 +14,16 @@ class Map:
         y = xy[1]
         if movement == "W":
             y -= 1
-            if y < 0:
-                y += 1
         if movement == "S":
             y += 1
-            if y > len(self.map):
-                y -= 1
         if movement == "D":
             x += 1
-            if x > len(self.map[y])-1:
-                x -= 1
         if movement == "A":
             x -= 1
-            if x < 0:
-                x += 1
-        if not self.map[y][x] == "#":
-            xy[0] = x
-            xy[1] = y
+        if not self.map[y]:
+            a == "#":
+                xy[0] = x
+                xy[1] = y
 
         return xy
         
@@ -44,8 +37,7 @@ for i in range(100):
 
     Template = [["." for i in range(10)] for i in range(5)]
     Template[4] = ["#" for i in range(10)]
-    for i in range(4):
-        Template[i+1][3] = "#"
+    Template[3][3] = "#"
     Template[y][x] = "P"
 
     e = Map(Template)
