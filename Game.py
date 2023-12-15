@@ -1,4 +1,4 @@
-import time, os, random, json
+import time, os, random, json, keyboard
 from itertools import cycle
 
 def Dialogue(Author, Text, Time):
@@ -355,7 +355,7 @@ class PostMenu:
 			Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
 
 			Map = [["[]" for i in range(5)] for i in range(5)]
-			Map[2][2] = "P"
+			Map[2][2] = "[P]"
 			playerCoords = [2, 2]
 
 			for i in Map:
@@ -369,7 +369,7 @@ class PostMenu:
 			Map[GoalCoords[0]][GoalCoords[1]] = "[G]"
 
 		while tuple(playerCoords) != GoalCoords:
-			os.syetem('cls')
+			os.system('cls')
 			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
 
 			MapCoorder = [4, 4]
@@ -393,17 +393,11 @@ class PostMenu:
 				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
 
 			Map[Previous[0]][Previous[1]] = '[]'
-
-			if Map[playerCoords[0]][playerCoords[1]] == "[G]":
-				Map[playerCoords[0]][playerCoords[1]] = '[GP]'
-				time.sleep(2)
-				break
-
-			else:
-				Map[playerCoords[0]][playerCoords[1]] = "[P]"
+			Map[playerCoords[0]][playerCoords[1]] = "[P]"
 		
 		os.system('cls')
-		Dialogue('Villager', "Oh, Nice You Actually Did It. I'm Too Lazy To Explain Anything Else, You Can Figure It Out On Your Own.", 0.05)
+		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.", 0.05)
+		Dialogue('Villager', "Next We Have The Combat. For Tutorial Purposes ")
 
 	def TavernStart(self):
 		os.system("cls")
@@ -411,3 +405,6 @@ class PostMenu:
 			self.Tutorial()
 		else:
 			self.SaveData['Misc']['TutorialDone'] == True
+
+
+	
