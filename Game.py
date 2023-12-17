@@ -37,7 +37,10 @@ def GenerateTip():
 	Tips = [
 		"Please Try To Exit The Game As Soon As Possible",
 		"Don't chew Double Trouble Gum while running! Unless you've had years of didgeridoo lessons.",
-		"The Red Square Quits The Game"
+		"The Red Square Quits The Game",
+		"Rainbows Make Me Cry",
+		"Drink It In Pal, That's How Failure Tastes",
+		""
 
 	]
 
@@ -126,8 +129,6 @@ class PreGame:
 
 		else:
 			return self.Information()
-
-
 
 	# << Playing Functions >> #
 	def GetAllSave(self):
@@ -397,7 +398,8 @@ class PostMenu:
 		
 		os.system('cls')
 		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.", 0.05)
-		Dialogue('Villager', "Next We Have The Combat. For Tutorial Purposes ")
+		Dialogue('Villager',"Now, WindMill Town Has Had A Problem For Multiple Years.", 0.05)
+		Dialogue("Villager", "You See... Our Village Is Constantly Being Plundered By")
 
 	def TavernStart(self):
 		os.system("cls")
@@ -406,5 +408,6 @@ class PostMenu:
 		else:
 			self.SaveData['Misc']['TutorialDone'] == True
 
-
-	
+class Dungeon:
+	def __init__(self, dungeon) -> None:
+		pass
