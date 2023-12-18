@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Brian Huango",
+        "Name": "please end it",
         "Stats": {
             "Gold": 0,
             "HP": 100,
@@ -15,7 +15,22 @@
         "Inventory": []
     },
     {
-        "Name": "Dont Try",
+        "Name": "quick",
+        "Stats": {
+            "Gold": 0,
+            "HP": 100,
+            "Strength": 0,
+            "Luck": 0,
+            "Level": 1,
+            "Vitality": 0
+        },
+        "Misc": {
+            "TutorialDone": false
+        },
+        "Inventory": []
+    },
+    {
+        "Name": "o",
         "Stats": {
             "Gold": 0,
             "HP": 100,
