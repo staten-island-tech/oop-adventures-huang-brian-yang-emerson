@@ -48,6 +48,4 @@ Map  = [["#" for i in range(5)] for i in range(5)]
 
 Map[2][2] = "P"
 
-for i in Map:
-    print(''.join(i))
 

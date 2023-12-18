@@ -1,6 +1,7 @@
 [
     {
         "Dungeon": "Grass Isle",
+        "LevelReq": 0,
         "Enemies": 
         [
             {
@@ -43,10 +44,37 @@
                 "Chance": 1,
                 "Desc": "A group of Goblin gangs up on you!"
             }
-        ]
+        ],
+        "Loot": {
+            "Simple Spear": {
+                "Damage": 15,
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Equipped": false,
+                "Chance": 65
+            },
+            "SlingShot": {
+                "Damage": 20,
+                "Durability": 50,
+                "Rarity": "Uncommon",
+                "Quantity": 1,
+                "Equipped": false,
+                "Chance": 25
+            },
+            "Club": {
+                "Damage": 25,
+                "Durability": 100,
+                "Rarity": "Rare",
+                "Equipped": false,
+                "Chance": 10
+            }
+        }
     },
+    
     {
         "Dungeon": "Desert Pyramid",
+        "LevelReq": 25,
         "Enemies":
         [
             {
@@ -93,6 +121,7 @@
     },
     {
         "Dungeon":"The Depths",
+        "LevelReq": 50,
         "Enemies":
         [
             {
@@ -139,6 +168,7 @@
     },
     {
         "Dungeon": "Dark Purgatory",
+        "LevelReq": 75,
         "Enemies":
         [
             {
@@ -185,15 +215,16 @@
     },
     {
         "Dungeon": "END",
+        "LevelReq": 100,
         "Enemies":
         [
             {
-                "Name": "WHALEN",
+                "Name": "You",
                 "Hp": 10000,
                 "Attack": 1000,
                 "Exp": 1000,
                 "Chance": 100,
-                "Desc": "The Final HERO. Luminates the dark with his forehead."
+                "Desc": "The Final HERO?"
             }
         ]
     }
