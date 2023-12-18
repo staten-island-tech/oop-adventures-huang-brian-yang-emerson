@@ -43,8 +43,34 @@
                 "Chance": 1,
                 "Desc": "A group of Goblin gangs up on you!"
             }
-        ]
+        ],
+        "Loot": {
+            "Simple Spear": {
+                "Damage": 15,
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Equipped": false,
+                "Chance": 65
+            },
+            "SlingShot": {
+                "Damage": 20,
+                "Durability": 50,
+                "Rarity": "Uncommon",
+                "Quantity": 1,
+                "Equipped": false,
+                "Chance": 25
+            },
+            "Club": {
+                "Damage": 25,
+                "Durability": 100,
+                "Rarity": "Rare",
+                "Equipped": false,
+                "Chance": 10
+            }
+        }
     },
+    
     {
         "Dungeon": "Desert Pyramid",
         "Enemies":

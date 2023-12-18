@@ -40,8 +40,6 @@ def GenerateTip():
 		"The Red Square Quits The Game",
 		"Rainbows Make Me Cry",
 		"Drink It In Pal, That's How Failure Tastes",
-		""
-
 	]
 
 	return "Tip: " + random.choice(Tips)
@@ -355,7 +353,7 @@ class PostMenu:
 			time.sleep(5)
 			Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
 
-			Map = [["[]" for i in range(5)] for i in range(5)]
+			Map = [["[ ]" for i in range(5)] for i in range(5)]
 			Map[2][2] = "[P]"
 			playerCoords = [2, 2]
 
@@ -393,21 +391,65 @@ class PostMenu:
 				playerCoords[1] += 1
 				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
 
-			Map[Previous[0]][Previous[1]] = '[]'
+			Map[Previous[0]][Previous[1]] = '[ ]'
 			Map[playerCoords[0]][playerCoords[1]] = "[P]"
 		
 		os.system('cls')
-		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.", 0.05)
-		Dialogue('Villager',"Now, WindMill Town Has Had A Problem For Multiple Years.", 0.05)
-		Dialogue("Villager", "You See... Our Village Is Constantly Being Plundered By")
+		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
+		Dialogue('Villager',"Now You're On Your Own. I'm Too Lazy To Explain The Rest Of The Game\n", 0.05)
+		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
+		Dialogue("Villager", "Goodbye.", 0.5) 
 
 	def TavernStart(self):
 		os.system("cls")
+
 		if self.SaveData['Misc']['TutorialDone'] == False:
 			self.Tutorial()
-		else:
-			self.SaveData['Misc']['TutorialDone'] == True
+
+		os.system('cls')
+		Map = [["[ ]" for i in range(10)] for i in range(10)]
+		Goals = [(1, 3), (7, 7)]
+		PlayerStart = [3, 3]
+		Map[5][5] = "[P]"
+		Map[1][3] = "[B]"
+		Map[7][7] = "[T]"
+		
+		while tuple(PlayerStart) not in Goals:
+			os.system('cls')
+			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+
+			MapCoorder = [9, 9]
+
+			Previous = PlayerStart[:]
+
+			if Movement == 0:
+				PlayerStart[0] -= 1
+				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
+
+			elif Movement == 1:
+				PlayerStart[1] -= 1
+				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
+
+			elif Movement == 2:
+				PlayerStart[0] += 1
+				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)	
+
+			elif Movement == 3:
+				PlayerStart[1] += 1
+				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
+
+			Map[Previous[0]][Previous[1]] = '[ ]'
+			Map[PlayerStart[0]][PlayerStart[1]] = "[P]"
 
 class Dungeon:
-	def __init__(self, dungeon) -> None:
-		pass
+	def __init__(self, dungeon, PlayerClass) -> None:
+		self.dungeon = dungeon
+		self.Player = PlayerClass
+
+	def StartDungeon(self):
+
+		with open("DData.json", mode='r') as infile:
+			AllDungeonData = json.load(infile)
+
+		DungeonData = AllDungeonData[self.dungeon]
+
