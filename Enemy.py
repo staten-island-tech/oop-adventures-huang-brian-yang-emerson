@@ -20,6 +20,7 @@ class Enemy:
     def TakeDamage(self,damage):
         self.hp = self.hp - damage
         print(self.name+" took "+str(damage)+" damage.")
+        time.sleep(3)
     def DoDamage(self):
         self.CurrentEffects = {
             'Poison': {
