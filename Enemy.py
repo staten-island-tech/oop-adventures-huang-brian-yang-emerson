@@ -17,9 +17,9 @@ class Enemy:
         print(self.name+" blocks the way!")
         time.sleep(3)
 
-    def TakeDamage(self):
-        self.hp = self.hp -10
-        print(self.name+" took 10 damage.")
+    def TakeDamage(self,damage):
+        self.hp = self.hp - damage
+        print(self.name+" took "+str(damage)+" damage.")
     def DoDamage(self):
         self.CurrentEffects = {
             'Poison': {
