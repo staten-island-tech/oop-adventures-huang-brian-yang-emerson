@@ -48,6 +48,7 @@ class Battle:
         if Action == 1:
             Opponent.TakeDamage(playerStats[2])
 
+
 enemyInfo(0,0)
 playerInfo(0)
 PlayerMaxHP = playerStats[1]
