@@ -12,15 +12,16 @@ class Enemy:
     def Check(self):
         print(self.name+":           "+str(self.hp)+"/"+str(self.maxhp)+" HP")
     def Desc(self):
-            print('"'+str(self.desc))
+            print('"'+str(self.desc)+'"')
+            time.sleep(5)
+            
     def Encounter(self):
         print(self.name+" blocks the way!")
         time.sleep(3)
 
     def TakeDamage(self,damage):
         self.hp = self.hp - damage
-        print(self.name+" took "+str(damage)+" damage.")
-        time.sleep(3)
+
     def DoDamage(self):
         self.CurrentEffects = {
             'Poison': {

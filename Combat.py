@@ -47,6 +47,29 @@ class Battle:
 
         if Action == 1:
             Opponent.TakeDamage(playerStats[2])
+            os.system("cls")
+            print("           ╔═══════════════════════╗          ".center(80))
+            x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP ║<1[FIGHT]>             ║  "+str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
+            print(x.center(80))
+            print("   You     ║                       ║   Enemy  ".center(80))        
+            print("           ╚═══════════════════════╝          ".center(80))
+            print(Opponent.name+" took "+str(playerStats[2])+" damage.")
+            time.sleep(2)
+
+        elif Action == 2:
+            os.system("cls")
+            Opponent.Check()
+            Opponent.Desc()
+        
+        if Opponent.hp < 1:
+            os.system("cls")
+            print("You win!")
+            time.sleep(3)
+            os.system("cls")
+            print("You gained "+str(Opponent.exp)+" EXP!")
+            exit()
+
+
 
 
 enemyInfo(0,0)
