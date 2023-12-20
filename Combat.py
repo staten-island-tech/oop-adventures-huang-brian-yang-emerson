@@ -9,6 +9,9 @@ with open("Saves.json", "r") as f:
     # Serialize the updated Python list to a JSON string
     data2 = json.load(f)
 
+with open("ItemList.json", "r") as f:
+    # Serialize the updated Python list to a JSON string
+    data3 = json.load(f)
 
 enemy = []
 playerStats = []
@@ -31,6 +34,17 @@ def playerInfo(SaveID):
     playerStats.append(data2[SaveID]['Stats']['Vitality'])
     playerStats.append(data2[SaveID]['Inventory'])
 
+def ConsumableItems(SaveID):
+    items = []
+    print(playerStats[6])
+
+    for i in range(len(playerStats[6])):
+        for e in range(len(data3)):
+            if i[playerStats[6]] == data3[e]['Name']:
+                items.append(i)
+                break
+    return items
+
 class Battle:
     def __init__(self) -> None:
         pass
@@ -48,6 +62,7 @@ class Battle:
         if Action == 1:
             Opponent.TakeDamage(playerStats[2])
             os.system("cls")
+            print()
             print("           ╔═══════════════════════╗          ".center(80))
             x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP ║<1[FIGHT]>             ║  "+str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
             print(x.center(80))
@@ -60,20 +75,18 @@ class Battle:
             os.system("cls")
             Opponent.Check()
             Opponent.Desc()
-        
-        if Opponent.hp < 1:
-            os.system("cls")
-            print("You win!")
-            time.sleep(3)
-            os.system("cls")
-            print("You gained "+str(Opponent.exp)+" EXP!")
-            exit()
 
+        elif Action == 3:
+            print(items)
+            time.sleep(10)
+        
 
 
 
 enemyInfo(0,0)
 playerInfo(0)
+items = ConsumableItems(0)
+
 PlayerMaxHP = playerStats[1]
 
 os.system("cls")
@@ -83,7 +96,12 @@ You = Player.Player(0,playerStats)
 Opponent.Encounter()
 E = Battle()
 
-for i in range(10):
+while Opponent.hp > 0:
     E.PlayerTurn()
-
-#You.TakeDamage(Opponent.attack)
+    if Opponent.hp < 1:
+            os.system("cls")
+            print("You win!")
+            time.sleep(3)
+            os.system("cls")
+            print("You gained "+str(Opponent.exp)+" EXP!")
+            exit()
