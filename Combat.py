@@ -40,8 +40,8 @@ def ConsumableItems(SaveID):
 
     for i in range(len(playerStats[6])):
         for e in range(len(data3)):
-            if i[playerStats[6]] == data3[e]['Name']:
-                items.append(i)
+            if playerStats[6][i] == data3[e]['Name']:
+                items.append(playerStats[6][i])
                 break
     return items
 
@@ -77,7 +77,18 @@ class Battle:
             Opponent.Desc()
 
         elif Action == 3:
-            print(items)
+            useitem = 0        
+            while useitem == 0:
+                print("INVENTORY")
+                for i in range(len(items)):
+                    print("item "+str(i+1)+":  "+items[i])
+            
+                useitem = input("Use item... ")
+                try:
+                    useitem = items[useitem-1]
+                    print(useitem)
+                except:
+                    useitem = 0
             time.sleep(10)
         
 
