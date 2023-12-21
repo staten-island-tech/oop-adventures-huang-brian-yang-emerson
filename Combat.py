@@ -85,11 +85,30 @@ class Battle:
             
                 useitem = input("Use item... ")
                 try:
-                    useitem = items[useitem-1]
-                    print(useitem)
+                    itemNum = int(useitem)-1
+                    useitem = items[itemNum]
+                    os.system("cls")
+                    print("You used "+useitem+".")
+                    E.PdetermineStatChange(itemNum,'HP')
+
+
                 except:
                     useitem = 0
-            time.sleep(10)
+            time.sleep(3)
+
+    def PdetermineStatChange(self,itemNum,stat):
+        if data3[itemNum][stat] != 0:
+            if data3[itemNum][stat] > 0:
+                print("Your "+stat+" increased by "+str(data3[itemNum][stat])+"!")
+            else:
+                print("Your "+stat+" decreased by "+str(abs(data3[itemNum][stat]))+"!")
+    
+    def PstatChange(self):
+        You.Stats[1]
+
+
+
+
         
 
 

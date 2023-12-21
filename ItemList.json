@@ -2,7 +2,7 @@
     {
         "Name": "Apple",
         "Rarity": "Common",
-        "Health": 10,
+        "HP": 10,
         "Attack": 0,
         "Defense": 0,
         "Speed": 0,
@@ -12,7 +12,7 @@
     {
         "Name": "Banana",
         "Rarity": "Common",
-        "Health": 5,
+        "HP": 5,
         "Attack": 0,
         "Defense": 1,
         "Speed": 0,
@@ -22,7 +22,7 @@
     {
         "Name": "Beer",
         "Rarity": "Uncommon",
-        "Health": 0,
+        "HP": 0,
         "Attack": 2,
         "Defense": 2,
         "Speed": 2,
@@ -32,7 +32,7 @@
     {
         "Name": "Red Bull",
         "Rarity": "Rare",
-        "Health": 0,
+        "HP": 0,
         "Attack": 10,
         "Defense": 10,
         "Speed": 0,
@@ -40,9 +40,9 @@
         "StatusEffect": []
     },
     {
-        "Name": "Great Health Potion",
+        "Name": "Great HP Potion",
         "Rarity": "Mythical",
-        "Health": 50,
+        "HP": 50,
         "Attack": 0,
         "Defense": 0,
         "Speed": 0,
@@ -52,7 +52,7 @@
     {
         "Name": "Great Attack Potion",
         "Rarity": "Mythical",
-        "Health": 0,
+        "HP": 0,
         "Attack": 50,
         "Defense": 0,
         "Speed": 0,
@@ -62,7 +62,7 @@
     {
         "Name": "Great Defense Potion",
         "Rarity": "Mythical",
-        "Health": 0,
+        "HP": 0,
         "Attack": 0,
         "Defense": 50,
         "Speed": 0,
@@ -72,7 +72,7 @@
     {
         "Name": "Great Defense Potion",
         "Rarity": "Mythical",
-        "Health": 0,
+        "HP": 0,
         "Attack": 0,
         "Defense": 50,
         "Speed": 0,
@@ -82,7 +82,7 @@
     {
         "Name": "Great Speed Potion",
         "Rarity": "Mythical",
-        "Health": 0,
+        "HP": 0,
         "Attack": 0,
         "Defense": 0,
         "Speed": 50,
@@ -92,7 +92,7 @@
     {
         "Name": "Great Stamina Potion",
         "Rarity": "Mythical",
-        "Health": 0,
+        "HP": 0,
         "Attack": 0,
         "Defense": 0,
         "Speed": 0,
@@ -102,7 +102,7 @@
     {
         "Name": "Final-Stand Potion",
         "Rarity": "Legendary",
-        "Health": 100,
+        "HP": 100,
         "Attack": 100,
         "Defense": 100,
         "Speed": 100,
