@@ -33,8 +33,10 @@ def playerInfo(SaveID):
     playerStats.append(data2[SaveID]['Stats']['Level'])
     playerStats.append(data2[SaveID]['Stats']['Vitality'])
     playerStats.append(data2[SaveID]['Inventory'])
+    playerStats.append(data2[SaveID]['Armor']['Name'])
+    playerStats.append(data2[SaveID]['Armor']['Durability'])
 
-def ConsumableItems(SaveID):
+def ConsumableItems():
     items = []
     print(playerStats[6])
 
@@ -44,6 +46,8 @@ def ConsumableItems(SaveID):
                 items.append(playerStats[6][i])
                 break
     return items
+
+
 
 class Battle:
     def __init__(self) -> None:
@@ -87,27 +91,44 @@ class Battle:
                 try:
                     itemNum = int(useitem)-1
                     useitem = items[itemNum]
-                    #os.system("cls")                   
+                    os.system("cls")                   
                     print("You used "+useitem+".")
-                    E.PdetermineStatChange(useitem,"HP")
+                    E.PdetermineStatChange(useitem,'HP',1)
+                    E.PdetermineStatChange(useitem,'Attack',2)
+                    E.PdetermineStatChange(useitem,'Defense',5)
 
 
 
                 except:
                     useitem = 0
-                    print(useitem)
-                    #os.system("cls")
-            time.sleep(30)
-
-    def PdetermineStatChange(self,useitem,stat):
-        item = "e"
-        for i in range(data3['Name']):
-            if data3[i]['Name'] == useitem:
-                item = useitem
-        
-        print(item)
-        print(stat)
+                    os.system("cls")
             
+            else:
+                Defend = "yes"
+                return Defend
+
+
+            input()
+
+    def PdetermineStatChange(self,useitem,stat,statNum):
+        itemNum = 0
+        for i in range(len(data3)):
+            if data3[i]['Name'] == useitem:
+                itemNum = i
+
+        if data3[itemNum][stat] != 0:
+            if data3[itemNum][stat] >= 0:
+                print("Your "+stat+" was increased by "+str(data3[itemNum][stat])+"!")
+
+        playerStats[statNum] += data3[itemNum][stat]
+
+    def EnemyTurn(self):
+        if Defend == "no":
+            You.TakeDamage(Opponent.attack)
+        else:
+            You.TakeDamage(Opponent.attack/2)
+        
+        time.sleep(3)
 
 
         
@@ -122,18 +143,19 @@ class Battle:
 
 enemyInfo(0,0)
 playerInfo(0)
-items = ConsumableItems(0)
+items = ConsumableItems()
 
 PlayerMaxHP = playerStats[1]
 
 os.system("cls")
-Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5])
+Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5],"None")
 You = Player.Player(0,playerStats)
 
 Opponent.Encounter()
 E = Battle()
 
 while Opponent.hp > 0:
+    Defend = "no"
     E.PlayerTurn()
     if Opponent.hp < 1:
             os.system("cls")
@@ -142,3 +164,4 @@ while Opponent.hp > 0:
             os.system("cls")
             print("You gained "+str(Opponent.exp)+" EXP!")
             exit()
+    E.EnemyTurn()

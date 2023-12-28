@@ -1,7 +1,8 @@
 [
     {
         "Name": "testing",
-        "Stats": {
+        "Stats":
+        {
             "Gold": 0,
             "HP": 100,
             "Strength": 10,
@@ -9,10 +10,16 @@
             "Level": 1,
             "Vitality": 0
         },
-        "Misc": {
+        "Misc": 
+        {
             "TutorialDone": false
         },
-        "Inventory": ["Final-Stand Potion","Banana"]
+        "Inventory": ["Final-Stand Potion","Banana"],
+        "Armor": 
+        {
+            "Name": "Flimsy Leather Armor",
+            "Durability": 5
+        }
     },
     {
         "Name": "quick",
@@ -27,7 +34,12 @@
         "Misc": {
             "TutorialDone": false
         },
-        "Inventory": []
+        "Inventory": [],
+        "Armor": 
+        {
+            "Name": "None",
+            "Durability": 0
+        }
     },
     {
         "Name": "o",
@@ -42,6 +54,11 @@
         "Misc": {
             "TutorialDone": false
         },
-        "Inventory": []
+        "Inventory": [],
+        "Armor": 
+        {
+            "Name": "None",
+            "Durability": 0
+        }
     }
 ]
