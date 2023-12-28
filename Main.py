@@ -1,6 +1,8 @@
-import Game, Effects, Enemy, Player
+import Game, Effects, Enemy, Player, os, win11toast
 
 def Main():
+    while True:
+        win11toast.toast("Whoppper")
     PreGame = Game.PreGame()
 
     # << PreGame Should Return The Data >> #

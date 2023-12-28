@@ -285,9 +285,7 @@ class PreGame:
 			return self.NewSave()
 
 		elif SavesMenuChoice == 1:
-			print("ooga")
 			if len(Data) > 0:
-				print('nuh uh')
 				return self.SaveMenu(Data)
 			else:
 				return self.PlayGame()
@@ -396,7 +394,7 @@ class PostMenu:
 		
 		os.system('cls')
 		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
-		Dialogue('Villager',"Now You're On Your Own. I'm Too Lazy To Explain The Rest Of The Game\n", 0.05)
+		Dialogue('Villager',"Now You're On Your Own. I'm Too Lazy To Explain The Rest Of The Game.\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
 
@@ -409,42 +407,53 @@ class PostMenu:
 		os.system('cls')
 		Map = [["[ ]" for i in range(10)] for i in range(10)]
 		Goals = [(1, 3), (7, 7)]
-		PlayerStart = [3, 3]
+		PlayerStart = [5, 5]
 		Map[5][5] = "[P]"
 		Map[1][3] = "[B]"
 		Map[7][7] = "[T]"
 		
-		while tuple(PlayerStart) not in Goals:
-			os.system('cls')
-			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+		while True:
+			if tuple(PlayerStart) not in Goals:
+				os.system('cls')
+				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
 
-			MapCoorder = [9, 9]
+				MapCoorder = [9, 9]
 
-			Previous = PlayerStart[:]
+				Previous = PlayerStart[:]
 
-			if Movement == 0:
-				PlayerStart[0] -= 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
+				if Movement == 0:
+					PlayerStart[0] -= 1
+					PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
 
-			elif Movement == 1:
-				PlayerStart[1] -= 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
+				elif Movement == 1:
+					PlayerStart[1] -= 1
+					PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
 
-			elif Movement == 2:
-				PlayerStart[0] += 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)	
+				elif Movement == 2:
+					PlayerStart[0] += 1
+					PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)	
 
-			elif Movement == 3:
-				PlayerStart[1] += 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
+				elif Movement == 3:
+					PlayerStart[1] += 1
+					PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
 
-			Map[Previous[0]][Previous[1]] = '[ ]'
-			Map[PlayerStart[0]][PlayerStart[1]] = "[P]"
+				Map[Previous[0]][Previous[1]] = '[ ]'
+				Map[PlayerStart[0]][PlayerStart[1]] = "[P]"
+			
+			else:
+				Targetted = Goals.index(tuple(PlayerStart))
+
+				if Targetted == 0:
+					print("He shouldn't have reached for the body")
+
+				elif Targetted == 1:
+					print("Release Me From This Hell")
 
 class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeon = dungeon
-		self.Player = PlayerClass
+		self.player = PlayerClass
+		self.enemies = []
 
 	def StartDungeon(self):
 
@@ -453,3 +462,23 @@ class Dungeon:
 
 		DungeonData = AllDungeonData[self.dungeon]
 
+		def enemyAttack(self, enemy):
+			pass
+
+		def playerTurn(self):
+			pass
+
+		def enemyTurn(self):
+
+			for enemy in self.enemies:
+				MovementOp = random.randint(1, 100)
+				
+				if MovementOp <= enemy['MovementChance']:
+					return self.enemyAttack(enemy)
+
+
+		if self.player['Stats']['Level'] < DungeonData['LevelReq']:
+			return
+		
+		else:
+			pass

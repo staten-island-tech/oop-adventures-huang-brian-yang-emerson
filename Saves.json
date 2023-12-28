@@ -1,6 +1,6 @@
 [
     {
-        "Name": "please end it",
+        "Name": "Brian Huang Tester Es Mucho Malo. Eres no beuno",
         "Stats": {
             "Gold": 0,
             "HP": 100,
@@ -15,22 +15,7 @@
         "Inventory": []
     },
     {
-        "Name": "quick",
-        "Stats": {
-            "Gold": 0,
-            "HP": 100,
-            "Strength": 0,
-            "Luck": 0,
-            "Level": 1,
-            "Vitality": 0
-        },
-        "Misc": {
-            "TutorialDone": false
-        },
-        "Inventory": []
-    },
-    {
-        "Name": "o",
+        "Name": "Mucho Malo",
         "Stats": {
             "Gold": 0,
             "HP": 100,

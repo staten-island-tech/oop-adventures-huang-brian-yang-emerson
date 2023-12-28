@@ -27,7 +27,7 @@ class Shop:
         buying = input("Buy "+boughtItem+"? (Y/N) ")
         buying = buying.upper()
         if buying == "Y":
-            os.system("clr")
+            os.system("cls")
             print("You bought "+boughtItem+".")
             self.items.remove(boughtItem)
             self.items = self.items
