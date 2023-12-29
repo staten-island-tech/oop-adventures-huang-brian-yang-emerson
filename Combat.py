@@ -102,28 +102,48 @@ class Battle:
         elif Action == 3:
             useitem = 0        
             while useitem == 0:
-                print("INVENTORY")
+                os.system("cls")
+                print("INVENTORY".center(80))
                 for i in range(len(items)):
-                    print("item "+str(i+1)+":  "+items[i])
-            
-                useitem = input("Use item... ")
+                    x = "item "+str(i+1)
+                    print(x.center(80))
+                    print(items[i].center(80))
+                    print()
+
+                print("X to cancel!")
+                print("Use item (Number)... ".center(80))    
+                useitem = input()
+                useitem = useitem.upper()
+
+                if useitem == "X":
+                    E.PlayerTurn()
+                    break
+
                 try:
                     itemNum = int(useitem)-1
                     useitem = items[itemNum]
-                    os.system("cls")                   
-                    print("You used "+useitem+".")
+                    os.system("cls")
+                    x = "You used "+useitem+"."                   
+                    print(x.center(80))
                     E.PdetermineStatChange(useitem,'HP',1)
                     E.PdetermineStatChange(useitem,'Attack',2)
                     E.PdetermineStatChange(useitem,'Defense',5)
-
-
+                    
+                    time.sleep(3)
 
                 except:
                     useitem = 0
                     os.system("cls")
             
-            else:
-                print("You braced yourself...")
+        else:
+            print("You braced yourself...")
+
+            time.sleep(3)
+
+        os.system("cls")
+
+            
+
 
 
 
@@ -134,8 +154,13 @@ class Battle:
                 itemNum = i
 
         if data3[itemNum][stat] != 0:
+            x = ""
             if data3[itemNum][stat] >= 0:
-                print("Your "+stat+" was increased by "+str(data3[itemNum][stat])+"!")
+                x = "Your "+stat+" was increased by "+str(data3[itemNum][stat])+"!"
+            else:
+                x = "Your "+stat+" was dncreased by "+str(abs(data3[itemNum][stat]))+"!"
+            
+            print(x)
 
         playerStats[statNum] += data3[itemNum][stat]
 
@@ -144,6 +169,9 @@ class Battle:
         return Defend
         
     def EnemyTurn(self):
+        x = Opponent.name+" attacks you!"
+        print(x.center(80))
+
         if Defend == "no":
             You.TakeDamage(Opponent.attack)
         else:
@@ -162,7 +190,7 @@ class Battle:
 
 
 
-enemyInfo(0,2)
+enemyInfo(0,3)
 playerInfo(0)
 items = ConsumableItems()
 
