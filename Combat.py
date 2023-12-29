@@ -35,6 +35,7 @@ def playerInfo(SaveID):
     playerStats.append(data2[SaveID]['Inventory'])
     playerStats.append(data2[SaveID]['Armor']['Name'])
     playerStats.append(data2[SaveID]['Armor']['Durability'])
+    playerStats.append([])
 
 def ConsumableItems():
     items = []
@@ -54,25 +55,43 @@ class Battle:
         pass
     def PlayerTurn(self):
         os.system("cls")
+        print(Opponent.name.center(80))
+        x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
+        print(x.center(80))
+        if Opponent.status != "None":
+            print(Opponent.status.upper().center(80))
+        else:
+            print()
+        print()
         print("What do you do?".center(80))
         print("           ╔═══════════════════════╗          ".center(80))
-        x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP ║ 1[FIGHT]    2[CHECK]  ║  "+str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
-        print(x.center(80))
-        print("   You     ║ 3[ITEMS]    4[DEFEND] ║   Enemy  ".center(80))        
+        print("           ║ 1[FIGHT]    2[CHECK]  ║          ".center(80))
+        print("           ║ 3[ITEMS]    4[DEFEND] ║          ".center(80))        
         print("           ╚═══════════════════════╝          ".center(80))
-        print("[1][2][3][4]")
+        print()
+        print("[1][2][3][4]".center(80))
+        print()
+        print("You".center(80))
+        x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP"
+        print(x.center(80))
+        if not You.Stats[8] < 1:
+            x = "+"+str(You.Stats[8])+" ARMOR"
+            print(x.center(80))
+        else:
+            print()
+
+        
         Action = int(input())
 
         if Action == 1:
             Opponent.TakeDamage(playerStats[2])
             os.system("cls")
-            print()
-            print("           ╔═══════════════════════╗          ".center(80))
-            x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP ║<1[FIGHT]>             ║  "+str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
+            print(Opponent.name.center(80))
+            x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
             print(x.center(80))
-            print("   You     ║                       ║   Enemy  ".center(80))        
-            print("           ╚═══════════════════════╝          ".center(80))
-            print(Opponent.name+" took "+str(playerStats[2])+" damage.")
+            print()
+            x = Opponent.name+" took "+str(playerStats[2])+" damage."
+            print(x.center(80))
             time.sleep(2)
 
         elif Action == 2:
@@ -104,11 +123,9 @@ class Battle:
                     os.system("cls")
             
             else:
-                Defend = "yes"
-                return Defend
+                print("You braced yourself...")
 
 
-            input()
 
     def PdetermineStatChange(self,useitem,stat,statNum):
         itemNum = 0
@@ -122,6 +139,10 @@ class Battle:
 
         playerStats[statNum] += data3[itemNum][stat]
 
+    def Defend():
+        Defend = "yes"
+        return Defend
+        
     def EnemyTurn(self):
         if Defend == "no":
             You.TakeDamage(Opponent.attack)
@@ -141,7 +162,7 @@ class Battle:
 
 
 
-enemyInfo(0,0)
+enemyInfo(0,2)
 playerInfo(0)
 items = ConsumableItems()
 

@@ -1,4 +1,4 @@
-import random,time
+import random,time,os
 
 class Enemy:
     def __init__(self, name, hp, maxhp, attack, exp, chance, desc, status):
@@ -11,14 +11,18 @@ class Enemy:
         self.desc = desc
         self.status = status
     def Check(self):
-        print(self.name+":           "+str(self.hp)+"/"+str(self.maxhp)+" HP")
-        print("Attack: "+str(self.attack)+"      Status: "+self.status)
+        x = self.name+":           "+str(self.hp)+"/"+str(self.maxhp)+" HP"
+        print(x.center(80))
+        x = "Attack: "+str(self.attack)+"      Status: "+self.status
+        print(x.center(80))
     def Desc(self):
-            print('"'+str(self.desc)+'"')
-            time.sleep(5)
+            x = '"'+str(self.desc)+'"'
+            print(x.center(80))
+            time.sleep(3)
             
     def Encounter(self):
-        print(self.name+" blocks the way!")
+        x = self.name+" blocks the way!"
+        print(x.center(80))
         time.sleep(3)
 
     def TakeDamage(self,damage):

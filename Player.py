@@ -34,13 +34,18 @@ class Player:
     def TakeDamage(self, EnemyAttack):
         Damage = EnemyAttack
         if self.Stats[7] != "None":
-            Damage *= ((Damage-self.Stats[8]))/100
-            self.Stats[8] -= int(round(Damage,0))
+            Damage *= ((Damage-self.Stats[8]))/Damage
+            Damage = int(Damage)
+            self.Stats[8] = self.Stats[8] - int(round(Damage,0))
 
             if self.Stats[8] < 1:
                 self.Stats[7] = "None"
                 print("Your Armor Has Broke! You Will No Longer Get Reduced Damage Until Another Armor Is Equipped")
-        
+
+        self.Stats[1] -= int(Damage)
+
+        print("You took "+str(Damage)+" damage.")
+
         if self.Stats[1] < 1:
             print("You Have Died! Your Last Health Points Have Been Saved. Please quit the game forever and leave.")
             os.abort()
