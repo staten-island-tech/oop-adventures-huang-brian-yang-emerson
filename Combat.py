@@ -51,8 +51,8 @@ def ConsumableItems():
 
 
 class Battle:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, defend):
+        self.defend = defend
     def PlayerTurn(self):
         os.system("cls")
         print(Opponent.name.center(80))
@@ -136,8 +136,9 @@ class Battle:
                     os.system("cls")
             
         else:
+            os.system("cls")
             print("You braced yourself...")
-
+            E.defend = "yes"
             time.sleep(3)
 
         os.system("cls")
@@ -163,20 +164,28 @@ class Battle:
             print(x)
 
         playerStats[statNum] += data3[itemNum][stat]
-
-    def Defend():
-        Defend = "yes"
-        return Defend
         
     def EnemyTurn(self):
         x = Opponent.name+" attacks you!"
         print(x.center(80))
 
-        if Defend == "no":
+        if E.defend == "no":
             You.TakeDamage(Opponent.attack)
         else:
             You.TakeDamage(Opponent.attack/2)
         
+        print()
+        print("You".center(80))
+
+        x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP"
+        print(x.center(80))
+        
+        if not You.Stats[8] < 1:
+            x = "+"+str(You.Stats[8])+" ARMOR"
+            print(x.center(80))
+        else:
+            print()
+
         time.sleep(3)
 
 
@@ -201,7 +210,7 @@ Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],ene
 You = Player.Player(0,playerStats)
 
 Opponent.Encounter()
-E = Battle()
+E = Battle("no")
 
 while Opponent.hp > 0:
     Defend = "no"

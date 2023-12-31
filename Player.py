@@ -32,7 +32,7 @@ class Player:
                     self.UpdateStats()
     
     def TakeDamage(self, EnemyAttack):
-        Damage = EnemyAttack
+        Damage = int(round(EnemyAttack,0))
         if self.Stats[7] != "None":
             Damage *= ((Damage-self.Stats[8]))/Damage
             Damage = int(Damage)
