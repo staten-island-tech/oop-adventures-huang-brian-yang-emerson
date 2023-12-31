@@ -1,24 +1,27 @@
 [
     {
         "Name": "testing",
-        "Stats":
-        {
+        "Stats": {
             "Gold": 0,
             "HP": 100,
-            "Strength": 10,
+            "Strength": 0,
             "Luck": 0,
             "Level": 1,
             "Vitality": 0
         },
-        "Misc": 
-        {
+        "Misc": {
             "TutorialDone": false
         },
-        "Inventory": ["Final-Stand Potion","Banana"],
-        "Armor": 
-        {
+        "Inventory": [
+            "Final-Stand Potion",
+            "Banana"
+        ],
+        "Armor": {
             "Name": "Flimsy Leather Armor",
             "Durability": 5
+        },
+        "Weapon": {
+            "Name": "Bronze Sword"
         }
     },
     {
@@ -35,10 +38,12 @@
             "TutorialDone": false
         },
         "Inventory": [],
-        "Armor": 
-        {
+        "Armor": {
             "Name": "None",
             "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
         }
     },
     {
@@ -55,10 +60,34 @@
             "TutorialDone": false
         },
         "Inventory": [],
-        "Armor": 
-        {
+        "Armor": {
             "Name": "None",
             "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
+        }
+    },
+    {
+        "Name": "DIO",
+        "Stats": {
+            "Gold": 0,
+            "HP": 100,
+            "Strength": 0,
+            "Luck": 0,
+            "Level": 1,
+            "Vitality": 0
+        },
+        "Misc": {
+            "TutorialDone": false
+        },
+        "Inventory": [],
+        "Armor": {
+            "Name": "None",
+            "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
         }
     }
 ]

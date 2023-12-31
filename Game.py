@@ -1,10 +1,10 @@
-import time, os, random, json, keyboard
+import time, os, random, json
 from itertools import cycle
 
 def Dialogue(Author, Text, Time):
-	print(f"{Author}: ", end="")
+	print(f"{Author}: ", end="", flush=True)
 	for char in Text:
-		print(char, end="")
+		print(char, end="", flush=True)
 		time.sleep(Time)
 
 def Answer(Options: list):
@@ -123,10 +123,10 @@ class PreGame:
 			return self.PlayGame()
 
 		elif MainMenuChoice == 2:
-			return self.FuturePlans()
+			return self.Information()
 
 		else:
-			return self.Information()
+			return self.FuturePlans()
 
 	# << Playing Functions >> #
 	def GetAllSave(self):
@@ -197,7 +197,16 @@ class PreGame:
 
 				"Inventory": [
 
-				]
+				],
+
+				"Armor": {
+					"Name": "None",
+					"Durability": 0
+				},
+
+				"Weapon": {
+					"Name": "None"
+				}
 			}
 
 			Data = self.GetAllSave()
@@ -367,35 +376,38 @@ class PostMenu:
 			GoalCoords = (random.choice([0, 1, 3, 4,]), random.choice([0, 1, 3, 4,]))
 			Map[GoalCoords[0]][GoalCoords[1]] = "[G]"
 
-		while tuple(playerCoords) != GoalCoords:
-			os.system('cls')
-			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
-
-			MapCoorder = [4, 4]
-
-			Previous = playerCoords[:]
-
-			if Movement == 0:
-				playerCoords[0] -= 1
-				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-
-			elif Movement == 1:
-				playerCoords[1] -= 1
-				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-
-			elif Movement == 2:
-				playerCoords[0] += 1
-				playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
-
-			elif Movement == 3:
-				playerCoords[1] += 1
-				playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-
-			Map[Previous[0]][Previous[1]] = '[ ]'
-			Map[playerCoords[0]][playerCoords[1]] = "[P]"
+			while tuple(playerCoords) != GoalCoords:
+				os.system('cls')
+				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
+	
+				MapCoorder = [4, 4]
+	
+				Previous = playerCoords[:]
+	
+				if Movement == 0:
+					playerCoords[0] -= 1
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+	
+				elif Movement == 1:
+					playerCoords[1] -= 1
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+	
+				elif Movement == 2:
+					playerCoords[0] += 1
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
+	
+				elif Movement == 3:
+					playerCoords[1] += 1
+					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
+	
+				Map[Previous[0]][Previous[1]] = '[ ]'
+				Map[playerCoords[0]][playerCoords[1]] = "[P]"
 		
 		os.system('cls')
-		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
+		if TutorialChoice == 0:
+			Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
+		else:
+			Dialogue('Villager', "Oh? Really? Well in that case...\n", 0.1)
 		Dialogue('Villager',"Now You're On Your Own. I'm Too Lazy To Explain The Rest Of The Game\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
@@ -409,7 +421,7 @@ class PostMenu:
 		os.system('cls')
 		Map = [["[ ]" for i in range(10)] for i in range(10)]
 		Goals = [(1, 3), (7, 7)]
-		PlayerStart = [3, 3]
+		PlayerStart = [5, 5]
 		Map[5][5] = "[P]"
 		Map[1][3] = "[B]"
 		Map[7][7] = "[T]"

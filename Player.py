@@ -1,5 +1,11 @@
 import json, os, random
 
+
+with open("Weapon list.json", "r") as f:
+    # Serialize the updated Python list to a JSON string
+    data = json.load(f)
+
+
 class Player:
     def __init__(self, SaveID, Stats):
         self.SaveID = SaveID
@@ -62,3 +68,18 @@ class Player:
 
             if not Found:
                 return random.randint(9, 11)
+
+
+    def Attack(self):
+
+        for i in range(len(data)):
+            if data[i]['Name'] == self.Stats[9]:
+                break
+
+        if self.Stats[9] != "None":
+            attack = random.randint(round(0.9 * data[i]['Attack']), round(1.1 * data[i]['Attack']))
+            attack += self.Stats[2]
+        else:
+            attack = random.randint(9*(self.Stats[2]+1), 11*(self.Stats[2]+1))
+
+        return attack

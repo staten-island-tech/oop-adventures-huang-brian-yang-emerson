@@ -35,6 +35,7 @@ def playerInfo(SaveID):
     playerStats.append(data2[SaveID]['Inventory'])
     playerStats.append(data2[SaveID]['Armor']['Name'])
     playerStats.append(data2[SaveID]['Armor']['Durability'])
+    playerStats.append(data2[SaveID]['Weapon']['Name'])
     playerStats.append([])
 
 def ConsumableItems():
@@ -84,13 +85,14 @@ class Battle:
         Action = int(input())
 
         if Action == 1:
-            Opponent.TakeDamage(playerStats[2])
+            attack = You.Attack()
+            Opponent.TakeDamage(attack)
             os.system("cls")
             print(Opponent.name.center(80))
             x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
             print(x.center(80))
             print()
-            x = Opponent.name+" took "+str(playerStats[2])+" damage."
+            x = Opponent.name+" took "+str(attack)+" damage."
             print(x.center(80))
             time.sleep(2)
 
@@ -145,9 +147,6 @@ class Battle:
 
             
 
-
-
-
     def PdetermineStatChange(self,useitem,stat,statNum):
         itemNum = 0
         for i in range(len(data3)):
@@ -169,10 +168,12 @@ class Battle:
         x = Opponent.name+" attacks you!"
         print(x.center(80))
 
+        attack = Opponent.Attack()
+
         if E.defend == "no":
-            You.TakeDamage(Opponent.attack)
+            You.TakeDamage(attack)
         else:
-            You.TakeDamage(Opponent.attack/2)
+            You.TakeDamage(attack/2)
         
         print()
         print("You".center(80))
@@ -199,8 +200,8 @@ class Battle:
 
 
 
-enemyInfo(0,3)
-playerInfo(0)
+enemyInfo(0,0)
+playerInfo(3)
 items = ConsumableItems()
 
 PlayerMaxHP = playerStats[1]
@@ -213,7 +214,7 @@ Opponent.Encounter()
 E = Battle("no")
 
 while Opponent.hp > 0:
-    Defend = "no"
+    E.defend = "no"
     E.PlayerTurn()
     if Opponent.hp < 1:
             os.system("cls")

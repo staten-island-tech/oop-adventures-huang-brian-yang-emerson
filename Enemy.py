@@ -27,6 +27,10 @@ class Enemy:
 
     def TakeDamage(self,damage):
         self.hp = self.hp - damage
+    
+    def Attack(self):
+        attack = random.randint(round(0.5 * self.attack), round(1.5 * self.attack))
+        return attack
 
     def UpdateStatus(self,effect):
         if effect != "None":

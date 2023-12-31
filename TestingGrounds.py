@@ -49,3 +49,19 @@ Map  = [["#" for i in range(5)] for i in range(5)]
 Map[2][2] = "P"
 
 
+import time
+
+def slow_print(author, text, delay):
+    print(f"{author}: ", end='', flush=True)
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+
+def Dialogue(Author, Text, Time):
+	print(f"{Author}: ", end="", flush=True)
+	for char in Text:
+		print(char, end="", flush=True)
+		time.sleep(Time)
+
+Dialogue("Sans", "Do you want to have a bad time?\n", 0.1)
+Dialogue("Sans", "Because if you take one more step forward...you are REALLY not going to like what happens next.", 0.05)
