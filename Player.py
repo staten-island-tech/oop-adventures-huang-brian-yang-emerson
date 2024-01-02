@@ -1,10 +1,8 @@
 import json, os, random
 
-
 with open("Weapon list.json", "r") as f:
     # Serialize the updated Python list to a JSON string
     data = json.load(f)
-
 
 class Player:
     def __init__(self, SaveID, Stats):
@@ -21,10 +19,13 @@ class Player:
             json.dump(AllData, outfile)
     
     def ETakeDamage(self, EnemyAttack):
+
         for item in self.Stats[len(self.Stats)-1]:
+
             if item["Type"] == "Armor" and item.get("Wearing", None) == True:
-                Damage *= ((EnemyAttack - item["Defense"]) / 100)
-                item['Durability'] -= Damage.round()
+
+                EnemyAttack *= ((EnemyAttack - item["Defense"]) / 100)
+                item['Durability'] -= EnemyAttack.round()
                 
                 if item["Durability"] < 1:
                     self.Stats['inventory'].remove(item)

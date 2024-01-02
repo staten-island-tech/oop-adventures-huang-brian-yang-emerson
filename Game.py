@@ -457,11 +457,16 @@ class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeon = dungeon
 		self.Player = PlayerClass
+		self.Enemies = []
+		self.PlayerTurn = random.choice([False, True])
 
 	def StartDungeon(self):
 
 		with open("DData.json", mode='r') as infile:
 			AllDungeonData = json.load(infile)
 
-		DungeonData = AllDungeonData[self.dungeon]
+		self.dungeon = AllDungeonData[self.dungeon]
+
+		
+
 
