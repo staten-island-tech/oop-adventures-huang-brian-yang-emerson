@@ -13,9 +13,9 @@ class Shop:
         print("Inventory:")
         for i in range(len(self.items)):
             if i == Selected:
-                print("|| ==> "+self.items[i]+": "+str(self.costs[i])+"G")
+                print("║ ==> "+self.items[i]+": "+str(self.costs[i])+"G")
             else:
-                print("||     "+self.items[i]+": "+str(self.costs[i])+"G")
+                print("║     "+self.items[i]+": "+str(self.costs[i])+"G")
         
         print()
 
@@ -35,19 +35,25 @@ class Shop:
     def NavigateShop(self,Selected):
         Navigate = input()
         Navigate = Navigate.upper()
-
         if Navigate == "W":
-            if not Selected < 0:
+            if not Selected < 1:
                 Selected -= 1
             else:
-                Selected = len(self.items)
+                Selected = len(self.items)-1
         if Navigate == "S":
             if not Selected > len(self.items)-2:
                 Selected += 1
             else:
                 Selected = 0
         if Navigate == "A":
-            self.Buy(self.items[Selected])
+            try:
+                self.Buy(self.items[Selected])
+                if Selected >= len(self.items):
+                    Selected = len(self.items) - 1        
+            except:
+                print("Looks like there is nothing for you to buy...")
+                time.sleep(5)
+                os.abort()
         
         return Selected
 
