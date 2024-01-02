@@ -41,6 +41,7 @@ def playerInfo(SaveID):
     playerStats.append(data2[SaveID]['Armor']['Durability'])
     playerStats.append(data2[SaveID]['Weapon']['Name'])
     playerStats.append([])
+    return playerStats
 
 def ConsumableItems():
     items = []
@@ -93,6 +94,7 @@ class Battle:
             print("You".center(80))
             x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP"
             print(x.center(80))
+            print(str(PStamina).center(80))
             if not You.Stats[8] < 1:
                 x = "+"+str(You.Stats[8])+" ARMOR"
                 print(x.center(80))
@@ -113,16 +115,20 @@ class Battle:
                 Action = 0
     
         if Action == 1:
-            attack = You.Attack()
-            Opponent.TakeDamage(attack)
-            os.system("cls")
-            print(Opponent.name.center(80))
-            x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
-            print(x.center(80))
-            print()
-            x = Opponent.name+" took "+str(attack)+" damage."
-            print(x.center(80))
-            time.sleep(2)
+            if not PStamina < 5:
+                attack = You.Attack()
+                Opponent.TakeDamage(attack)
+                os.system("cls")
+                print(Opponent.name.center(80))
+                x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
+                print(x.center(80))
+                print()
+                x = Opponent.name+" took "+str(attack)+" damage."
+                print(x.center(80))
+                PStamina -= 5
+                time.sleep(2)
+            else:
+                print("You don't have enough stamina!")
 
         elif Action == 2:
             os.system("cls")
@@ -158,6 +164,7 @@ class Battle:
                     E.PdetermineStatChange(useitem,'HP',1)
                     E.PdetermineStatChange(useitem,'Attack',2)
                     E.PdetermineStatChange(useitem,'Defense',5)
+        
                     
                     time.sleep(3)
 
@@ -260,10 +267,9 @@ class Battle:
                 print(x.center(80))
 
     def Effects(self):
-        for i in range(len(You.Stats[10])):
+        for i in range(len(You.Stats[10])-1):
             e = 0
-
-            for e in range(len(data4)):
+            for e in range(len(data4)-1):
                 if data4[e]['Name'] == You.Stats[10][i][0]:
                     break
             
@@ -284,7 +290,6 @@ class Battle:
 
 
 
-
         
 
 
@@ -292,15 +297,16 @@ class Battle:
 
 
         
-dungeonNum = 2
-enemyNum = 3
+dungeonNum = 1
+enemyNum = 2
 
 
 enemyInfo(dungeonNum,enemyNum)
-playerInfo(0)
+playerStats = playerInfo(0)
 items = ConsumableItems()
 
 PlayerMaxHP = 100 + playerStats[5]*10
+PStamina = 100
 
 os.system("cls")
 Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5],"None")
@@ -310,6 +316,7 @@ EnemyAbilities = EnemySpecialAbilities(Opponent.name)
 
 Opponent.Encounter(data[dungeonNum]['LevelReq'],You.Stats[4])
 E = Battle("no")
+
 
 while Opponent.hp > 0:
     E.defend = "no"
