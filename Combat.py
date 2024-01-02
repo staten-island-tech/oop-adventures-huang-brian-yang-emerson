@@ -1,4 +1,4 @@
-import Enemy,Player,json,os,time
+import Enemy,Player,json,os,time,random
 
 
 with open("DData.json", "r") as f:
@@ -12,6 +12,10 @@ with open("Saves.json", "r") as f:
 with open("ItemList.json", "r") as f:
     # Serialize the updated Python list to a JSON string
     data3 = json.load(f)
+
+with open("StatusList.json", "r") as f:
+    # Serialize the updated Python list to a JSON string
+    data4 = json.load(f)
 
 enemy = []
 playerStats = []
@@ -49,41 +53,65 @@ def ConsumableItems():
                 break
     return items
 
+def EnemySpecialAbilities(name):
+    if name == "Cursed Mummy":
+        EnemyAbilities = [["Poisoned",25,3],["Burned",25,3]]
+    elif name == "Eyed Coffin":
+        EnemyAbilities = [["Poisoned",75,3],["Burned",75,3]]
+    else:
+        EnemyAbilities = "None"
+
+    return EnemyAbilities
+
+
 
 
 class Battle:
     def __init__(self, defend):
         self.defend = defend
     def PlayerTurn(self):
-        os.system("cls")
-        print(Opponent.name.center(80))
-        x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
-        print(x.center(80))
-        if Opponent.status != "None":
-            print(Opponent.status.upper().center(80))
-        else:
-            print()
-        print()
-        print("What do you do?".center(80))
-        print("           ╔═══════════════════════╗          ".center(80))
-        print("           ║ 1[FIGHT]    2[CHECK]  ║          ".center(80))
-        print("           ║ 3[ITEMS]    4[DEFEND] ║          ".center(80))        
-        print("           ╚═══════════════════════╝          ".center(80))
-        print()
-        print("[1][2][3][4]".center(80))
-        print()
-        print("You".center(80))
-        x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP"
-        print(x.center(80))
-        if not You.Stats[8] < 1:
-            x = "+"+str(You.Stats[8])+" ARMOR"
+        Action = 0
+        while Action == 0:
+
+            os.system("cls")
+            print(Opponent.name.center(80))
+            x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
             print(x.center(80))
-        else:
+            if Opponent.status != "None":
+                print(Opponent.status.upper().center(80))
+            else:
+                print()
             print()
-
-        
-        Action = int(input())
-
+            print("What do you do?".center(80))
+            print("           ╔═══════════════════════╗          ".center(80))
+            print("           ║ 1[FIGHT]    2[CHECK]  ║          ".center(80))
+            print("           ║ 3[ITEMS]    4[DEFEND] ║          ".center(80))        
+            print("           ╚═══════════════════════╝          ".center(80))
+            print()
+            print("[1][2][3][4]".center(80))
+            print()
+            print("You".center(80))
+            x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP"
+            print(x.center(80))
+            if not You.Stats[8] < 1:
+                x = "+"+str(You.Stats[8])+" ARMOR"
+                print(x.center(80))
+            else:
+                print()
+    
+            if not len(You.Stats[10]) < 1:
+                for i in range(len(You.Stats[10])):
+                    x = You.Stats[10][i][0] + "("+str(You.Stats[10][i][1])+")"
+                    print(x.upper().center(80))
+            else:
+                print()
+    
+            
+            try:
+                Action = int(input())
+            except:
+                Action = 0
+    
         if Action == 1:
             attack = You.Attack()
             Opponent.TakeDamage(attack)
@@ -158,7 +186,7 @@ class Battle:
             if data3[itemNum][stat] >= 0:
                 x = "Your "+stat+" was increased by "+str(data3[itemNum][stat])+"!"
             else:
-                x = "Your "+stat+" was dncreased by "+str(abs(data3[itemNum][stat]))+"!"
+                x = "Your "+stat+" was decreased by "+str(abs(data3[itemNum][stat]))+"!"
             
             print(x)
 
@@ -187,30 +215,100 @@ class Battle:
         else:
             print()
 
+        if EnemyAbilities != "None":
+            E.ApplyEffects()
+        
+        time.sleep(3)
+
+    def ApplyEffects(self):
+
+        for i in range(len(EnemyAbilities)):
+            e = 0
+            if random.randint(0,100) <= EnemyAbilities[i][1]:
+                already = "no"
+                for e in range(len(You.Stats[10])):
+                    if EnemyAbilities[i][0] in You.Stats[10][e]:
+                        already = "yes"
+                        break
+
+                if already == "no":
+                    You.Stats[10].append([EnemyAbilities[i][0],EnemyAbilities[i][2]])
+                    x = "You have been "+EnemyAbilities[i][0].upper()+"!"
+
+                    E.initialEffect()
+                else:
+                    You.Stats[10][e][1] = EnemyAbilities[i][2]
+                    x = EnemyAbilities[i][0].upper()+" has been reapplied."
+                
+                print(x)
+
+    def initialEffect(self):
+        for i in range(len(You.Stats[10])):
+            e = 0
+
+            for e in range(len(data4)):
+                if data4[e]['Name'] == You.Stats[10][i][0]:
+                    break
+            
+            if data4[e]['Health'][1] != 0:
+                You.Stats[1] += data4[e]['Health'][1]
+                x = ""
+                if data4[e]['Health'][1] < 0:
+                    x = str(data4[e]['Health'][1])+" initial HP ["+You.Stats[10][i][0].upper()+"]"
+                else:
+                    x = "+"+str(data4[e]['Health'][1])+" initial HP ["+You.Stats[10][i][0].upper()+"]"
+                print(x.center(80))
+
+    def Effects(self):
+        for i in range(len(You.Stats[10])):
+            e = 0
+
+            for e in range(len(data4)):
+                if data4[e]['Name'] == You.Stats[10][i][0]:
+                    break
+            
+            if data4[e]['Health'][1] != 0:
+                You.Stats[1] += data4[e]['Health'][1]
+                You.Stats[10][i][1] -= 1
+                x = ""
+                if data4[e]['Health'][1] < 0:
+                    x = str(data4[e]['Health'][1])+" HP ["+You.Stats[10][i][0].upper()+"]"
+                else:
+                    x = "+"+str(data4[e]['Health'][1])+" HP ["+You.Stats[10][i][0].upper()+"]"
+                print(x.center(80))
+
+            if You.Stats[10][i][1] < 1:
+                You.Stats[10].remove(You.Stats[10][i])
+        
         time.sleep(3)
 
 
-        
-
-
-
 
 
         
 
 
 
-enemyInfo(0,0)
-playerInfo(3)
+
+
+        
+dungeonNum = 2
+enemyNum = 3
+
+
+enemyInfo(dungeonNum,enemyNum)
+playerInfo(0)
 items = ConsumableItems()
 
-PlayerMaxHP = playerStats[1]
+PlayerMaxHP = 100 + playerStats[5]*10
 
 os.system("cls")
 Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5],"None")
 You = Player.Player(0,playerStats)
 
-Opponent.Encounter()
+EnemyAbilities = EnemySpecialAbilities(Opponent.name)
+
+Opponent.Encounter(data[dungeonNum]['LevelReq'],You.Stats[4])
 E = Battle("no")
 
 while Opponent.hp > 0:
@@ -224,3 +322,5 @@ while Opponent.hp > 0:
             print("You gained "+str(Opponent.exp)+" EXP!")
             exit()
     E.EnemyTurn()
+    if EnemyAbilities != "None":
+        E.Effects()

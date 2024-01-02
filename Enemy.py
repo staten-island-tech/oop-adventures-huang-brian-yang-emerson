@@ -20,9 +20,15 @@ class Enemy:
             print(x.center(80))
             time.sleep(3)
             
-    def Encounter(self):
-        x = self.name+" blocks the way!"
-        print(x)
+    def Encounter(self,dungeonlvl,playerlvl):
+        if not playerlvl > dungeonlvl + 25:
+            EncounterTxt = [self.name+" blocks the way!", self.name+" approaches you!", self.name+" makes its appearance!", "It's "+self.name+"!"]
+        else:
+            EncounterTxt = [self.name+" is in YOUR way...", "YOU approached "+self.name+"...", "YOU appeared before "+self.name+"...", "It was "+self.name+"..."]
+
+        txtNum = random.randint(0,len(EncounterTxt)-1)
+
+        print(EncounterTxt[txtNum])
         time.sleep(3)
 
     def TakeDamage(self,damage):

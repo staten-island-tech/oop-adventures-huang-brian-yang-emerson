@@ -40,9 +40,15 @@ class Player:
     def TakeDamage(self, EnemyAttack):
         Damage = int(round(EnemyAttack,0))
         if self.Stats[7] != "None":
+
             Damage *= ((Damage-self.Stats[8]))/Damage
             Damage = int(Damage)
-            self.Stats[8] = self.Stats[8] - int(round(Damage,0))
+
+            self.Stats[8] = self.Stats[8] - int(round(EnemyAttack,0))
+
+            if Damage < 0:
+                Damage = 0
+
 
             if self.Stats[8] < 1:
                 self.Stats[7] = "None"

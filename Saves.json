@@ -3,14 +3,14 @@
         "Name": "testing",
         "Stats": {
             "Gold": 0,
-            "HP": 100,
-            "Strength": 0,
+            "HP": 400,
+            "Strength": 30,
             "Luck": 0,
-            "Level": 1,
-            "Vitality": 0
+            "Level": 30,
+            "Vitality": 30
         },
         "Misc": {
-            "TutorialDone": false
+            "TutorialDone": true
         },
         "Inventory": [
             "Final-Stand Potion",

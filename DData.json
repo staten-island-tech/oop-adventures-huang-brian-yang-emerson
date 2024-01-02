@@ -45,8 +45,10 @@
                 "Desc": "A group of Goblin gangs up on you!"
             }
         ],
-        "Loot": {
-            "Simple Spear": {
+        "Loot":
+        [
+            {
+                "Name": "Simple Spear",
                 "Damage": 15,
                 "Durability": 100,
                 "Rarity": "Common",
@@ -54,7 +56,8 @@
                 "Equipped": false,
                 "Chance": 65
             },
-            "SlingShot": {
+            {
+                "Name": "Slingshot",
                 "Damage": 20,
                 "Durability": 50,
                 "Rarity": "Uncommon",
@@ -62,14 +65,16 @@
                 "Equipped": false,
                 "Chance": 25
             },
-            "Club": {
+            {
+                "Name": "Club",
                 "Damage": 25,
                 "Durability": 100,
                 "Rarity": "Rare",
+                "Quantity": 1,
                 "Equipped": false,
                 "Chance": 10
             }
-        }
+        ]
     },
     
     {
@@ -115,7 +120,7 @@
                 "Attack": 5,
                 "Exp": 50,
                 "Chance": 1,
-                "Desc": "The darkness consumes all..."
+                "Desc": "The darkness touches all..."
             }
         ]
     },
@@ -193,7 +198,7 @@
                 "Attack": 200,
                 "Exp": 200,
                 "Chance": 5,
-                "Desc": "Flames dark as their soul"
+                "Desc": "Flames as dark as their soul"
             },
             {
                 "Name": "Demon king",
