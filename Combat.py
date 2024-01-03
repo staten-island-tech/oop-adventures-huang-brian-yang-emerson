@@ -68,10 +68,11 @@ def EnemySpecialAbilities(name):
 
 
 class Battle:
-    def __init__(self, defend, PStamina, PDefense):
+    def __init__(self, defend, PStamina, PDefense, UsedItems):
         self.defend = defend
         self.PStamina = PStamina
         self.PDefense = PDefense
+        self.UsedItems = UsedItems
     def PlayerTurn(self):
         Action = 0
         while Action == 0:
@@ -172,6 +173,7 @@ class Battle:
                     E.PdetermineStatChange(useitem,'Defense',0)
                     E.PdetermineStatChange(useitem,'Stamina',0)
                     
+                    E.UsedItems.append(useitem)
                     items.remove(useitem)
 
                     time.sleep(3)
@@ -363,7 +365,7 @@ class Battle:
 
 
         
-dungeonNum = 3
+dungeonNum = 0
 enemyNum = 3
 
 
@@ -374,21 +376,24 @@ items = ConsumableItems()
 PlayerMaxHP = 100 + playerStats[5]*10
 PMaxStamina = 10 + playerStats[4]*5
 PDefense = playerStats[4]
+SaveID = 0
 
 os.system("cls")
 Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5],"None")
-You = Player.Player(0,playerStats)
+You = Player.Player(SaveID,playerStats)
 
 EnemyAbilities = EnemySpecialAbilities(Opponent.name)
 
 Opponent.Encounter(data[dungeonNum]['LevelReq'],You.Stats[4])
-E = Battle("no", PMaxStamina, PDefense)
+E = Battle("no", PMaxStamina, PDefense, [])
 
 
 while Opponent.hp > 0:
     E.defend = "no"
     if random.randint(1,2) == 1:
         E.PlayerTurn()
+        if Opponent.hp < 1:
+            break
         E.EnemyTurn()
     else:
         E.EnemyTurn()
@@ -401,4 +406,14 @@ print("You win!")
 time.sleep(3)
 os.system("cls")
 print("You gained "+str(Opponent.exp)+" EXP!")
+
+for i in range(len(E.UsedItems)):
+        data2[SaveID]['Inventory'].remove(E.UsedItems[i])
+
+data2[SaveID]['Armor']['Name'] = You.Stats[7]
+data2[SaveID]['Armor']['Durability'] = You.Stats[8]
+
+with open('Saves.json', mode='w') as outfile:
+    json.dump(data2, outfile, indent=4)
+
 exit()

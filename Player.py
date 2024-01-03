@@ -5,6 +5,10 @@ with open("Weapon list.json", "r") as f:
     # Serialize the updated Python list to a JSON string
     data = json.load(f)
 
+with open("Weapon list.json", "r") as f:
+    # Serialize the updated Python list to a JSON string
+    data2 = json.load(f)
+
 
 class Player:
     def __init__(self, SaveID, Stats):
