@@ -47,8 +47,8 @@ def GenerateTip():
 class PreGame:
 	def __init__(self):
 		self.loading_done = False
-		self.SaveID = None
-		self.SaveData = None
+		self.SaveID = 0
+		self.SaveData = {}
 
 		pass
 
@@ -223,9 +223,6 @@ class PreGame:
 			self.SaveData = NewData
 			self.SaveID = len(Data) - 1
 
-			print(self.SaveData, self.SaveID)
-			time.sleep(50)
-
 			return len(Data) - 1, NewData
 
 		else:
@@ -345,10 +342,12 @@ class PreGame:
 			elif SavesChoice == 3:
 				return self.PlayGame()
 			
+	def GetVariable(self):
+		return self.SaveID, self.SaveData
+			
 class PostMenu(PreGame):
 	def __init__(self):
 		super().__init__()
-		print(self.SaveData, self.SaveID)
 
 	def ClampCoords(self, PlayerCoord: list, GameMapCoorder: list):
 		if PlayerCoord[0] > GameMapCoorder[0]:
@@ -426,8 +425,11 @@ class PostMenu(PreGame):
 		Dialogue("Villager", "Goodbye.", 0.5) 
 
 	def TavernStart(self):
+		self.SaveID, self.SaveData = super().GetVariable()
+		
 		os.system("cls")
 
+		print(self.SaveID, self.SaveData)
 		if self.SaveData['Misc']['TutorialDone'] == False:
 			self.Tutorial()
 
