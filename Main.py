@@ -2,7 +2,7 @@ import Game, Effects, Enemy, Player, os, win11toast
 
 def Main():
     win11toast.toast("Que Pro")
-    
+
     PreGame = Game.PreGame()
 
     # << PreGame Should Return The Data >> #
@@ -12,7 +12,7 @@ def Main():
     player = Player.Player(SaveID, SaveData)
 
     # << Start The Game >> # 
-    PostMainMenu = Game.PostMenu(SaveID, SaveData)
+    PostMainMenu = Game.PostMenu()
 
     PostMainMenu.TavernStart()
 

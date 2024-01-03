@@ -47,6 +47,9 @@ def GenerateTip():
 class PreGame:
 	def __init__(self):
 		self.loading_done = False
+		self.SaveID = None
+		self.SaveData = None
+
 		pass
 
 	# << Main Menu Functions >> #
@@ -217,6 +220,12 @@ class PreGame:
 
 			self.Load("Loading Save...", 10)
 
+			self.SaveData = NewData
+			self.SaveID = len(Data) - 1
+
+			print(self.SaveData, self.SaveID)
+			time.sleep(50)
+
 			return len(Data) - 1, NewData
 
 		else:
@@ -266,6 +275,10 @@ class PreGame:
 
 		if SelectedSaveOption == 0:
 			self.Load("Loading Save", 5)
+
+			self.SaveData = Data
+			self.SaveID = SaveID
+
 			return SaveID, Data
 
 		elif SelectedSaveOption == 1:
@@ -294,10 +307,10 @@ class PreGame:
 			return self.NewSave()
 
 		elif SavesMenuChoice == 1:
-			print("ooga")
+
 			if len(Data) > 0:
-				print('nuh uh')
 				return self.SaveMenu(Data)
+			
 			else:
 				return self.PlayGame()
 
@@ -332,10 +345,10 @@ class PreGame:
 			elif SavesChoice == 3:
 				return self.PlayGame()
 			
-class PostMenu:
-	def __init__(self, SaveID, SaveData) -> None:
-		self.SaveID = SaveID
-		self.SaveData = SaveData
+class PostMenu(PreGame):
+	def __init__(self):
+		super().__init__()
+		print(self.SaveData, self.SaveID)
 
 	def ClampCoords(self, PlayerCoord: list, GameMapCoorder: list):
 		if PlayerCoord[0] > GameMapCoorder[0]:
@@ -457,7 +470,8 @@ class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeon = dungeon
 		self.Player = PlayerClass
-		self.Enemies = []
+		self.Enemies = {"tester": {"CurrentEffects": {"Burn": {}}}}
+
 		self.PlayerTurn = random.choice([False, True])
 
 	def StartDungeon(self):
@@ -466,7 +480,3 @@ class Dungeon:
 			AllDungeonData = json.load(infile)
 
 		self.dungeon = AllDungeonData[self.dungeon]
-
-		
-
-

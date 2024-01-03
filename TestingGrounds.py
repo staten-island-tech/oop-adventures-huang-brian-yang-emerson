@@ -56,3 +56,14 @@ try:
     py()
 except:
     print("there was something wrong with the program")
+
+# << What in the world does Enum Do again???? >> #
+from enum import Enum
+
+class enumtester(Enum):
+    e = 1
+    f = 3
+
+
+print(enumtester.e.value)
+print(enumtester.e.name)

@@ -1,31 +1,6 @@
 [
     {
-        "Name": "testing",
-        "Stats": {
-            "Gold": 0,
-            "HP": 100,
-            "Strength": 0,
-            "Luck": 0,
-            "Level": 1,
-            "Vitality": 0
-        },
-        "Misc": {
-            "TutorialDone": false
-        },
-        "Inventory": [
-            "Final-Stand Potion",
-            "Banana"
-        ],
-        "Armor": {
-            "Name": "Flimsy Leather Armor",
-            "Durability": 5
-        },
-        "Weapon": {
-            "Name": "Bronze Sword"
-        }
-    },
-    {
-        "Name": "DIO",
+        "Name": "Please help",
         "Stats": {
             "Gold": 0,
             "HP": 100,
@@ -47,7 +22,29 @@
         }
     },
     {
-        "Name": "Que Pro",
+        "Name": "y",
+        "Stats": {
+            "Gold": 0,
+            "HP": 100,
+            "Strength": 0,
+            "Luck": 0,
+            "Level": 1,
+            "Vitality": 0
+        },
+        "Misc": {
+            "TutorialDone": false
+        },
+        "Inventory": [],
+        "Armor": {
+            "Name": "None",
+            "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
+        }
+    },
+    {
+        "Name": "I hate myself",
         "Stats": {
             "Gold": 0,
             "HP": 100,
