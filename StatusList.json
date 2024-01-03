@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Burned",
+        "Name": "Burn",
         "Health": [0,-2],
         "Defense": [-2,0],
         "Attack": [0,0],
@@ -9,7 +9,7 @@
         "Accuracy": [0,0]
     },
     {
-        "Name": "Poisoned",
+        "Name": "Poison",
         "Health": [0,-1],
         "Defense": [0,0],
         "Attack": [-2,0],
@@ -18,7 +18,7 @@
         "Accuracy": [0,0]
     },
     {
-        "Name": "Intoxicated",
+        "Name": "Intoxication",
         "Health": [0,0],
         "Defense": [5,0],
         "Attack": [-1,0],
