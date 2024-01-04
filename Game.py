@@ -50,8 +50,6 @@ class PreGame:
 		self.SaveID = 0
 		self.SaveData = {}
 
-		pass
-
 	# << Main Menu Functions >> #
 	def Information(self):
 		print("Information: Clean Up On Isle 9 Please".center(80))

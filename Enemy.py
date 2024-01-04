@@ -1,6 +1,20 @@
 import random,time
 
 class Enemy:
+    def __init__(self, name, hp, attack, exp, chance, description, movementchance) -> None:
+        self.name = name
+        self.hp = hp
+        self.attack = attack
+        self.exp = exp
+        self.chance = chance
+        self.description = description
+        self.movementchance = movementchance
+        self.CurrentEffects = {}
+    
+    def TakeDamage(self):
+        pass
+
+class Enemy:
     def __init__(self, name, hp, maxhp, attack, exp, chance, desc, status):
         self.name = name
         self.hp = hp
