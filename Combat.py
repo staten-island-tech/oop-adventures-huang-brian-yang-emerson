@@ -365,7 +365,7 @@ class Battle:
 
 
         
-dungeonNum = 0
+dungeonNum = 3
 enemyNum = 3
 
 

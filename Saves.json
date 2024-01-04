@@ -15,14 +15,15 @@
         "Inventory": [
             "Final-Stand Potion",
             "Final-Stand Potion",
+            "Final-Stand Potion",
             "Hero's Armor"
         ],
         "Armor": {
-            "Name": "Flimsy Leather Armor",
-            "Durability": 5
+            "Name": "Hero's Armor",
+            "Durability": 80
         },
         "Weapon": {
-            "Name": "Bronze Sword"
+            "Name": "Thor's hammer"
         }
     },
     {
