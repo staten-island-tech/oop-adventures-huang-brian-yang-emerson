@@ -47,7 +47,8 @@ def GenerateTip():
 class PreGame:
 	def __init__(self):
 		self.loading_done = False
-		pass
+		self.SaveID = 0
+		self.SaveData = {}
 
 	# << Main Menu Functions >> #
 	def Information(self):
@@ -217,6 +218,9 @@ class PreGame:
 
 			self.Load("Loading Save...", 10)
 
+			self.SaveData = NewData
+			self.SaveID = len(Data) - 1
+
 			return len(Data) - 1, NewData
 
 		else:
@@ -266,6 +270,10 @@ class PreGame:
 
 		if SelectedSaveOption == 0:
 			self.Load("Loading Save", 5)
+
+			self.SaveData = Data
+			self.SaveID = SaveID
+
 			return SaveID, Data
 
 		elif SelectedSaveOption == 1:
@@ -294,10 +302,10 @@ class PreGame:
 			return self.NewSave()
 
 		elif SavesMenuChoice == 1:
-			print("ooga")
+
 			if len(Data) > 0:
-				print('nuh uh')
 				return self.SaveMenu(Data)
+			
 			else:
 				return self.PlayGame()
 
@@ -332,10 +340,12 @@ class PreGame:
 			elif SavesChoice == 3:
 				return self.PlayGame()
 			
-class PostMenu:
-	def __init__(self, SaveID, SaveData) -> None:
-		self.SaveID = SaveID
-		self.SaveData = SaveData
+	def GetVariable(self):
+		return self.SaveID, self.SaveData
+			
+class PostMenu(PreGame):
+	def __init__(self):
+		super().__init__()
 
 	def ClampCoords(self, PlayerCoord: list, GameMapCoorder: list):
 		if PlayerCoord[0] > GameMapCoorder[0]:
@@ -413,8 +423,11 @@ class PostMenu:
 		Dialogue("Villager", "Goodbye.", 0.5) 
 
 	def TavernStart(self):
+		self.SaveID, self.SaveData = super().GetVariable()
+		
 		os.system("cls")
 
+		print(self.SaveID, self.SaveData)
 		if self.SaveData['Misc']['TutorialDone'] == False:
 			self.Tutorial()
 
@@ -457,11 +470,13 @@ class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeon = dungeon
 		self.Player = PlayerClass
+		self.Enemies = {"tester": {"CurrentEffects": {"Burn": {}}}}
+
+		self.PlayerTurn = random.choice([False, True])
 
 	def StartDungeon(self):
 
 		with open("DData.json", mode='r') as infile:
 			AllDungeonData = json.load(infile)
 
-		DungeonData = AllDungeonData[self.dungeon]
-
+		self.dungeon = AllDungeonData[self.dungeon]
