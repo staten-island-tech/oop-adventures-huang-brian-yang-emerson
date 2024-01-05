@@ -1,4 +1,4 @@
-import os
+import os, json
 
 class Map:
     def __init__(self,map):
@@ -6,7 +6,7 @@ class Map:
     def PrintMap(self):
         os.system("cls")
         for i in self.map:
-            print(''.join(i))
+            Map.PrintRow(self.map[i]+"\n")
     def Move(self):
         movement = input()
         movement = movement.upper()
@@ -28,25 +28,39 @@ class Map:
             x -= 1
             if x < 0:
                 x += 1
-        if not self.map[y][x] == "#":
+        if not self.map[y][x] == "[#]":
             xy[0] = x
             xy[1] = y
 
         return xy
         
+    def PrintRow(Text):
+    	print(f"", end="", flush=True) 
+        for char in Text:
+            print(char, end="", flush=True)
+
+    def DetermineMapNum(Name):
+        for i in range(len(data)):
+            if Name == data[i]['name']:
+                Num = i
+                return Num
         
+
+with open("Maps.json", "r") as f:
+    # Serialize the updated Python list to a JSON string
+    data = json.load(f)
+    ##Call classes in here
 
 xy = [0,0]                
 
 for i in range(100):
     x = xy[0]
     y = xy[1]
+    Name = "Desert Pyramid"
+    Num = Map.DetermineMapNum(Name)
+    dungeon = data[Num]
+    dungeon[y][x] = "[P]"
 
-    Template = [["." for i in range(10)] for i in range(5)]
-    Template[4] = ["#" for i in range(10)]
-    Template[3][3] = "#"
-    Template[y][x] = "P"
-
-    e = Map(Template)
+    e = Map(dungeon)
     e.PrintMap()
     xy = e.Move()
