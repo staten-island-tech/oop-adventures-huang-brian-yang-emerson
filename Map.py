@@ -6,7 +6,7 @@ class Map:
     def PrintMap(self):
         os.system("cls")
         for i in self.map:
-            Map.PrintRow(self.map[i]+"\n")
+            print(str(i))
     def Move(self):
         movement = input()
         movement = movement.upper()
@@ -35,7 +35,7 @@ class Map:
         return xy
         
     def PrintRow(Text):
-    	print(f"", end="", flush=True) 
+        print(f"", end="", flush=True) 
         for char in Text:
             print(char, end="", flush=True)
 
@@ -58,7 +58,7 @@ for i in range(100):
     y = xy[1]
     Name = "Desert Pyramid"
     Num = Map.DetermineMapNum(Name)
-    dungeon = data[Num]
+    dungeon = data[Num]['map']
     dungeon[y][x] = "[P]"
 
     e = Map(dungeon)
