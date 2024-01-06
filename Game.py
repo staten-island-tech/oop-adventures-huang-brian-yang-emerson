@@ -59,7 +59,9 @@ class PreGame:
 
 	def FuturePlans(self):
 		print("Future Plans As Of Currently:".center(80))
-		print("1. Finish The Game".center(80))
+		print("1. Migrate Maps To Json Files For Easier Usage".center(80))
+		print("2. Better Maps And Map Handling".center(80))
+		print("3. Finish Construction Of Game (Currently Under Construction) -> Will Throw Error".cneter(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
