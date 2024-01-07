@@ -16,7 +16,7 @@ def MakeMap():
         PrintMap(Map)
     
         print("1 = [ ]")
-        print("2 = [#]")
+        print("2 = Skip a unit")
         print("8 = Delete Row")
         print("9 = Next Row")
         print("0 = Done")
@@ -28,7 +28,7 @@ def MakeMap():
             if Action == 1:
                 Map[RowNum].append("[ ]")
             if Action == 2:
-                Map[RowNum].append("[#]")
+                Map[RowNum].append("   ")
             if Action == 8:
                 Map[RowNum] = []
             if Action == 9:
@@ -44,17 +44,18 @@ def MakeMap():
 def PrintMap(Map):
     os.system("cls")
     for i in range(len(Map)):
+        Row = ''.join(Map[i])
+        Row = Row+"\n"
         print(f"", end="", flush=True)
-        for char in Map[i]:
+        for char in Row:
             print(char, end="", flush=True)
-        
-        print("\n")
+
 
 def Fix():
     Longest = DetermineLongest()
     for i in range(len(Map)):
         for e in range(Longest - len(Map[i])):
-            Map[i].append("[#]")
+            Map[i].append("   ")
             print(Map[i])
     
     return Map

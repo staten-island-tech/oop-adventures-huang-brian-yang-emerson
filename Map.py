@@ -6,7 +6,8 @@ class Map:
     def PrintMap(self):
         os.system("cls")
         for i in self.map:
-            print(str(i))
+            Row = ''.join(i)
+            print(Row)
     def Move(self):
         movement = input()
         movement = movement.upper()
@@ -28,23 +29,17 @@ class Map:
             x -= 1
             if x < 0:
                 x += 1
-        if not self.map[y][x] == "[#]":
+        print(self.map[y][x])
+        if not self.map[y][x] == "   ":
             xy[0] = x
             xy[1] = y
 
         return xy
-        
-    def PrintRow(Text):
-        print(f"", end="", flush=True) 
-        for char in Text:
-            print(char, end="", flush=True)
-
     def DetermineMapNum(Name):
         for i in range(len(data)):
             if Name == data[i]['name']:
                 Num = i
                 return Num
-        
 
 with open("Maps.json", "r") as f:
     # Serialize the updated Python list to a JSON string
@@ -54,11 +49,11 @@ with open("Maps.json", "r") as f:
 xy = [0,0]                
 
 for i in range(100):
-    x = xy[0]
-    y = xy[1]
     Name = "Desert Pyramid"
     Num = Map.DetermineMapNum(Name)
     dungeon = data[Num]['map']
+    x = xy[0]
+    y = xy[1]
     dungeon[y][x] = "[P]"
 
     e = Map(dungeon)
