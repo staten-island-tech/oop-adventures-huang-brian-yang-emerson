@@ -45,11 +45,11 @@ with open("Maps.json", "r") as f:
     data = json.load(f)
     ##Call classes in here
                
-Name = "Dark Purgatory"
+Name = "Grass Isle"
 Num = Map.DetermineMapNum(Name)
 dungeon = data[Num]['map']
-x = data[Num]['start x']
-y = data[Num]['start y']
+x = data[Num]['StartX']
+y = data[Num]['StartY']
 e = Map(dungeon,x,y)
 
 for i in range(100):

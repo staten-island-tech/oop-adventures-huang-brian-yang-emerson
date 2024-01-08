@@ -4,9 +4,11 @@ os.system("cls")
 
 ## Create Class for creating new dictionaries here
 class MapMaker():
-    def __init__(self,name,map):
+    def __init__(self,name,map,StartX,StartY):
         self.name = name
-        self.map = map
+        self.map = map,
+        self.StartX = StartX
+        self.StartY = StartY
 
 def MakeMap():
     Map = [[]]
@@ -97,7 +99,7 @@ while StartX == None:
 StartY = None
 while StartY == None:
     try:
-        StartY = input("Player start x? ")
+        StartY = input("Player start y? ")
     except:
         os.system("cls")
         StartY = None
@@ -107,7 +109,7 @@ Map = Fix()
 PrintMap(Map)
 
 
-Dungeon = MapMaker(Name,Map,StartX,StartY)
+Dungeon = MapMaker(Name,Map,int(StartX),int(StartY))
 data.append(Dungeon.__dict__)
 print(Dungeon.__dict__)
 
