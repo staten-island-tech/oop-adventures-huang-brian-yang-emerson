@@ -6,6 +6,7 @@ class Map:
     def PrintMap(self):
         os.system("cls")
         for i in self.map:
+            Row = i
             Row = ''.join(i)
             print(Row)
     def Move(self):
@@ -47,15 +48,13 @@ with open("Maps.json", "r") as f:
     ##Call classes in here
 
 xy = [0,0]                
+Name = "Desert Pyramid"
+Num = Map.DetermineMapNum(Name)
+dungeon = data[Num]['map']
 
 for i in range(100):
-    Name = "Desert Pyramid"
-    Num = Map.DetermineMapNum(Name)
-    dungeon = data[Num]['map']
     x = xy[0]
     y = xy[1]
-    dungeon[y][x] = "[P]"
-
     e = Map(dungeon)
     e.PrintMap()
     xy = e.Move()
