@@ -45,7 +45,7 @@ with open("Maps.json", "r") as f:
     data = json.load(f)
     ##Call classes in here
                
-Name = "Grass Isle"
+Name = "The Depths"
 Num = Map.DetermineMapNum(Name)
 dungeon = data[Num]['map']
 x = data[Num]['StartX']
