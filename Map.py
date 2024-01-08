@@ -30,10 +30,10 @@ class Map:
             x -= 1
         
         if not self.map[y][x] == "   " and not self.map[y][x] == "[#]":
+            self.map[self.y][self.x] = "[ ]"
             self.x = x
             self.y = y
-
-        return xy
+        
     def DetermineMapNum(Name):
         for i in range(len(data)):
             if Name == data[i]['name']:
@@ -44,13 +44,12 @@ with open("Maps.json", "r") as f:
     # Serialize the updated Python list to a JSON string
     data = json.load(f)
     ##Call classes in here
-
-xy = [0,0]                
+               
 Name = "Dark Purgatory"
 Num = Map.DetermineMapNum(Name)
 dungeon = data[Num]['map']
-x = xy[0]
-y = xy[1]
+x = data[Num]['start x']
+y = data[Num]['start y']
 e = Map(dungeon,x,y)
 
 for i in range(100):

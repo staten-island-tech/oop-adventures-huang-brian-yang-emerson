@@ -86,12 +86,28 @@ with open("Maps.json", "r") as f:
 os.system("cls")
 
 Name = input("Give a name... ")
+StartX = None
+while StartX == None:
+    try:
+        StartX = input("Player start x? ")
+    except:
+        os.system("cls")
+        StartX = None
+
+StartY = None
+while StartY == None:
+    try:
+        StartY = input("Player start x? ")
+    except:
+        os.system("cls")
+        StartY = None
+
 Map = MakeMap()
 Map = Fix()
 PrintMap(Map)
 
 
-Dungeon = MapMaker(Name,Map)
+Dungeon = MapMaker(Name,Map,StartX,StartY)
 data.append(Dungeon.__dict__)
 print(Dungeon.__dict__)
 
