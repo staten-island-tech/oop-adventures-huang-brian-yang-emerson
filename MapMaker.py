@@ -15,8 +15,9 @@ def MakeMap():
     while Action != 0:
         PrintMap(Map)
     
-        print("1 = [ ]")
-        print("2 = Skip a unit")
+        print("1 = Add a path")
+        print("2 = Add a gap")
+        print("3 = Add a wall")
         print("8 = Delete Row")
         print("9 = Next Row")
         print("0 = Done")
@@ -29,6 +30,8 @@ def MakeMap():
                 Map[RowNum].append("[ ]")
             if Action == 2:
                 Map[RowNum].append("   ")
+            if Action == 3:
+                Map[RowNum].append("[#]")
             if Action == 8:
                 Map[RowNum] = []
             if Action == 9:
