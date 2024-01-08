@@ -334,7 +334,9 @@ class PreGame:
 
 			elif SavesChoice == 1:
 				os.system('cls')
-				current_selection = min(len(Data) - 1, current_selection + 1)
+				
+				if len(Data) > 0:
+					current_selection = min(len(Data) - 1, current_selection + 1)
 
 			elif SavesChoice == 2:
 				return self.SelectedSave(current_selection)
@@ -349,19 +351,31 @@ class PostMenu(PreGame):
 	def __init__(self):
 		super().__init__()
 
-	def ClampCoords(self, PlayerCoord: list, GameMapCoorder: list):
-		if PlayerCoord[0] > GameMapCoorder[0]:
-			PlayerCoord[0] = GameMapCoorder[0]
-		if PlayerCoord[0] < 0:
-			PlayerCoord[0] = 0
+	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
+		os.system('cls')
+		TargetPosition = PlayerPosition.copy()
 
-		if PlayerCoord[1] > GameMapCoorder[1]:
-			PlayerCoord[1] = GameMapCoorder[1]
-		if PlayerCoord[1] < 0:
-			PlayerCoord[1] = 0
+		while True:
+			Movement = CoolBoxDialogue([''.join(i) for i in Map], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
 
-		return PlayerCoord
+			if Movement == 0:
+				TargetPosition[0] -= 1
+			elif Movement == 1:
+				TargetPosition[1] -= 1
+			elif Movement == 2:
+				TargetPosition[0] += 1
+			elif Movement == 3:
+				TargetPosition[1] += 1
 
+			if Map[TargetPosition[0]][TargetPosition[1]] == '[ ]':
+				PlayerPosition = TargetPosition.copy()
+			
+			os.system('cls')
+
+			for key, value in Goals.items():
+				if PlayerPosition == value:
+					return key
+		
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
 		Dialogue("Villager", "Would you like a tutorial on the game?\n", 0.05)
@@ -376,7 +390,6 @@ class PostMenu(PreGame):
 
 			Map = [["[ ]" for i in range(5)] for i in range(5)]
 			Map[2][2] = "[P]"
-			playerCoords = [2, 2]
 
 			for i in Map:
 				print(''.join(i))
@@ -385,36 +398,10 @@ class PostMenu(PreGame):
 			Dialogue("Villager", "To Move Around, You Can Use W - A - S - D. There'll Be A Goal On The Map (G). Try Getting There.", 0.05)
 			time.sleep(3)
 			os.system('cls')
-			GoalCoords = (random.choice([0, 1, 3, 4,]), random.choice([0, 1, 3, 4,]))
-			Map[GoalCoords[0]][GoalCoords[1]] = "[G]"
 
-			while tuple(playerCoords) != GoalCoords:
-				os.system('cls')
-				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
-	
-				MapCoorder = [4, 4]
-	
-				Previous = playerCoords[:]
-	
-				if Movement == 0:
-					playerCoords[0] -= 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-	
-				elif Movement == 1:
-					playerCoords[1] -= 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-	
-				elif Movement == 2:
-					playerCoords[0] += 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
-	
-				elif Movement == 3:
-					playerCoords[1] += 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-	
-				Map[Previous[0]][Previous[1]] = '[ ]'
-				Map[playerCoords[0]][playerCoords[1]] = "[P]"
+			self.MapMove(Map, {'G': [0, 1]}, [2, 2])
 		
+		# MAPPPP #
 		os.system('cls')
 		if TutorialChoice == 0:
 			Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
@@ -440,34 +427,8 @@ class PostMenu(PreGame):
 		Map[5][5] = "[P]"
 		Map[1][3] = "[B]"
 		Map[7][7] = "[T]"
-		
-		while tuple(PlayerStart) not in Goals:
-			os.system('cls')
-			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
 
-			MapCoorder = [9, 9]
-
-			Previous = PlayerStart[:]
-
-			if Movement == 0:
-				PlayerStart[0] -= 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
-
-			elif Movement == 1:
-				PlayerStart[1] -= 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
-
-			elif Movement == 2:
-				PlayerStart[0] += 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)	
-
-			elif Movement == 3:
-				PlayerStart[1] += 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
-
-			Map[Previous[0]][Previous[1]] = '[ ]'
-			Map[PlayerStart[0]][PlayerStart[1]] = "[P]"
-
+		# MAPPP
 class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeon = dungeon

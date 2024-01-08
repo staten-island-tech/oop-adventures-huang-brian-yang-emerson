@@ -48,19 +48,5 @@ Map  = [["#" for i in range(5)] for i in range(5)]
 
 Map[2][2] = "P"
 
-
-def py(x):
-    print(x)
-
-try:
-    py()
-except:
-    print("there was something wrong with the program")
-
-# << What in the world does Enum Do again???? >> #
-from enum import Enum
-
-class enumtester(Enum):
-    e = 1
-    f = 3
-    
+for i in Map:
+    print(''.join(i))
