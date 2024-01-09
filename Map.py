@@ -1,5 +1,7 @@
 import os, json
 
+blocks = ["🌲 ","🧱║", ".🪨."]
+
 class Map:
     def __init__(self,map,x,y):
         self.map = map
@@ -29,7 +31,7 @@ class Map:
         if movement == "A":
             x -= 1
         
-        if not self.map[y][x] == "   " and not self.map[y][x] == "[#]":
+        if not self.map[y][x] == "   " and not self.map[y][x] in blocks:
             self.map[self.y][self.x] = "[ ]"
             self.x = x
             self.y = y
@@ -45,7 +47,7 @@ with open("Maps.json", "r",encoding= 'utf-8') as f:
     data = json.load(f)
     ##Call classes in here
                
-Name = "The Depths"
+Name = "Desert Pyramid"
 Num = Map.DetermineMapNum(Name)
 dungeon = data[Num]['map']
 x = data[Num]['StartX']
