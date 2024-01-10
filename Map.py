@@ -42,12 +42,12 @@ class Map:
                 Num = i
                 return Num
 
-with open("Maps.json", "r",encoding= 'utf-8') as f:
+with open("Maps.json", "r", encoding= 'utf-8') as f:
     # Serialize the updated Python list to a JSON string
     data = json.load(f)
     ##Call classes in here
                
-Name = "Lobby"
+Name = "The Depths"
 Num = Map.DetermineMapNum(Name)
 dungeon = data[Num]['map']
 x = data[Num]['StartX']
