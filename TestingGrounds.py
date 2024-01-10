@@ -63,8 +63,4 @@ import json
 with open('.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
-# Assuming the emojis are stored under the key 'emojitext'
-
-
-# Print the emojis
 print(data)

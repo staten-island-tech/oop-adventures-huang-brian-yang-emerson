@@ -154,7 +154,10 @@ class PreGame:
 		return self.SaveMenu(self.GetAllSave())
 
 	def GetSave(self, SaveID):
-		return self.GetAllSave()[SaveID]
+		try:
+			return self.GetAllSave()[SaveID]
+		except:
+			return self.PlayGame()
 
 	def NewSave(self):
 		os.system('cls')
@@ -430,10 +433,9 @@ class PostMenu:
 		# MAPPP
 class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
-		self.dungeon = dungeon
+		self.dungeonData = dungeon
 		self.Player = PlayerClass
 		self.Enemies = {"tester": {"CurrentEffects": {"Burn": {}}}}
-
 		self.PlayerTurn = random.choice([False, True])
 
 	def StartDungeon(self):
@@ -441,4 +443,10 @@ class Dungeon:
 		with open("DData.json", mode='r') as infile:
 			AllDungeonData = json.load(infile)
 
-		self.dungeon = AllDungeonData[self.dungeon]
+		self.dungeonData = AllDungeonData[self.dungeon]
+
+	def PlayerTurn(self):
+		pass
+
+	def EnemyTurn(self):
+		pass

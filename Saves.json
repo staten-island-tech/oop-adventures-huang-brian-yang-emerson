@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Emerson",
+        "Name": "Whopper",
         "Stats": {
             "Gold": 0,
             "HP": 100,
@@ -12,13 +12,6 @@
         "Misc": {
             "TutorialDone": false
         },
-        "Inventory": [],
-        "Armor": {
-            "Name": "None",
-            "Durability": 0
-        },
-        "Weapon": {
-            "Name": "None"
-        }
+        "Inventory": []
     }
 ]
