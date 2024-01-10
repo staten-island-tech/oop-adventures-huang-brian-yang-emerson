@@ -1,6 +1,6 @@
 import os, json
 
-blocks = ["🌲 ","🧱║", ".🪨."]
+blocks = ["🌲 ","🧱║", ".🪨.","┳━┳"]
 
 class Map:
     def __init__(self,map,x,y):
@@ -47,7 +47,7 @@ with open("Maps.json", "r",encoding= 'utf-8') as f:
     data = json.load(f)
     ##Call classes in here
                
-Name = "Desert Pyramid"
+Name = "Lobby"
 Num = Map.DetermineMapNum(Name)
 dungeon = data[Num]['map']
 x = data[Num]['StartX']

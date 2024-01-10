@@ -16,12 +16,12 @@
     },
     {
         "Name": "Dragon-slaying Sword",
-        "Rarity": "Mythical",
+        "Rarity": "Rare",
         "Attack": 30
     },
     {
         "Name": "Hero's Sword",
-        "Rarity": "Legendary",
+        "Rarity": "Mythical",
         "Attack": 100
     },
     {
@@ -73,5 +73,21 @@
         "Name": "Thor's hammer",
         "Rarity": "Legendary",
         "Attack": 300
+    },
+    {
+        "Name": "Simple Spear",
+        "Rarity": "Common",
+        "Attack": 15
+    },
+    {
+        "Name":"Slingshot",
+        "Rarity":"Uncommon",
+        "Attack": 20
+    },
+    {
+        "Name": "Club",
+        "Rarity": "Rare",
+        "Attack": 25
+        
     }
 ]
