@@ -18,7 +18,7 @@ class Effects:
                     self.poison(enemyDict, enemyDict['CurrentEffects']['Strength'])
 
                 elif effect == "burn":
-                    self.burn
+                    self.burn(enemyDict, enemyDict['CurrentEffects']['Strength'])
                     
 
 
