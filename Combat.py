@@ -365,8 +365,8 @@ class Battle:
 
 
         
-dungeonNum = 0
-enemyNum = 3
+dungeonNum = 3
+enemyNum = 4
 
 
 enemyInfo(dungeonNum,enemyNum)

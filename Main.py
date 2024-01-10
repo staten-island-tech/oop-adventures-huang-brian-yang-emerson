@@ -1,7 +1,7 @@
-import Game, Effects, Enemy, Player, os, win11toast
+import Game, Effects, Enemy, Player, os #, #win11toast
 
 def Main():
-    win11toast.toast("I hate haobin")
+    #win11toast.toast("I hate haobin")
 
     PreGame = Game.PreGame()
 

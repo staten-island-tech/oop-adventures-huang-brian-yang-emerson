@@ -15,14 +15,15 @@
         "Inventory": [
             "Final-Stand Potion",
             "Final-Stand Potion",
+            "Final-Stand Potion",
             "Hero's Armor"
         ],
         "Armor": {
-            "Name": "Flimsy Leather Armor",
-            "Durability": 5
+            "Name": "Hero's Armor",
+            "Durability": 80
         },
         "Weapon": {
-            "Name": "Bronze Sword"
+            "Name": "Thor's hammer"
         }
     },
     {
@@ -71,6 +72,28 @@
     },
     {
         "Name": "DIO",
+        "Stats": {
+            "Gold": 0,
+            "HP": 100,
+            "Strength": 0,
+            "Luck": 0,
+            "Level": 1,
+            "Vitality": 0
+        },
+        "Misc": {
+            "TutorialDone": false
+        },
+        "Inventory": [],
+        "Armor": {
+            "Name": "None",
+            "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
+        }
+    },
+    {
+        "Name": "Clover",
         "Stats": {
             "Gold": 0,
             "HP": 100,
