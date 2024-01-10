@@ -6,12 +6,12 @@
     },
     {
         "Name": "Iron Sword",
-        "Rarity": "Uncommon",
+        "Rarity": "Common",
         "Attack": 15
     },
     {
         "Name": "Obsidian Sword",
-        "Rarity": "Rare",
+        "Rarity": "Uncommon",
         "Attack": 20
     },
     {
@@ -36,17 +36,17 @@
     },
     {
         "Name": "Shotgun",
-        "Rarity": "Rare",
+        "Rarity": "Uncommon",
         "Attack": 40
     },
     {
         "Name": "Dragon Spear",
-        "Rarity": "Mythical",
+        "Rarity": "Rare",
         "Attack": 80
     },
     {
         "Name": "Evil-purging Gatling Gun",
-        "Rarity": "Legendary",
+        "Rarity": "Mythical",
         "Attack": 150
     },
     {
