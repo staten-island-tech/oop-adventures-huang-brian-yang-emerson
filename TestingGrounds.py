@@ -1,4 +1,4 @@
-import os, time
+import os, time, json
 
 def Answer(Options: list):
     Confirmaton = input(f"{'/'.join(Options)}: ").upper()
@@ -48,5 +48,23 @@ Map  = [["#" for i in range(5)] for i in range(5)]
 
 Map[2][2] = "P"
 
-for i in Map:
-    print(''.join(i))
+
+import math
+
+def distance(point1, point2):
+    distance1 = (point2[0] - point1[0]) ** 2
+    distance2 = (point2[1] - point1[1]) ** 2
+
+    return math.sqrt(distance1 + distance2)
+
+import json
+
+# Open the JSON file with utf-8 encoding
+with open('.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+# Assuming the emojis are stored under the key 'emojitext'
+
+
+# Print the emojis
+print(data)

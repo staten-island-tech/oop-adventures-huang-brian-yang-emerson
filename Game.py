@@ -61,7 +61,7 @@ class PreGame:
 		print("Future Plans As Of Currently:".center(80))
 		print("1. Migrate Maps To Json Files For Easier Usage".center(80))
 		print("2. Better Maps And Map Handling".center(80))
-		print("3. Finish Construction Of Game (Currently Under Construction) -> Will Throw Error".cneter(80))
+		print("3. Finish Construction Of Game (Currently Under Construction) -> Will Throw Error".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
@@ -201,15 +201,6 @@ class PreGame:
 				"Inventory": [
 
 				],
-
-				"Armor": {
-					"Name": "None",
-					"Durability": 0
-				},
-
-				"Weapon": {
-					"Name": "None"
-				}
 			}
 
 			Data = self.GetAllSave()
@@ -334,7 +325,7 @@ class PreGame:
 
 			elif SavesChoice == 1:
 				os.system('cls')
-				
+
 				if len(Data) > 0:
 					current_selection = min(len(Data) - 1, current_selection + 1)
 
@@ -347,15 +338,19 @@ class PreGame:
 	def GetVariable(self):
 		return self.SaveID, self.SaveData
 			
-class PostMenu(PreGame):
-	def __init__(self):
-		super().__init__()
+class PostMenu:
+	def __init__(self, SaveID, SaveData):
+		self.SaveID = SaveID
+		self.SaveData = SaveData
 
 	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
 		os.system('cls')
 		TargetPosition = PlayerPosition.copy()
 
 		while True:
+			os.system('cls')
+			Map[PlayerPosition[0]][PlayerPosition[1]] = "[ ]"
+
 			Movement = CoolBoxDialogue([''.join(i) for i in Map], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
 
 			if Movement == 0:
@@ -369,6 +364,8 @@ class PostMenu(PreGame):
 
 			if Map[TargetPosition[0]][TargetPosition[1]] == '[ ]':
 				PlayerPosition = TargetPosition.copy()
+
+			Map[PlayerPosition[0]][PlayerPosition[1]] = "[P]"
 			
 			os.system('cls')
 
@@ -381,42 +378,44 @@ class PostMenu(PreGame):
 		Dialogue("Villager", "Would you like a tutorial on the game?\n", 0.05)
 		TutorialChoice = Answer(['Y', 'N'])
 
-		if TutorialChoice == 0:
-			os.system('cls')
-			Dialogue("Villager", "Alright. Here Are The Basics. 1. Quitting The Game. It is always important to know how to quit the game!\n", 0.05)
-			Dialogue("Villager", "To Quit The Game You SHOULD Always Click The Red Square Thingy. Try Doing It Now.\n", 0.05)
-			time.sleep(5)
-			Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
-
-			Map = [["[ ]" for i in range(5)] for i in range(5)]
-			Map[2][2] = "[P]"
-
-			for i in Map:
-				print(''.join(i))
-
-			Dialogue("Villager", "Here Is The Basic Map ^^, P Represents YOU On The Map. You'll Be Able To Move Around Once I'm Done\n", 0.05)
-			Dialogue("Villager", "To Move Around, You Can Use W - A - S - D. There'll Be A Goal On The Map (G). Try Getting There.", 0.05)
+		if TutorialChoice != 0:
+			Dialogue("Villager", "Oh well in that case I guess you're own your own.\n", 0.1)
 			time.sleep(3)
-			os.system('cls')
+			self.SaveData['Misc']['TutorialDone'] = True
+			return
 
-			self.MapMove(Map, {'G': [0, 1]}, [2, 2])
-		
+		os.system('cls')
+		Dialogue("Villager", "Alright. Here Are The Basics. 1. Quitting The Game. It is always important to know how to quit the game!\n", 0.05)
+		Dialogue("Villager", "To Quit The Game You SHOULD Always Click The Red Square Thingy. Try Doing It Now.\n", 0.05)
+		time.sleep(5)
+		Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
+
+		Map = [["[ ]" for i in range(5)] for i in range(5)]
+		Map[2][2] = "[P]"
+
+		for i in Map:
+			print(''.join(i))
+
+		Dialogue("Villager", "Here Is The Basic Map ^^, P Represents YOU On The Map. You'll Be Able To Move Around Once I'm Done\n", 0.05)
+		Dialogue("Villager", "To Move Around, You Can Use W - A - S - D. There'll Be A Goal On The Map (G). Try Getting There.", 0.05)
+		time.sleep(3)
+		os.system('cls')
+
+		Goal = self.MapMove(Map, {'G': [0, 1]}, [2, 2])
+
 		# MAPPPP #
 		os.system('cls')
-		if TutorialChoice == 0:
-			Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
-		else:
-			Dialogue('Villager', "Oh? Really? Well in that case...\n", 0.1)
-		Dialogue('Villager',"Now You're On Your Own. I'm Too Lazy To Explain The Rest Of The Game\n", 0.05)
+		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
+		Dialogue('Villager',"I'm kinda too lazy to explain the rest of the game so yeah.\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
 
 	def TavernStart(self):
-		self.SaveID, self.SaveData = super().GetVariable()
 		
 		os.system("cls")
 
 		print(self.SaveID, self.SaveData)
+
 		if self.SaveData['Misc']['TutorialDone'] == False:
 			self.Tutorial()
 

@@ -93,3 +93,7 @@ class Player:
             attack = random.randint(9*(self.Stats[2]+1), 11*(self.Stats[2]+1))
 
         return attack
+    
+class FinalBoss(Player):
+    def __init__(self, SaveID, Stats):
+        super().__init__(SaveID, Stats)
