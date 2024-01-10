@@ -2,6 +2,8 @@ import json, os
 
 os.system("cls")
 
+blocks = ["🌲 ","🧱║", ".🪨.","┳━┳"]
+
 ## Create Class for creating new dictionaries here
 class MapMaker():
     def __init__(self,name,map,StartX,StartY):
@@ -19,7 +21,7 @@ def MakeMap():
     
         print("1 = Add a path")
         print("2 = Add a gap")
-        print("3 = Add a wall")
+        print("3 = Add a block")
         print("8 = Delete Row")
         print("9 = Next Row")
         print("0 = Done")
@@ -33,7 +35,14 @@ def MakeMap():
             if Action == 2:
                 Map[RowNum].append("   ")
             if Action == 3:
-                Map[RowNum].append("[#]")
+                e = None
+                while e == None:
+                    try:
+                        print(blocks)
+                        e = int(input())
+                        Map[RowNum].append(blocks[e])
+                    except:
+                        e = None
             if Action == 8:
                 Map[RowNum] = []
             if Action == 9:
@@ -75,12 +84,7 @@ def DetermineLongest():
     
     return Longest
 
-#print(f"{Author}: ", end="", flush=True)
-#	for char in Text:
-#		print(char, end="", flush=True)
-#		time.sleep(Time)
-
-with open("Maps.json", "r") as f:
+with open("Maps.json", "r", encoding= 'utf-8') as f:
     # Serialize the updated Python list to a JSON string
     data = json.load(f)
     ##Call classes in here
