@@ -340,11 +340,11 @@ class PreGame:
 			
 	def GetVariable(self):
 		return self.SaveID, self.SaveData
-			
-class PostMenu:
-	def __init__(self, SaveID, SaveData):
-		self.SaveID = SaveID
-		self.SaveData = SaveData
+
+class Maps:
+	def __init__(self) -> None:
+		with open('Maps.json', mode='r') as infile:
+			self.AllMapData = json.load(infile)
 
 	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
 		os.system('cls')
@@ -375,6 +375,29 @@ class PostMenu:
 			for key, value in Goals.items():
 				if PlayerPosition == value:
 					return key
+				
+	def TutorialMap(self):
+		Map = [["[ ]" for i in range(5)] for i in range(5)]
+		Map[2][2] = "[P]"
+
+		for i in Map:
+			print(''.join(i))
+
+		Dialogue("Villager", "Here Is The Basic Map ^^, P Represents YOU On The Map. You'll Be Able To Move Around Once I'm Done\n", 0.05)
+		Dialogue("Villager", "To Move Around, You Can Use W - A - S - D. There'll Be A Goal On The Map (G). Try Getting There.", 0.05)
+		time.sleep(3)
+		os.system('cls')		
+
+		self.MapMove(Map, {'G': [0, 1]}, [2, 2])
+	
+	def LobbyMap(self):
+		Lobby = None
+
+class PostMenu:
+	def __init__(self, SaveID, SaveData):
+		self.SaveID = SaveID
+		self.SaveData = SaveData
+
 		
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
@@ -393,31 +416,18 @@ class PostMenu:
 		time.sleep(5)
 		Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
 
-		Map = [["[ ]" for i in range(5)] for i in range(5)]
-		Map[2][2] = "[P]"
+		Maps().TutorialMap()
 
-		for i in Map:
-			print(''.join(i))
-
-		Dialogue("Villager", "Here Is The Basic Map ^^, P Represents YOU On The Map. You'll Be Able To Move Around Once I'm Done\n", 0.05)
-		Dialogue("Villager", "To Move Around, You Can Use W - A - S - D. There'll Be A Goal On The Map (G). Try Getting There.", 0.05)
-		time.sleep(3)
-		os.system('cls')
-
-		Goal = self.MapMove(Map, {'G': [0, 1]}, [2, 2])
-
-		# MAPPPP #
 		os.system('cls')
 		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
-		Dialogue('Villager',"I'm kinda too lazy to explain the rest of the game so yeah.\n", 0.05)
+		Dialogue('Villager', "I'm kinda too lazy to explain the rest of the game so yeah.\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
+		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
 
 	def TavernStart(self):
 		
 		os.system("cls")
-
-		print(self.SaveID, self.SaveData)
 
 		if self.SaveData['Misc']['TutorialDone'] == False:
 			self.Tutorial()
@@ -431,6 +441,7 @@ class PostMenu:
 		Map[7][7] = "[T]"
 
 		# MAPPP
+
 class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeonData = dungeon

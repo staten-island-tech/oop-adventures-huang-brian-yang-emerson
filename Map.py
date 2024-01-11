@@ -7,27 +7,36 @@ class Map:
         self.map = map
         self.x = x
         self.y = y
+
     def PrintMap(self):
         os.system("cls")
         e = 0
+
         for i in self.map:
             Row = i
+
             if e == self.y:
                 Row[self.x] = "[P]"
+
             Row = ''.join(Row)
             print(Row)
             e += 1
+
     def Move(self):
         movement = input()
         movement = movement.upper()
         x = self.x
         y = self.y
+
         if movement == "W":
             y -= 1
+
         if movement == "S":
             y += 1    
+
         if movement == "D":
             x += 1
+
         if movement == "A":
             x -= 1
         
