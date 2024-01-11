@@ -47,5 +47,31 @@ Action = None
 
 while Action != 0:
     PrintMap()
-    input()
+    print("1 ==> Change a unit")
+    print("2 ==> Change Player Start Position")
+    print("0 ==> Done")
+    try:
+        Action = int(input())
+        if Action == 1:
+            os.system("cls")
+            PrintMap()
+            print()
+        elif Action == 2:
+            x = None
+            y = None
+
+            while x == None:
+                try:
+                    x = int(input("New start x? "))
+                except:
+                    x = None
+            while y == None:
+                try:
+                    y = int(input("New start x? "))
+                except:
+                    y = None
+
+
+    except:
+        Action = None
 
