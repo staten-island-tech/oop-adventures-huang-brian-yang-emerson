@@ -1,6 +1,7 @@
 import time, os, random, json
 from itertools import cycle
 
+# Outside Functions For Each Class To Use # 
 def Dialogue(Author, Text, Time):
 	print(f"{Author}: ", end="", flush=True)
 	for char in Text:
@@ -135,10 +136,8 @@ class PreGame:
 	def GetAllSave(self):
 		with open('Saves.json', mode='r') as infile:
 			AllSaveData: list[dict] = json.load(infile)
-		return AllSaveData
 
-	def GetSave(self, SaveID):
-		return self.GetAllSave()[SaveID]
+		return AllSaveData
 
 	def DeleteSave(self, SaveID):
 		os.system('cls')
@@ -260,7 +259,7 @@ class PreGame:
 		Data = self.GetSave(SaveID)
 		dialogues = [f"Selected Save: {Data['Name']}"]
 		actions = ["U - Use Save", "N - Rename Save", "D - Delete Save", "R - Return To Save Menu"]
-		answers = ["U", "D", "N", "R"]
+		answers = ["U", "N", "D", "R"]
 
 		SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
@@ -273,10 +272,10 @@ class PreGame:
 			return SaveID, Data
 
 		elif SelectedSaveOption == 1:
-			return self.DeleteSave(SaveID)
+			return self.RenameSave(SaveID)
 
 		elif SelectedSaveOption == 2:
-			return self.RenameSave(SaveID)
+			return self.DeleteSave(SaveID)
 
 		else:
 			return self.PlayGame()
@@ -331,9 +330,14 @@ class PreGame:
 
 				if len(Data) > 0:
 					current_selection = min(len(Data) - 1, current_selection + 1)
+				else:
+					return self.SaveData(self.GetAllSave())
 
 			elif SavesChoice == 2:
-				return self.SelectedSave(current_selection)
+				if len(Data) > 0:
+					return self.SelectedSave(current_selection)
+				else:
+					os.system('cls')
 
 			elif SavesChoice == 3:
 				return self.PlayGame()
@@ -343,16 +347,17 @@ class PreGame:
 
 class Maps:
 	def __init__(self) -> None:
-		with open('Maps.json', mode='r') as infile:
-			self.AllMapData = json.load(infile)
+		with open('Maps.json', mode='r', encoding='utf8') as infile:
+			self.AllMapData: list[dict] = json.load(infile)
 
 	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
 		os.system('cls')
+		PreviousPosition = PlayerPosition.copy()
 		TargetPosition = PlayerPosition.copy()
 
 		while True:
 			os.system('cls')
-			Map[PlayerPosition[0]][PlayerPosition[1]] = "[ ]"
+			PreviousPosition = PlayerPosition.copy()
 
 			Movement = CoolBoxDialogue([''.join(i) for i in Map], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
 
@@ -364,10 +369,15 @@ class Maps:
 				TargetPosition[0] += 1
 			elif Movement == 3:
 				TargetPosition[1] += 1
+			
+			try:
+				if Map[TargetPosition[0]][TargetPosition[1]] == "[ ]":
+					PlayerPosition = TargetPosition.copy()	
 
-			if Map[TargetPosition[0]][TargetPosition[1]] == '[ ]':
-				PlayerPosition = TargetPosition.copy()
+			except:
+				pass
 
+			Map[PreviousPosition[0]][PreviousPosition[1]] = "[ ]"
 			Map[PlayerPosition[0]][PlayerPosition[1]] = "[P]"
 			
 			os.system('cls')
@@ -379,6 +389,8 @@ class Maps:
 	def TutorialMap(self):
 		Map = [["[ ]" for i in range(5)] for i in range(5)]
 		Map[2][2] = "[P]"
+		Goal = [random.randint(0, 4), random.randint(0, 4)]
+		Map[Goal[0]][Goal[1]] = '[G]'
 
 		for i in Map:
 			print(''.join(i))
@@ -388,10 +400,14 @@ class Maps:
 		time.sleep(3)
 		os.system('cls')		
 
-		self.MapMove(Map, {'G': [0, 1]}, [2, 2])
+		self.MapMove(Map, {'G': [Goal[0], Goal[1]]}, [2, 2])
 	
 	def LobbyMap(self):
-		Lobby = None
+		for MapData in self.AllMapData:
+			if MapData['name'] == 'Lobby':
+				LobbyData = MapData
+		
+
 
 class PostMenu:
 	def __init__(self, SaveID, SaveData):
@@ -433,12 +449,6 @@ class PostMenu:
 			self.Tutorial()
 
 		os.system('cls')
-		Map = [["[ ]" for i in range(10)] for i in range(10)]
-		Goals = [(1, 3), (7, 7)]
-		PlayerStart = [5, 5]
-		Map[5][5] = "[P]"
-		Map[1][3] = "[B]"
-		Map[7][7] = "[T]"
 
 		# MAPPP
 
