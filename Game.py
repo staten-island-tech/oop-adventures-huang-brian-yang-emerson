@@ -1,6 +1,7 @@
 import time, os, random, json
 from itertools import cycle
 
+# Outside Functions For Each Class To Use # 
 def Dialogue(Author, Text, Time):
 	print(f"{Author}: ", end="", flush=True)
 	for char in Text:
@@ -59,7 +60,9 @@ class PreGame:
 
 	def FuturePlans(self):
 		print("Future Plans As Of Currently:".center(80))
-		print("1. Finish The Game".center(80))
+		print("1. Migrate Maps To Json Files For Easier Usage".center(80))
+		print("2. Better Maps And Map Handling".center(80))
+		print("3. Finish Construction Of Game (Currently Under Construction) -> Will Throw Error".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
@@ -133,10 +136,8 @@ class PreGame:
 	def GetAllSave(self):
 		with open('Saves.json', mode='r') as infile:
 			AllSaveData: list[dict] = json.load(infile)
-		return AllSaveData
 
-	def GetSave(self, SaveID):
-		return self.GetAllSave()[SaveID]
+		return AllSaveData
 
 	def DeleteSave(self, SaveID):
 		os.system('cls')
@@ -152,7 +153,10 @@ class PreGame:
 		return self.SaveMenu(self.GetAllSave())
 
 	def GetSave(self, SaveID):
-		return self.GetAllSave()[SaveID]
+		try:
+			return self.GetAllSave()[SaveID]
+		except:
+			return self.PlayGame()
 
 	def NewSave(self):
 		os.system('cls')
@@ -199,15 +203,6 @@ class PreGame:
 				"Inventory": [
 
 				],
-
-				"Armor": {
-					"Name": "None",
-					"Durability": 0
-				},
-
-				"Weapon": {
-					"Name": "None"
-				}
 			}
 
 			Data = self.GetAllSave()
@@ -264,7 +259,7 @@ class PreGame:
 		Data = self.GetSave(SaveID)
 		dialogues = [f"Selected Save: {Data['Name']}"]
 		actions = ["U - Use Save", "N - Rename Save", "D - Delete Save", "R - Return To Save Menu"]
-		answers = ["U", "D", "N", "R"]
+		answers = ["U", "N", "D", "R"]
 
 		SelectedSaveOption = CoolBoxDialogue(dialogues, actions, answers, 80)
 
@@ -277,10 +272,10 @@ class PreGame:
 			return SaveID, Data
 
 		elif SelectedSaveOption == 1:
-			return self.DeleteSave(SaveID)
+			return self.RenameSave(SaveID)
 
 		elif SelectedSaveOption == 2:
-			return self.RenameSave(SaveID)
+			return self.DeleteSave(SaveID)
 
 		else:
 			return self.PlayGame()
@@ -332,146 +327,136 @@ class PreGame:
 
 			elif SavesChoice == 1:
 				os.system('cls')
-				current_selection = min(len(Data) - 1, current_selection + 1)
+
+				if len(Data) > 0:
+					current_selection = min(len(Data) - 1, current_selection + 1)
+				else:
+					return self.SaveData(self.GetAllSave())
 
 			elif SavesChoice == 2:
-				return self.SelectedSave(current_selection)
+				if len(Data) > 0:
+					return self.SelectedSave(current_selection)
+				else:
+					os.system('cls')
 
 			elif SavesChoice == 3:
 				return self.PlayGame()
 			
 	def GetVariable(self):
 		return self.SaveID, self.SaveData
+
+class Maps:
+	def __init__(self) -> None:
+		with open('Maps.json', mode='r', encoding='utf8') as infile:
+			self.AllMapData: list[dict] = json.load(infile)
+
+	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
+		os.system('cls')
+		PreviousPosition = PlayerPosition.copy()
+		TargetPosition = PlayerPosition.copy()
+
+		while True:
+			os.system('cls')
+			PreviousPosition = PlayerPosition.copy()
+
+			Movement = CoolBoxDialogue([''.join(i) for i in Map], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
+
+			if Movement == 0:
+				TargetPosition[0] -= 1
+			elif Movement == 1:
+				TargetPosition[1] -= 1
+			elif Movement == 2:
+				TargetPosition[0] += 1
+			elif Movement == 3:
+				TargetPosition[1] += 1
 			
-class PostMenu(PreGame):
-	def __init__(self):
-		super().__init__()
+			try:
+				if Map[TargetPosition[0]][TargetPosition[1]] == "[ ]":
+					PlayerPosition = TargetPosition.copy()	
 
-	def ClampCoords(self, PlayerCoord: list, GameMapCoorder: list):
-		if PlayerCoord[0] > GameMapCoorder[0]:
-			PlayerCoord[0] = GameMapCoorder[0]
-		if PlayerCoord[0] < 0:
-			PlayerCoord[0] = 0
+			except:
+				pass
 
-		if PlayerCoord[1] > GameMapCoorder[1]:
-			PlayerCoord[1] = GameMapCoorder[1]
-		if PlayerCoord[1] < 0:
-			PlayerCoord[1] = 0
+			Map[PreviousPosition[0]][PreviousPosition[1]] = "[ ]"
+			Map[PlayerPosition[0]][PlayerPosition[1]] = "[P]"
+			
+			os.system('cls')
 
-		return PlayerCoord
+			for key, value in Goals.items():
+				if PlayerPosition == value:
+					return key
+				
+	def TutorialMap(self):
+		Map = [["[ ]" for i in range(5)] for i in range(5)]
+		Map[2][2] = "[P]"
+		Goal = [random.randint(0, 4), random.randint(0, 4)]
+		Map[Goal[0]][Goal[1]] = '[G]'
 
+		for i in Map:
+			print(''.join(i))
+
+		Dialogue("Villager", "Here Is The Basic Map ^^, P Represents YOU On The Map. You'll Be Able To Move Around Once I'm Done\n", 0.05)
+		Dialogue("Villager", "To Move Around, You Can Use W - A - S - D. There'll Be A Goal On The Map (G). Try Getting There.", 0.05)
+		time.sleep(3)
+		os.system('cls')		
+
+		self.MapMove(Map, {'G': [Goal[0], Goal[1]]}, [2, 2])
+	
+	def LobbyMap(self):
+		for MapData in self.AllMapData:
+			if MapData['name'] == 'Lobby':
+				LobbyData = MapData
+		
+
+
+class PostMenu:
+	def __init__(self, SaveID, SaveData):
+		self.SaveID = SaveID
+		self.SaveData = SaveData
+
+		
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
 		Dialogue("Villager", "Would you like a tutorial on the game?\n", 0.05)
 		TutorialChoice = Answer(['Y', 'N'])
 
-		if TutorialChoice == 0:
-			os.system('cls')
-			Dialogue("Villager", "Alright. Here Are The Basics. 1. Quitting The Game. It is always important to know how to quit the game!\n", 0.05)
-			Dialogue("Villager", "To Quit The Game You SHOULD Always Click The Red Square Thingy. Try Doing It Now.\n", 0.05)
-			time.sleep(5)
-			Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
-
-			Map = [["[ ]" for i in range(5)] for i in range(5)]
-			Map[2][2] = "[P]"
-			playerCoords = [2, 2]
-
-			for i in Map:
-				print(''.join(i))
-
-			Dialogue("Villager", "Here Is The Basic Map ^^, P Represents YOU On The Map. You'll Be Able To Move Around Once I'm Done\n", 0.05)
-			Dialogue("Villager", "To Move Around, You Can Use W - A - S - D. There'll Be A Goal On The Map (G). Try Getting There.", 0.05)
+		if TutorialChoice != 0:
+			Dialogue("Villager", "Oh well in that case I guess you're own your own.\n", 0.1)
 			time.sleep(3)
-			os.system('cls')
-			GoalCoords = (random.choice([0, 1, 3, 4,]), random.choice([0, 1, 3, 4,]))
-			Map[GoalCoords[0]][GoalCoords[1]] = "[G]"
+			self.SaveData['Misc']['TutorialDone'] = True
+			return
 
-			while tuple(playerCoords) != GoalCoords:
-				os.system('cls')
-				Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
-	
-				MapCoorder = [4, 4]
-	
-				Previous = playerCoords[:]
-	
-				if Movement == 0:
-					playerCoords[0] -= 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-	
-				elif Movement == 1:
-					playerCoords[1] -= 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-	
-				elif Movement == 2:
-					playerCoords[0] += 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)	
-	
-				elif Movement == 3:
-					playerCoords[1] += 1
-					playerCoords = self.ClampCoords(playerCoords, MapCoorder)
-	
-				Map[Previous[0]][Previous[1]] = '[ ]'
-				Map[playerCoords[0]][playerCoords[1]] = "[P]"
-		
 		os.system('cls')
-		if TutorialChoice == 0:
-			Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
-		else:
-			Dialogue('Villager', "Oh? Really? Well in that case...\n", 0.1)
-		Dialogue('Villager',"Now You're On Your Own. I'm Too Lazy To Explain The Rest Of The Game\n", 0.05)
+		Dialogue("Villager", "Alright. Here Are The Basics. 1. Quitting The Game. It is always important to know how to quit the game!\n", 0.05)
+		Dialogue("Villager", "To Quit The Game You SHOULD Always Click The Red Square Thingy. Try Doing It Now.\n", 0.05)
+		time.sleep(5)
+		Dialogue("Villager", "No? Alright Next, We've Got A Map. For Tutorial purposes, this will be much simplier\n", 0.05)
+
+		Maps().TutorialMap()
+
+		os.system('cls')
+		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
+		Dialogue('Villager', "I'm kinda too lazy to explain the rest of the game so yeah.\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
+		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
 
 	def TavernStart(self):
-		self.SaveID, self.SaveData = super().GetVariable()
 		
 		os.system("cls")
 
-		print(self.SaveID, self.SaveData)
 		if self.SaveData['Misc']['TutorialDone'] == False:
 			self.Tutorial()
 
 		os.system('cls')
-		Map = [["[ ]" for i in range(10)] for i in range(10)]
-		Goals = [(1, 3), (7, 7)]
-		PlayerStart = [5, 5]
-		Map[5][5] = "[P]"
-		Map[1][3] = "[B]"
-		Map[7][7] = "[T]"
-		
-		while tuple(PlayerStart) not in Goals:
-			os.system('cls')
-			Movement = CoolBoxDialogue((f"{''.join(i)}" for i in Map), ["W - Move Up", "A - Left", "S - Down", "D - Right"], ['W', 'A', 'S', 'D'], 50)
 
-			MapCoorder = [9, 9]
-
-			Previous = PlayerStart[:]
-
-			if Movement == 0:
-				PlayerStart[0] -= 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
-
-			elif Movement == 1:
-				PlayerStart[1] -= 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
-
-			elif Movement == 2:
-				PlayerStart[0] += 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)	
-
-			elif Movement == 3:
-				PlayerStart[1] += 1
-				PlayerStart = self.ClampCoords(PlayerStart, MapCoorder)
-
-			Map[Previous[0]][Previous[1]] = '[ ]'
-			Map[PlayerStart[0]][PlayerStart[1]] = "[P]"
+		# MAPPP
 
 class Dungeon:
 	def __init__(self, dungeon, PlayerClass) -> None:
-		self.dungeon = dungeon
+		self.dungeonData = dungeon
 		self.Player = PlayerClass
 		self.Enemies = {"tester": {"CurrentEffects": {"Burn": {}}}}
-
 		self.PlayerTurn = random.choice([False, True])
 
 	def StartDungeon(self):
@@ -479,4 +464,10 @@ class Dungeon:
 		with open("DData.json", mode='r') as infile:
 			AllDungeonData = json.load(infile)
 
-		self.dungeon = AllDungeonData[self.dungeon]
+		self.dungeonData = AllDungeonData[self.dungeon]
+
+	def PlayerTurn(self):
+		pass
+
+	def EnemyTurn(self):
+		pass

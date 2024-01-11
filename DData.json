@@ -58,7 +58,6 @@
                 "Durability": 100,
                 "Rarity": "Common",
                 "Quantity": 1,
-                "Equipped": false,
                 "Chance": 65
             },
             {
@@ -67,7 +66,6 @@
                 "Durability": 50,
                 "Rarity": "Uncommon",
                 "Quantity": 1,
-                "Equipped": false,
                 "Chance": 25
             },
             {
@@ -76,7 +74,6 @@
                 "Durability": 100,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Equipped": false,
                 "Chance": 10
             }
         ]
