@@ -1,4 +1,4 @@
-import os, time
+import os, time, json
 
 def Answer(Options: list):
     Confirmaton = input(f"{'/'.join(Options)}: ").upper()
@@ -49,18 +49,19 @@ Map  = [["#" for i in range(5)] for i in range(5)]
 Map[2][2] = "P"
 
 
-def py(x):
-    print(x)
+import math
 
-try:
-    py()
-except:
-    print("there was something wrong with the program")
+def distance(point1, point2):
+    distance1 = (point2[0] - point1[0]) ** 2
+    distance2 = (point2[1] - point1[1]) ** 2
 
-# << What in the world does Enum Do again???? >> #
-from enum import Enum
+    return math.sqrt(distance1 + distance2)
 
-class enumtester(Enum):
-    e = 1
-    f = 3
-    
+import json
+
+# Open the JSON file with utf-8 encoding
+with open('.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+print(data)
+

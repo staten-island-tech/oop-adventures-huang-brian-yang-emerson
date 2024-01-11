@@ -66,8 +66,6 @@ class Player:
             print("You Have Died! Your Last Health Points Have Been Saved. Please quit the game forever and leave.")
             os.abort()
 
-
-
     def attack(self):
         Found = False
 
@@ -93,3 +91,8 @@ class Player:
             attack = random.randint(9*(self.Stats[2]+1), 11*(self.Stats[2]+1))
 
         return attack
+
+# The Final Boss Should Be A Perfect Copy Of Yourself
+class FinalBoss(Player):
+    def __init__(self, SaveID, Stats):
+        super().__init__(SaveID, Stats)

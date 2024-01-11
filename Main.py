@@ -12,7 +12,7 @@ def Main():
     player = Player.Player(SaveID, SaveData)
 
     # << Start The Game >> # 
-    PostMainMenu = Game.PostMenu()
+    PostMainMenu = Game.PostMenu(SaveID, SaveData)
 
     PostMainMenu.TavernStart()
 
