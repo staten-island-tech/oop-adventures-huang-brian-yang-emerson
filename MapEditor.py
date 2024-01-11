@@ -12,18 +12,17 @@ class MapEditor():
         self.StartX = StartX
         self.StartY = StartY
 
-    def PrintMap(self):
-            os.system("cls")
-            e = 0
-            for i in self.map:
-                print(i)
-                Row = i
-                if e == self.StartY:
-                    Row[self.StartX] = "[P]"
-                
-                Row = ''.join(Row)
-                print(Row)
-                e += 1
+def PrintMap():
+        os.system("cls")
+        e = 0
+        for i in range(len(Map)):
+            Row = Map[i]
+            if e == StartY:
+                Row[StartX] = "[P]"
+            
+            Row = ''.join(Row)
+            print(Row)
+            e += 1
 
 def MapNum(Name):
     for i in range(len(data)):
@@ -37,16 +36,16 @@ with open("Maps.json", "r", encoding= 'utf-8') as f:
     data = json.load(f)
     ##Call classes in here
 
-Name = "END"
+Name = "Lobby"
 Num = MapNum(Name)
 Map = data[Num]['map']
 StartX = data[Num]['StartX']
 StartY = data[Num]['StartY']
-EditedMap = MapEditor(Name,Map,StartX,StartY)
+
 
 Action = None
 
 while Action != 0:
-    EditedMap.PrintMap()
+    PrintMap()
     input()
 
