@@ -46,6 +46,12 @@ StartY = data[Num]['StartY']
 Action = None
 
 while Action != 0:
+    Name = "Lobby"
+    Num = MapNum(Name)
+    Map = data[Num]['map']
+    StartX = data[Num]['StartX']
+    StartY = data[Num]['StartY']
+    
     PrintMap()
     print("1 ==> Change a unit")
     print("2 ==> Change Player Start Position")
@@ -70,6 +76,15 @@ while Action != 0:
                     y = int(input("New start x? "))
                 except:
                     y = None
+            
+            try:
+                print(Map[y][x])
+                if Map[y][x] == "[ ]":
+                    Map[StartX][StartY] = "[ ]"
+                    StartX = x
+                    StartY = y
+            except:
+                Action = None
 
 
     except:
