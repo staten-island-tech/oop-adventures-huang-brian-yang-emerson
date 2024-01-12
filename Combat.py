@@ -26,6 +26,7 @@ def enemyInfo(dungeonNum,enemyNum):
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Attack'])
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Exp'])
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Chance'])
+    enemy.append(data[dungeonNum]['Enemies'][enemyNum]['MovementChance'])
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Desc'])
     return enemy
 
@@ -59,6 +60,8 @@ def EnemySpecialAbilities(name):
         EnemyAbilities = [["Poison",25,3],["Burn",25,3]]
     elif name == "Eyed Coffin":
         EnemyAbilities = [["Poison",75,9],["Burn",75,9]]
+    elif name == "Death":
+        EnemyAbilities == [["Wither",100,100]]
     else:
         EnemyAbilities = "None"
 
@@ -68,10 +71,11 @@ def EnemySpecialAbilities(name):
 
 
 class Battle:
-    def __init__(self, defend, PStamina, PDefense, UsedItems):
+    def __init__(self, defend, PStamina, PDefense, PAccuracy, UsedItems):
         self.defend = defend
         self.PStamina = PStamina
         self.PDefense = PDefense
+        self.PAccuracy = PAccuracy
         self.UsedItems = UsedItems
     def PlayerTurn(self):
         Action = 0
@@ -121,16 +125,20 @@ class Battle:
     
         if Action == 1:
             if not E.PStamina < 5:
-                attack = You.Attack()
-                Opponent.TakeDamage(attack)
                 os.system("cls")
-                print(Opponent.name.center(80))
-                x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
-                print(x.center(80))
-                print()
-                x = Opponent.name+" took "+str(attack)+" damage."
-                print(x.center(80))
-                E.PStamina -= 5
+                if not random.randint(0,100) > E.PAccuracy:
+                    attack = You.Attack()
+                    Opponent.TakeDamage(attack)
+                    print(Opponent.name.center(80))
+                    x = str(Opponent.hp)+"/"+str(Opponent.maxhp)+" HP"
+                    print(x.center(80))
+                    print()
+                    x = Opponent.name+" took "+str(attack)+" damage."
+                    print(x.center(80))
+                    E.PStamina -= 5
+                else:
+                    print("Unfortunately, you MISSED!".center(80))
+                
             else:
                 print("You don't have enough stamina!")
         
@@ -184,7 +192,10 @@ class Battle:
         else:
             os.system("cls")
             print("You braced yourself...")
+            time.sleep(2)
+            print("You regained some stamina and focus!")
             E.PStamina += 10
+            E.PAccuracy += 10
             E.defend = "yes"
             time.sleep(3)
 
@@ -247,30 +258,35 @@ class Battle:
         print(x.center(80))
 
         attack = Opponent.Attack()
-        attack -= E.PDefense
-        if attack < 1:
-            attack = 0
+
+        if attack != "MISSED":
+            attack -= E.PDefense
+            if attack < 1:
+                attack = 0
 
 
-        if E.defend == "no":
-            You.TakeDamage(attack)
-        else:
-            You.TakeDamage(attack/2)
-        
-        print()
-        print("You".center(80))
+            if E.defend == "no":
+                You.TakeDamage(attack)
+            else:
+                You.TakeDamage(attack/2)
 
-        x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP"
-        print(x.center(80))
-        
-        if not You.Stats[8] < 1:
-            x = "+"+str(You.Stats[8])+" ARMOR"
-            print(x.center(80))
-        else:
             print()
+            print("You".center(80))
 
-        if EnemyAbilities != "None":
-            E.ApplyEffects()
+            x = str(You.Stats[1])+"/"+str(PlayerMaxHP)+" HP"
+            print(x.center(80))
+
+            if not You.Stats[8] < 1:
+                x = "+"+str(You.Stats[8])+" ARMOR"
+                print(x.center(80))
+            else:
+                print()
+
+            if EnemyAbilities != "None":
+                E.ApplyEffects()
+        else:
+            print("They MISSED".center(80))
+
         
         time.sleep(3)
         os.system("cls")
@@ -322,6 +338,33 @@ class Battle:
                 else:
                     x = "+"+str(data4[e]['Attack'][0])+" initial ATK ["+You.Stats[10][i][0].upper()+"]"
                 print(x.center(80))
+            
+            if data4[e]['Defense'][0] != 0:
+                E.PDefense += data4[e]['Defense'][0]
+                x = ""
+                if data4[e]['Defense'][0] < 0:
+                    x = str(data4[e]['Defense'][0])+" initial DEF ["+You.Stats[10][i][0].upper()+"]"
+                else:
+                    x = "+"+str(data4[e]['Defense'][0])+" initial DEF ["+You.Stats[10][i][0].upper()+"]"
+                print(x.center(80))
+
+            if data4[e]['Stamina'][0] != 0:
+                E.PStamina += data4[e]['Stamina'][0]
+                x = ""
+                if data4[e]['Stamina'][0] < 0:
+                    x = str(data4[e]['Stamina'][0])+" initial stamina ["+You.Stats[10][i][0].upper()+"]"
+                else:
+                    x = "+"+str(data4[e]['Stamina'][0])+" initial stamina ["+You.Stats[10][i][0].upper()+"]"
+                print(x.center(80))
+
+            if data4[e]['Accuracy'][0] != 0:
+                E.PAccuracy += data4[e]['Accuracy'][0]
+                x = ""
+                if data4[e]['Accuracy'][0] < 0:
+                    x = str(data4[e]['Accuracy'][0])+" initial ACC ["+You.Stats[10][i][0].upper()+"]"
+                else:
+                    x = "+"+str(data4[e]['Accuracy'][0])+" initial ACC ["+You.Stats[10][i][0].upper()+"]"
+                print(x.center(80))
 
     def Effects(self):
         if EnemyAbilities != "None":
@@ -350,9 +393,35 @@ class Battle:
                     else:
                         x = "+"+str(data4[e]['Attack'][1])+" ATK ["+You.Stats[10][i][0].upper()+"]"
                     print(x.center(80))
+                
+                if data4[e]['Defense'][1] != 0:
+                    E.PDefense += data4[e]['Defense'][1]
+                    x = ""
+                    if data4[e]['Defense'][1] < 0:
+                        x = str(data4[e]['Defense'][1])+" initial DEF ["+You.Stats[10][i][0].upper()+"]"
+                    else:
+                        x = "+"+str(data4[e]['Defense'][1])+" initial DEF ["+You.Stats[10][i][0].upper()+"]"
+                    print(x.center(80))
 
-                if You.Stats[10][i][1] < 1:
-                    You.Stats[10].remove(You.Stats[10][i])
+                if data4[e]['Stamina'][1] != 0:
+                    E.PStamina += data4[e]['Stamina'][1]
+                    x = ""
+                    if data4[e]['Stamina'][1] < 0:
+                        x = str(data4[e]['Stamina'][1])+" initial stamina ["+You.Stats[10][i][0].upper()+"]"
+                    else:
+                        x = "+"+str(data4[e]['Stamina'][1])+" initial stamina ["+You.Stats[10][i][0].upper()+"]"
+                    print(x.center(80))
+
+                if data4[e]['Accuracy'][1] != 0:
+                    E.PAccuracy += data4[e]['Accuracy'][1]
+                    x = ""
+                    if data4[e]['Accuracy'][1] < 0:
+                        x = str(data4[e]['Accuracy'][1])+" initial ACC ["+You.Stats[10][i][0].upper()+"]"
+                    else:
+                        x = "+"+str(data4[e]['Accuracy'][1])+" initial ACC ["+You.Stats[10][i][0].upper()+"]"
+                    print(x.center(80))
+                    if You.Stats[10][i][1] < 1:
+                        You.Stats[10].remove(You.Stats[10][i])
 
             time.sleep(3)
 
@@ -376,16 +445,17 @@ items = ConsumableItems()
 PlayerMaxHP = 100 + playerStats[5]*10
 PMaxStamina = 10 + playerStats[4]*5
 PDefense = playerStats[4]
+PAccuracy = 100
 SaveID = 0
 
 os.system("cls")
-Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5],"None")
+Opponent = Enemy.Enemy(enemy[0],enemy[1],enemy[1],enemy[2],enemy[3],enemy[4],enemy[5],enemy[6],"None")
 You = Player.Player(SaveID,playerStats)
 
 EnemyAbilities = EnemySpecialAbilities(Opponent.name)
 
 Opponent.Encounter(data[dungeonNum]['LevelReq'],You.Stats[4])
-E = Battle("no", PMaxStamina, PDefense, [])
+E = Battle("no", PMaxStamina, PDefense, PAccuracy, [])
 
 
 while Opponent.hp > 0:

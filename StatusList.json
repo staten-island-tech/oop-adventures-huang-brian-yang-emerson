@@ -4,7 +4,6 @@
         "Health": [0,-2],
         "Defense": [-2,0],
         "Attack": [0,0],
-        "Speed": [0,0],
         "Stamina": [0,-1],
         "Accuracy": [0,0]
     },
@@ -13,7 +12,6 @@
         "Health": [0,-1],
         "Defense": [0,0],
         "Attack": [-2,0],
-        "Speed": [0,-1],
         "Stamina": [0,-1],
         "Accuracy": [0,0]
     },
@@ -22,16 +20,21 @@
         "Health": [0,0],
         "Defense": [5,0],
         "Attack": [-1,0],
-        "Speed": [0,-1],
         "Stamina": [0,0],
         "Accuracy": [-10,0]
+    },
+    {
+        "Name": "Wither",
+        "Health": [0,-10],
+        "Defense": [0, -5],
+        "Attack": [0, -5],
+        "Speed": [0,-1]
     },
     {
         "Name": "Finality",
         "Health": [0,-1],
         "Defense": [0,1],
         "Attack": [0,1],
-        "Speed": [0,1],
         "Stamina": [0,10],
         "Accuracy": [10,0]
     }

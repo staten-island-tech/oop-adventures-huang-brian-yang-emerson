@@ -90,6 +90,7 @@
                 "Attack": 10,
                 "Exp": 25,
                 "Chance": 70,
+                "MovementChance": 50,
                 "Desc": "A man that is made of sand"
             },
             {
@@ -98,6 +99,7 @@
                 "Attack": 15,
                 "Exp": 30,
                 "Chance": 20,
+                "MovementChance": 40,
                 "Desc": "Made of very sturdy and compact sandstone."
             },
             {
@@ -106,6 +108,7 @@
                 "Attack": 30,
                 "Exp": 30,
                 "Chance": 5,
+                "MovementChance": 50,
                 "Desc": "A sinister presence wrapped under many layers of bandages."
             },
             {
@@ -114,6 +117,7 @@
                 "Attack": 20,
                 "Exp": 40,
                 "Chance": 4,
+                "MovementChance": 60,
                 "Desc": "The last king of this dungeon."
             },
             {
@@ -122,6 +126,7 @@
                 "Attack": 5,
                 "Exp": 50,
                 "Chance": 1,
+                "MovementChance": 100,
                 "Desc": "The darkness touches all..."
             }
         ]
@@ -137,6 +142,7 @@
                 "Attack": 30,
                 "Exp": 50,
                 "Chance": 70,
+                "MovementChance": 75,
                 "Desc": "A fearsome warrior with the body of a hard-made warrior and a head of a fish"
             },
             {
@@ -145,6 +151,7 @@
                 "Attack": 50,
                 "Exp": 60,
                 "Chance": 20,
+                "MovementChance": 75,
                 "Desc": "Wiggly worm wearing an armor of barnicles"
             },
             {
@@ -153,6 +160,7 @@
                 "Attack": 60,
                 "Exp": 70,
                 "Chance": 5,
+                "MovementChance": 75,
                 "Desc": "Fish-man, but better"
             },
             {
@@ -161,6 +169,7 @@
                 "Attack": 75,
                 "Exp": 80,
                 "Chance": 4,
+                "MovementChance": 75,
                 "Desc": "De facto boss of the West Trading Company"
             },
             {
@@ -169,6 +178,7 @@
                 "Attack": 100,
                 "Exp": 100,
                 "Chance": 1,
+                "MovementChance": 90,
                 "Desc": "Monster from the depths. It just wants hugs..."
             }
         ]
@@ -184,6 +194,7 @@
                 "Attack": 100,
                 "Exp": 100,
                 "Chance": 70,
+                "MovementChance": 85,
                 "Desc": "A silhouette watches you from the dark"
             },
             {
@@ -192,6 +203,7 @@
                 "Attack": 100,
                 "Exp": 200,
                 "Chance": 20,
+                "MovementChance": 85,
                 "Desc": "Its eyes wander aimlessly"
             },
             {
@@ -200,6 +212,7 @@
                 "Attack": 200,
                 "Exp": 200,
                 "Chance": 5,
+                "MovementChance": 85,
                 "Desc": "Flames as dark as their soul"
             },
             {
@@ -208,6 +221,7 @@
                 "Attack": 200,
                 "Exp": 400,
                 "Chance": 4,
+                "MovementChance": 90,
                 "Desc": "Ruler of Heck"
             },
             {
@@ -216,6 +230,7 @@
                 "Attack": 500,
                 "Exp": 500,
                 "Chance": 1,
+                "MovementChance": 100,
                 "Desc": "The End... NO MERCY"
             }
         ]
@@ -231,6 +246,7 @@
                 "Attack": 1000,
                 "Exp": 1000,
                 "Chance": 100,
+                "MovementChance": 100,
                 "Desc": "The Final HERO?"
             }
         ]

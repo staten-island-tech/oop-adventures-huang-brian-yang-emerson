@@ -15,13 +15,14 @@ class Enemy:
         pass
 
 class Enemy:
-    def __init__(self, name, hp, maxhp, attack, exp, chance, desc, status):
+    def __init__(self, name, hp, maxhp, attack, exp, chance, Accuracy, desc, status):
         self.name = name
         self.hp = hp
         self.maxhp =maxhp
         self.attack = attack
         self.exp = exp
         self.chance = chance
+        self.Accuracy = Accuracy
         self.desc = desc
         self.status = status
     def Check(self):
@@ -49,7 +50,10 @@ class Enemy:
         self.hp = self.hp - damage
     
     def Attack(self):
-        attack = random.randint(round(0.5 * self.attack), round(1.5 * self.attack))
+        if not random.randint(0,100) > self.Accuracy:
+            attack = random.randint(round(0.5 * self.attack), round(1.5 * self.attack))
+        else:
+            attack = "MISSED"
         return attack
 
     def UpdateStatus(self,effect):
