@@ -53,7 +53,7 @@ class PreGame:
 
 	# << Main Menu Functions >> #
 	def Information(self):
-		print("Information: Clean Up On Isle 9 Please".center(80))
+		print("There's a very specific bug that I CANNOT SEE BRUH".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
@@ -62,7 +62,7 @@ class PreGame:
 		print("Future Plans As Of Currently:".center(80))
 		print("1. Migrate Maps To Json Files For Easier Usage".center(80))
 		print("2. Better Maps And Map Handling".center(80))
-		print("3. Finish Construction Of Game (Currently Under Construction) -> Will Throw Error".center(80))
+		print("3. Finish Construction Of The Lobby And Uh Whatever Matters.".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
@@ -150,7 +150,7 @@ class PreGame:
 			with open('Saves.json', mode='w') as outfile:
 				json.dump(Data, outfile, indent=4)
 
-		return self.SaveMenu(self.GetAllSave())
+		return self.PlayGame()
 
 	def GetSave(self, SaveID):
 		try:
@@ -252,7 +252,7 @@ class PreGame:
 
 			self.Load("Registered New Save File. Starting Game...", 10)
 
-		return self.SaveMenu(self.GetAllSave())
+		return self.PlayGame()
 
 	def SelectedSave(self, SaveID):
 		os.system('cls')
@@ -406,6 +406,20 @@ class Maps:
 		for MapData in self.AllMapData:
 			if MapData['name'] == 'Lobby':
 				LobbyData = MapData
+
+		LobbyMap = LobbyData['map']
+		
+		# For Guard #
+		LobbyMap[12][14] = "[G]"
+		LobbyMap[12][15] = "[G]"
+		LobbyMap[12][16] = "[G]"
+	
+		
+		for MapStuff in LobbyMap:
+			print(''.join(MapStuff))
+		
+
+
 		
 
 

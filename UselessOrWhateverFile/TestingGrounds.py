@@ -59,9 +59,16 @@ def distance(point1, point2):
 
 import json
 
-# Open the JSON file with utf-8 encoding
-with open('.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
+def slope(coord1, coord2):
+    Rise = coord2[1] - coord1[1]
+    Run = coord2[0] - coord1[0]
 
-print(data)
+    print(f'{Rise}/{Run}')
 
+def InaccurateLength(coord1, coord2):
+    Var1 = (coord2[0] - coord1[0]) ** 2
+    Var2 = (coord2[1] - coord1[1]) ** 2
+    Var3 = Var1 + Var2
+    print(f'sqr({Var3})')
+
+slope((6, 8), (-3, 7))

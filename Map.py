@@ -12,11 +12,17 @@ class Map:
         os.system("cls")
         e = 0
 
+        # << FOR LOBBY MAP ONLY!!!! >> #
+        self.map[12][14] = '[G]'
+        self.map[12][15] = '[G]'
+        self.map[12][16] = '[G]'
+
         for i in self.map:
             Row = i
 
             if e == self.y:
                 Row[self.x] = "[P]"
+            
 
             Row = ''.join(Row)
             print(Row)
