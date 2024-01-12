@@ -110,11 +110,13 @@ while Action != 0:
 
 newdungeon = MapEditor(Name,Map,StartX,StartY)
 
+print(newdungeon.StartX,newdungeon.StartY)
+
 data[Num]['map'] = newdungeon.map
 data[Num]['StartX'] = newdungeon.StartX
 data[Num]['StartY'] = newdungeon.StartY
 
-with open('Saves.json', mode='w') as outfile:
-    json.dump(data, outfile, indent=4)
+with open('Maps.json', mode='w', encoding= 'utf-8') as outfile:
+    json.dump(data, outfile, ensure_ascii=False, indent=4)
 
 exit()
