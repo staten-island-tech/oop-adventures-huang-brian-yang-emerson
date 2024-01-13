@@ -4,6 +4,7 @@ from itertools import cycle
 # Outside Functions For Each Class To Use # 
 def Dialogue(Author, Text, Time):
 	print(f"{Author}: ", end="", flush=True)
+
 	for char in Text:
 		print(char, end="", flush=True)
 		time.sleep(Time)
@@ -373,9 +374,11 @@ class Maps:
 			try:
 				if Map[TargetPosition[0]][TargetPosition[1]] == "[ ]":
 					PlayerPosition = TargetPosition.copy()	
+				else:
+					PlayerPosition = PreviousPosition
 
 			except:
-				pass
+				PlayerPosition = PreviousPosition
 
 			Map[PreviousPosition[0]][PreviousPosition[1]] = "[ ]"
 			Map[PlayerPosition[0]][PlayerPosition[1]] = "[P]"
@@ -418,11 +421,6 @@ class Maps:
 		for MapStuff in LobbyMap:
 			print(''.join(MapStuff))
 		
-
-
-		
-
-
 class PostMenu:
 	def __init__(self, SaveID, SaveData):
 		self.SaveID = SaveID
