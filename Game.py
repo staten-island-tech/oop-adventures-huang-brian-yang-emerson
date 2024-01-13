@@ -200,6 +200,15 @@ class PreGame:
 					'TutorialDone': False
 				},
 
+				"Armor": {
+					"Name": "None",
+					"Durability": 0
+				},
+
+				"Weapon": {
+					"Name": "None"
+				},
+				
 				"Inventory": [
 
 				],

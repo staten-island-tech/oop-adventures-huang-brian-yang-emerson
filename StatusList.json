@@ -28,7 +28,8 @@
         "Health": [0,-10],
         "Defense": [0, -5],
         "Attack": [0, -5],
-        "Speed": [0,-1]
+        "Stamina": [0,-1],
+        "Accuracy": [0,0]
     },
     {
         "Name": "Finality",

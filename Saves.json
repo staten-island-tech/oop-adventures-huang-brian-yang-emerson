@@ -1,16 +1,23 @@
 [
     {
-        "Name": "GIGACHAD (OP tester)",
+        "Name": "GIGACHAD tester",
         "Stats": {
             "Gold": 0,
-            "HP": 10000000,
+            "HP": 100000100,
             "Strength": 10000000,
-            "Luck": 10000000,
-            "Level": 10000000,
+            "Luck": 0,
+            "Level": 10000001,
             "Vitality": 10000000
         },
         "Misc": {
             "TutorialDone": false
+        },
+        "Armor": {
+            "Name": "None",
+            "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
         },
         "Inventory": []
     }
