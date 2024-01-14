@@ -437,7 +437,7 @@ class Battle:
 
 
         
-dungeonNum = 3
+dungeonNum = 1
 enemyNum = 4
 
 
@@ -477,6 +477,7 @@ while Opponent.hp > 0:
 
     E.Effects()
     Turn += 1
+
 os.system("cls")
 Opponent.BossDeath()
 os.system("cls")
