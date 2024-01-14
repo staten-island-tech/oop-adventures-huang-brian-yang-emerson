@@ -1,4 +1,4 @@
-import time
+import time, random
 
 def whopper(Text, Time):
     print("Dealer: ", end='')
@@ -11,6 +11,7 @@ class BuckShot:
     def __init__(self, SaveID, SaveData) -> None:
         self.SaveID = SaveID
         self.SaveData = SaveData
+        self.Shells = []
         self.PlayerData = {"HP": 2, "Items": []}
         self.DealerData = {"HP": 2, "Items": []}
     
@@ -21,7 +22,9 @@ class BuckShot:
         pass
 
     def RoundOne(self):
-        pass
+        whopper("Round 1. 2 Blanks 1 Live.")
+        whopper("The shells go into the chamber in a unknown order")
+        self.PlayerTurn()
 
     def RoundTwo(self):
         pass
@@ -32,4 +35,5 @@ class BuckShot:
     def StartGame(self):
         whopper('Please Sign The Wavier.')
         Name = input("Input Name: ")
+
         

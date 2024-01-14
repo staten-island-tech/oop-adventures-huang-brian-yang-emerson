@@ -55,6 +55,7 @@ class PreGame:
 	# << Main Menu Functions >> #
 	def Information(self):
 		print("There's a very specific bug that I CANNOT SEE BRUH".center(80))
+		print("Game By Some 2 People I Forgor".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
@@ -353,13 +354,12 @@ class Maps:
 
 	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
 		os.system('cls')
-		PreviousPosition = PlayerPosition.copy()
-		TargetPosition = PlayerPosition.copy()
 
 		while True:
 			os.system('cls')
 			PreviousPosition = PlayerPosition.copy()
-
+			TargetPosition = PlayerPosition.copy()
+			
 			Movement = CoolBoxDialogue([''.join(i) for i in Map], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
 
 			if Movement == 0:
@@ -370,6 +370,9 @@ class Maps:
 				TargetPosition[0] += 1
 			elif Movement == 3:
 				TargetPosition[1] += 1
+
+			TargetPosition[0] = max(0, TargetPosition[0])
+			TargetPosition[1] = max(0, TargetPosition[1])
 			
 			try:
 				if Map[TargetPosition[0]][TargetPosition[1]] == "[ ]":
@@ -386,8 +389,9 @@ class Maps:
 			os.system('cls')
 
 			for key, value in Goals.items():
-				if PlayerPosition == value:
-					return key
+				for val in value:
+					if TargetPosition == val:
+						return key
 				
 	def TutorialMap(self):
 		Map = [["[ ]" for i in range(5)] for i in range(5)]
@@ -403,7 +407,7 @@ class Maps:
 		time.sleep(3)
 		os.system('cls')		
 
-		self.MapMove(Map, {'G': [Goal[0], Goal[1]]}, [2, 2])
+		self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2])
 	
 	def LobbyMap(self):
 		for MapData in self.AllMapData:
@@ -416,10 +420,10 @@ class Maps:
 		LobbyMap[12][14] = "[G]"
 		LobbyMap[12][15] = "[G]"
 		LobbyMap[12][16] = "[G]"
-	
-		
-		for MapStuff in LobbyMap:
-			print(''.join(MapStuff))
+
+		return self.MapMove(LobbyMap, {"G": [[12, 14], [12, 15], [12, 15]]}, [LobbyData['StartX'], LobbyData['StartY']])
+
+
 		
 class PostMenu:
 	def __init__(self, SaveID, SaveData):
@@ -453,6 +457,13 @@ class PostMenu:
 		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
 
+	def SystemServices(self):
+		pass
+
+	def Guard(self):
+		os.system('cls')
+		time.sleep(1000)
+
 	def TavernStart(self):
 		
 		os.system("cls")
@@ -462,12 +473,17 @@ class PostMenu:
 
 		os.system('cls')
 
-		# MAPPP
+		while True:
+			Decision = Maps().LobbyMap()
+
+			if Decision == "G":
+				self.Guard
 
 class Dungeon:
-	def __init__(self, dungeon, PlayerClass) -> None:
+	def __init__(self, dungeon, PlayerClass, Difficulty) -> None:
 		self.dungeonData = dungeon
 		self.Player = PlayerClass
+		self.Difficulty = Difficulty
 		self.Enemies = {"tester": {"CurrentEffects": {"Burn": {}}}}
 		self.PlayerTurn = random.choice([False, True])
 
