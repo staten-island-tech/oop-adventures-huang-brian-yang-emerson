@@ -62,6 +62,15 @@ class Enemy:
     
     def BossDialogue(self,turn):
         print(f"{self.name}: ", end="", flush=True)
+        if self.name == "Pharoah":
+            if turn < len(PharoahDialogue):
+                for char in PharoahDialogue[turn-1]:
+                    print(char, end="", flush=True)
+                    time.sleep(0.1)
+            else:
+                for char in PharoahDialogue[-1]:
+                    print(char, end="", flush=True)
+                    time.sleep(0.1)
         if self.name == "Eyed Coffin":
             if turn < len(EyedCoffinDialogue):
                 for char in EyedCoffinDialogue[turn-1]:
@@ -91,6 +100,13 @@ class Enemy:
         time.sleep(3)
     
     def BossDeath(self):
+        if self.name == "Pharoah":
+            for i in range(len(PharoahDeath)):
+                print(f"{self.name}: ", end="", flush=True)
+                for char in PharoahDeath[i]:
+                    print(char, end="", flush=True)
+                    time.sleep(0.25)
+                time.sleep(1)
         if self.name == "Eyed Coffin":
             for i in range(len(EyedCoffinDeath)):
                 print(f"{self.name}: ", end="", flush=True)
@@ -113,7 +129,28 @@ class Enemy:
                 time.sleep(1)
         time.sleep(3)
 
-
+PharoahDialogue = [
+    "WHO ARE YOU TO AWAKEN ME FROM MY SLUMBER?\n",
+    "YOU SURE HAVE ALOT OF GUTS!\n",
+    "HAHAHA!\n",
+    "OH? YOU'RE APPROACHING ME?\n",
+    "INSTEAD OF RUNNING AWAY, YOU'RE COMING TOWARDS ME?\n",
+    "VERY WELL! GET AS CLOSE AS YOU LIKE?\n",
+    "YOU'RE NOTHING TO ME, BUT A SMALL PEST IN THE WAY!\n",
+    "A QUINTESSENCE OF DUST, THAT'S WHAT YOU ARE!\n",
+    "A LITTLE SPECK, IN THE GRAND SCHEME OF THE WORLD!\n",
+    "AND YOU THINK YOU CAN CHALLENGE ME?\n",
+    "FOOLISH BEING! I WILL CRUSH YOU WHERE YOU STAND!\n",
+    "TIME TO DIE!\n"
+]
+PharoahDeath = [
+    "WHAT!\n",
+    "IMPOSSIBLE!\n",
+    "THIS...CAN'T BE!\n",
+    "BUT...\n",
+    "I'M...\n",
+    "THE PHAROA...\n"
+]
 EyedCoffinDialogue = [
     "W̴̭̞̺̗̺̣̱͒̑͒͌̀̒̇̕ḩ̷̛̬̼̫͉̭͋̔̄̎̀̂̃͌̇͛͝͠y̷̡̛̬͉̦̠̝̞͇͌̂̔̈̑́̀͘͠ͅ ̴̢̧̛̣̈́̐̓̉̌͛͑á̸̙̜͔̰͉̜̱̙̺̻̓͊́̈́̕͘ȓ̷̟͛e̷͎̗͔̼̪̞̓̔̈́ͅ ̴͕͈̻̰̭̻̙̤̘̹̀̀̒͒͊̈͆̉ͅy̴̨͕͙̩̪̙͕̩̘̯͖̒̋͐́̌̆́̄͜ó̶̜͈̲̼̪̩̖͎̳͕͚͚͕͎̀̆͜ų̴̣̠͎̝̟̲̼̪͉͖̝̗̒́ ̷̡̢̝͍̲̮̹͕̩̩͔͖̩͉͈͋̅̀̃̽͊̃h̸͖̻́̈́̈́͊̉̑́͊͑̓͘̚͝͝e̵̢̛̜͍̼̼̳̪̾̈̍̍̈̾͊͐̚͘͠r̵͎͍̩̬̝̦̟̪͇̜͕̬̩̖̙̾̑́̀̎̋̃̐̊̈́̒̋́̚è̷̢̳̙̉̊͐̅̿̂̏̓̑̒͌͊̚͝?̷̯͂͋̏̿̑̉̂̃̅͊\n",
     "J̷̡͇̠̠̲̌ư̸̼̤̟̔̊͑͑͆͘ṡ̵̞̰̤̖̮̱̻̬̯̘̪̀͆t̷̛͇̬͍̟̜̞͂̃̌͛͂̾̇̒̕͘͠͝ ̸̨̩̖͓̼͈̮̖̖̻̮̹̈́͑̈́̽͊̉́t̴̜͖͑́́̀̀̃̀͑̋̚͠͝ò̴͕͈̼̥̚͘͝ ̶̙͖̼̩͋s̵̬̪̈́̾͌̅̿͋̃͆͝ư̵͖̘͍̹̈́͑̌͆͒̃̉͂̕̕̕͝f̶̛͎̼͂̾̀̓̐̇̄̒f̸̫̪̬̘͕̫͗̓̈̑͋̍̈́̒̂͝e̵̡̨̢̧̼̤̞̣̫͙͔̥̜͊̉͐͛͋̾̊̃r̷̪̓̈́̐͋̓̀̈̔͑̽̚͠͝?̸̧̫̯͙̆͑͋̒͋̓̀́̈́͆̇̆͝\n",
@@ -132,6 +169,22 @@ EyedCoffinDialogue = [
 ]
 EyedCoffinDeath = [
     '"̷̦͔͐͋̆̂̆͋̔̿̆̕͝T̸͎̪̿̈͆͝ͅḨ̸̡̧̩̭̬͉̞̠̫̞̯̖̦̗̌̿̒̆͂͊͐̉̄̂͘͝Ȩ̶̨̗̪̜̼͉̮̭̱͙̏̋̽͋̆̃̒͊̓ ̴̧̢̛͍̲̻̠̳̘̲̦͓͉̔̋̍̔͂S̵͙͇̻͚͓͆̐͂͆̅ͅO̷͍͇͇̱͈̺̱̠͐̎̓͗̾̓͋͘͜͠Ṵ̷̡̠͍̗̖̩̜̤̹̹̎͋̏̾̀̾̚͠͠Ṇ̸͆̿͒̆͒͝D̸̛̼̮́͋̔̐̋͐͛̈͠͠͠ ̷̦̜̪̫̝̣̣͔̙͈̣́̋̅̀̚͝͠B̵̡̨͙̭͚̘͚͈̜̩̝̘̗̃U̸̝͎͕̗̦̱̜͍̩͛͐̑͑̀̄̈́R̵̪͓̯̖̯̟̳͕͍̹͋́͝͠R̷͉̙̬̋̃̀̅Ǫ̸̛̲̹̹̹̗̜́̅͗̐̽͒̑W̷̛̠̰̖̯̩̲̌̂̈́͂̄͒͆̚͠È̴̫̮̩̦͓̱̼̝͚͉̣̮͉̃͌͋̓͠Ḋ̵̢̨͕̣̭̰̘̜̩̪̏̔̂͋͠ ̵̛̹̳̰̙̏́͛̐̓̈̾͌̓̊̋̓͝D̷̟̦̙̯̜̀̌̐̈̌͆̋̀̂͊͒̚̚͜͠Ḝ̷̨̢̡̞̱̫̼͍̩̩̓̂̅̆̔̄̀̃̾̅̃̔͝ͅĘ̸̨̛̭̝̒͛͠P̵̢̼̼̫̭̺̪̩̯͇̘̋̓̅̎̀̋̈́̑̍̂̔͘͘ ̸̛̞̰̔̽̃̓͊͂̀̑̊̑̚͜͝Ȉ̷̧͈͙̞̥̗̫͌̿̈̿͑̍Ņ̷̜̝̳̳̝̭̤̙̩̥͈̅͗̍͋͘̚͝͝T̴̼̟̜͍̘̑͑̋͛̔͝Ő̶̺͕͍̠̥̞̌̎̂̂̽̽͒̉͗̐͘͝ ̷̡̳͙̹͕̱̗̪̒̋̐̏̃́̃M̷̛͕̩̦̬̂̓̂͐̉̐̈́̌̚͝ͅY̸̩̯͕͓̤̹̤̫̰̰͛̏̍̊̓ͅ ̷͉͉̗̓F̴̧̨̢̤͙͓̲̫͚̻̟̭̯̎́̿̓̀̑͐̈́͜͝͝L̸̝̞͕̠̙͍̭̠̳͎͎̞̺̟̇̈́́̏̃̈́͒̎͂͆̕͘Ȩ̸̢̫͙̝͉̤̲͚̮̳̜̫̱̾̽͌͠Ş̶̨͍̣̘͎̳̬͈̂̇ͅH̵̢͈͈͔̘̤̬̻̠̪͙̯͂̑̒̿̎́͋̔"̸̫̠̦͎̬͠ͅ\n'
+]
+SharkManDialogue = [
+    "You're not here for business...\n",
+    "I can sense the violent nature in you...\n",
+    "It's...suffocating...\n",
+    "I don't like you.\n",
+    "Get out!\n",
+    "I have a job to do!\n",
+    "Stop bothering me!\n",
+    "You're lucky I can't summon security!\n",
+    "You've probably killed them all!\n",
+    "I'm pretty capable myself...\n",
+    "But you didn't have to kill all my employees!\n",
+    "...\n",
+    "I will destroy you!\n",
+    "...\n"
 ]
 KrakenDialogue = [
     "OwO\n",
