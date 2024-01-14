@@ -486,7 +486,10 @@
             ]
         ],
         "StartX": 10,
-        "StartY": 10
+        "StartY": 10,
+        "Trial1": [10,12],
+        "Trial2": [10,16],
+        "Trial3": [10,2]
     },
     {
         "name": "Desert Pyramid",
@@ -1168,7 +1171,10 @@
             ]
         ],
         "StartX": 1,
-        "StartY": 1
+        "StartY": 1,
+        "Trial1": [12,3],
+        "Trial2": [12,7],
+        "Trial3": [9,12]
     },
     {
         "name": "The Depths",
@@ -2043,7 +2049,10 @@
             ]
         ],
         "StartX": 15,
-        "StartY": 0
+        "StartY": 0,
+        "Trial1": [12,5],
+        "Trial2": [14,13],
+        "Trial3": [7,27]
     },
     {
         "name": "Dark Purgatory",
@@ -3138,7 +3147,10 @@
             ]
         ],
         "StartX": 0,
-        "StartY": 0
+        "StartY": 0,
+        "Trial1": [1,1],
+        "Trial2": [13,13],
+        "Trial3": [31,31]
     },
     {
         "name": "END",
@@ -3580,7 +3592,10 @@
             ]
         ],
         "StartX": 1,
-        "StartY": 1
+        "StartY": 1,
+        "Trial1": [1,43],
+        "Trial2": [1,64],
+        "Trial3": [1,85]
     },
     {
         "name": "Lobby",
@@ -4249,6 +4264,9 @@
         
         ],
         "StartX": 15,
-        "StartY": 10
+        "StartY": 10,
+        "Trial1": "None",
+        "Trial2": "None",
+        "Trial3": "None"
     }
 ]
