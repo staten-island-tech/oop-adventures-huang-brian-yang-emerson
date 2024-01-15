@@ -31,8 +31,10 @@ def Guard():
 	os.system('cls')
 	current_selection = 0
 	PlayerLevel = 1  # This will be replaced with the actual player level
+	
 	with open('DData.json', mode='r') as infile:
 		Dungeons: list[dict] = json.load(infile)
+		
 	while True:
 		os.system('cls')
 		dialogues = ["Select Dungeon:"]
