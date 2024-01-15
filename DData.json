@@ -19,16 +19,16 @@
                 "Attack": 15,
                 "Exp": 10,
                 "Chance": 20,
-                "MovementChance": 67,
+                "MovementChance": 100,
                 "Desc": "Enemy with pokey stick"
             },                
             {
                 "Name": "Goblin Brawler",
                 "Hp": 25,
-                "Attack": 20,
+                "Attack": 25,
                 "Exp": 10,
                 "Chance": 5,
-                "MovementChance": 50,
+                "MovementChance": 60,
                 "Desc": "This brawler packs a punch"
             },
             {
@@ -42,7 +42,7 @@
             },
             {
                 "Name": "Goblin Gang",
-                "Hp": 100,
+                "Hp": 150,
                 "Attack": 10,
                 "Exp": 25,
                 "Chance": 1,

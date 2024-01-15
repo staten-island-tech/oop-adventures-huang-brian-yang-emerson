@@ -1,4 +1,4 @@
-import Enemy,Player,json,os,time,random
+import Enemy,Player,json,os,time,random, testingCombatInit
 
 
 with open("DData.json", "r") as f:
@@ -433,7 +433,7 @@ def leveling():
     data2[SaveID]['Stats']['Exp'] += Opponent.exp
     if data2[SaveID]['Stats']['Exp'] >= data2[SaveID]['Stats']['Level'] * 10:
         print("You leveled up!")
-        data2[SaveID]['Stats']['Exp'] = 0
+        data2[SaveID]['Stats']['Exp'] -= data2[SaveID]['Stats']['Level'] * 10
         data2[SaveID]['Stats']['Level'] += 1
         data2[SaveID]['Stats']['Strength'] += 1
         data2[SaveID]['Stats']['Vitality'] += 1
@@ -446,12 +446,12 @@ def leveling():
 
 
         
-dungeonNum = 0
-enemyNum = 0
+dungeonNum = testingCombatInit.Dungeon_Enemy_SaveID[0]
+enemyNum = testingCombatInit.Dungeon_Enemy_SaveID[1]
 
 
 enemyInfo(dungeonNum,enemyNum)
-playerStats = playerInfo(0)
+playerStats = playerInfo(testingCombatInit.Dungeon_Enemy_SaveID[2])
 #items = ConsumableItems()
 items = []
 
@@ -507,4 +507,3 @@ leveling()
 with open('Saves.json', mode='w') as outfile:
     json.dump(data2, outfile, indent=4)
 
-exit()

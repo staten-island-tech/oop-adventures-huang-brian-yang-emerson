@@ -3,11 +3,11 @@
         "Name": "Emerson Yang ",
         "Stats": {
             "Gold": 0,
-            "HP": 106,
-            "Strength": 2,
+            "HP": 140,
+            "Strength": 4,
             "Luck": 0,
-            "Level": 3,
-            "Vitality": 2,
+            "Level": 5,
+            "Vitality": 4,
             "Exp": 5
         },
         "Misc": {
