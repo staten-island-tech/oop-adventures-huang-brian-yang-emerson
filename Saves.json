@@ -1,6 +1,10 @@
 [
     {
+<<<<<<< Updated upstream
         "Name": "Testing 2",
+=======
+        "Name": "Testing 1",
+>>>>>>> Stashed changes
         "Stats": {
             "Gold": 0,
             "HP": 100,
@@ -11,6 +15,7 @@
         },
         "Misc": {
             "TutorialDone": false
+<<<<<<< Updated upstream
         },
         "Armor": {
             "Name": "None",
@@ -18,6 +23,8 @@
         },
         "Weapon": {
             "Name": "None"
+=======
+>>>>>>> Stashed changes
         },
         "Inventory": []
     }

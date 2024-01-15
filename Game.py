@@ -195,7 +195,8 @@ class PreGame:
 					"Strength": 0,
 					"Luck": 0,
 					"Level": 1,
-					"Vitality": 0
+					"Vitality": 0,
+					"Exp": 0
 				},
 
 				"Misc": {
@@ -361,15 +362,19 @@ class Maps:
 		with open('Maps.json', mode='r', encoding='utf8') as infile:
 			self.AllMapData: list[dict] = json.load(infile)
 
-	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
+	def MapMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list):
 		os.system('cls')
+		Map[PlayerPosition[0]][PlayerPosition[1]] == '[P]'
 
 		while True:
 			os.system('cls')
 			PreviousPosition = PlayerPosition.copy()
 			TargetPosition = PlayerPosition.copy()
+
+			for i in Map:
+				print(''.join(i))
 			
-			Movement = CoolBoxDialogue([''.join(i) for i in Map], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
+			Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
 
 			if Movement == 0:
 				TargetPosition[0] -= 1
@@ -416,7 +421,7 @@ class Maps:
 		time.sleep(3)
 		os.system('cls')		
 
-		self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2])
+		return self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2])
 	
 	def LobbyMap(self):
 		for MapData in self.AllMapData:
@@ -424,16 +429,21 @@ class Maps:
 				LobbyData = MapData
 
 		LobbyMap = LobbyData['map']
-		
+		LobbyMap[LobbyData['StartY']][LobbyData['StartX']] = '[P]'
+
 		# For Guard #
 		LobbyMap[12][14] = "[G]"
 		LobbyMap[12][15] = "[G]"
 		LobbyMap[12][16] = "[G]"
 
-		return self.MapMove(LobbyMap, {"G": [[12, 14], [12, 15], [12, 15]]}, [LobbyData['StartX'], LobbyData['StartY']])
+		return self.MapMove(
+			LobbyMap, 
+			{
+				"G": [[12, 14], [12, 15], [12, 15]],
+				}, 
+			[LobbyData['StartY'], LobbyData['StartX']]
+			)
 
-
-		
 class PostMenu:
 	def __init__(self, SaveID, SaveData):
 		self.SaveID = SaveID
@@ -461,6 +471,7 @@ class PostMenu:
 
 		os.system('cls')
 		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
+		Dialogue('Villager', "I mean it's technically my job to explain the rest of the game but...", 0.05)
 		Dialogue('Villager', "I'm kinda too lazy to explain the rest of the game so yeah.\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)
@@ -471,7 +482,29 @@ class PostMenu:
 
 	def Guard(self):
 		os.system('cls')
-		time.sleep(1000)
+
+		current_selection = 0
+
+		with open('DData.json', mode='r') as infile:
+			Dungeons: list[dict] = json.load(infile)
+
+		while True:
+			os.system('cls')
+			dialogues = ["Select Dungeon:"]
+
+			# Add each dungeon name to the dialogues
+			dialogues += [f"Dungeon {i}: {dungeon['Dungeon']}" + (' <--' if i == current_selection else '') for i, dungeon in enumerate(Dungeons)]
+
+			actions = ["W/S - Move Up/Down Respectively", "P - Select Dungeon", "R - Return to Dungeon Screen"]
+			answers = ["W", "S", "P", "R"]
+
+			DungeonChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
+
+			if DungeonChoice == 0:
+				current_selection = max(0, current_selection - 1)
+
+			elif DungeonChoice == 1:
+				current_selection = min(len(Dungeons) - 1, current_selection + 1)
 
 	def TavernStart(self):
 		
@@ -486,7 +519,7 @@ class PostMenu:
 			Decision = Maps().LobbyMap()
 
 			if Decision == "G":
-				self.Guard
+				self.Guard()
 
 class Dungeon:
 	def __init__(self, dungeon, PlayerClass, Difficulty) -> None:
