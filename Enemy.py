@@ -61,43 +61,32 @@ class Enemy:
             self.status.append(effect)
     
     def BossDialogue(self,turn):
-        print(f"{self.name}: ", end="", flush=True)
+        dialogue = []
         if self.name == "Pharoah":
-            if turn < len(PharoahDialogue):
-                for char in PharoahDialogue[turn-1]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.1)
-            else:
-                for char in PharoahDialogue[-1]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.1)
-        if self.name == "Eyed Coffin":
-            if turn < len(EyedCoffinDialogue):
-                for char in EyedCoffinDialogue[turn-1]:
-                    print(char, end="", flush=True)
-            else:
-                for char in EyedCoffinDialogue[-1]:
-                    print(char, end="", flush=True)
-        if self.name == "Kraken":
-            if turn < len(KrakenDialogue):
-                for char in KrakenDialogue[turn-1]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.1)
-            else:
-                for char in KrakenDialogue[-1]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.1)
-        if self.name == "Death":
-            if turn < len(DeathDialogue):
-                for char in DeathDialogue[turn-1]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.1)
-            else:
-                for char in DeathDialogue[-1]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.1)
+            dialogue = PharoahDialogue
+        elif self.name == "Eyed Coffin":
+            dialogue = EyedCoffinDialogue
+        elif self.name == "Shark-man":
+            dialogue = SharkManDialogue
+        elif self.name == "Kraken":
+            dialogue = KrakenDialogue
+        elif self.name == "Death":
+            dialogue = DeathDialogue
 
-        time.sleep(3)
+        if dialogue != None:
+            print(f"{self.name}: ", end="", flush=True)
+            if turn > len(dialogue):
+                for char in dialogue[-1]:
+                    print(char, end="", flush=True)
+                    time.sleep(0.1)
+                time.sleep(1)
+            else:
+                for char in dialogue[turn-1]:
+                    print(char, end="", flush=True)
+                    time.sleep(0.1)
+                time.sleep(1)
+
+            time.sleep(3)
     
     def BossDeath(self):
         if self.name == "Pharoah":
@@ -112,6 +101,13 @@ class Enemy:
                 print(f"{self.name}: ", end="", flush=True)
                 for char in EyedCoffinDeath[i]:
                     print(char, end="", flush=True)
+                time.sleep(1)
+        if self.name == "Shark-man":
+            for i in range(len(SharkManDeath)):
+                print(f"{self.name}: ", end="", flush=True)
+                for char in SharkManDeath[i]:
+                    print(char, end="", flush=True)
+                    time.sleep(0.25)
                 time.sleep(1)
         if self.name == "Kraken":
             for i in range(len(KrakenDeath)):
@@ -183,8 +179,24 @@ SharkManDialogue = [
     "I'm pretty capable myself...\n",
     "But you didn't have to kill all my employees!\n",
     "...\n",
-    "I will destroy you!\n",
+    "I will destroy you...for the sake of the company...\n",
     "...\n"
+    ]
+SharkManDeath = [
+    "...\n",
+    "I...\n",
+    "Damn...looks like I'm dying...\n",
+    "My business was successful...where did it go wrong?\n",
+    "...\n",
+    "I see...\n",
+    "It's not me...\n",
+    "It's you...\n",
+    "As long as you're here...\n",
+    "Everything will fall...\n",
+    "Damn...\n",
+    "I didn't want to do this...\n"
+    "...\n",
+    "Release...it...\n"
 ]
 KrakenDialogue = [
     "OwO\n",
