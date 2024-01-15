@@ -53,28 +53,48 @@
         "Loot":
         [
             {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?"
+            },
+            {
                 "Name": "Simple Spear",
                 "Damage": 15,
+                "Type": "Weapon",
                 "Durability": 100,
                 "Rarity": "Common",
                 "Quantity": 1,
-                "Chance": 65
+                "Chance": 0,
+                "Value": 10
             },
             {
                 "Name": "Slingshot",
                 "Damage": 20,
+                "Type": "Weapon",
                 "Durability": 50,
                 "Rarity": "Uncommon",
                 "Quantity": 1,
-                "Chance": 25
+                "Chance": 0,
+                "Value": 10
             },
             {
                 "Name": "Club",
                 "Damage": 25,
+                "Type": "Weapon",
                 "Durability": 100,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Chance": 10
+                "Chance": 0,
+                "Value": 10
+            },
+            {
+                "Name": "Vine Plates",
+                "Type": "Armor",
+                "Durability": 1000,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 10
             }
         ]
     },

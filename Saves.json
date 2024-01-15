@@ -1,13 +1,14 @@
 [
     {
-        "Name": "GIGACHAD tester",
+        "Name": "Emerson Yang ",
         "Stats": {
             "Gold": 0,
-            "HP": 100000100,
-            "Strength": 10000000,
+            "HP": 100,
+            "Strength": 0,
             "Luck": 0,
-            "Level": 10000001,
-            "Vitality": 10000000
+            "Level": 1,
+            "Vitality": 0,
+            "Exp": 0
         },
         "Misc": {
             "TutorialDone": false
@@ -18,6 +19,22 @@
         },
         "Weapon": {
             "Name": "None"
+        },
+        "Inventory": []
+    },
+    {
+        "Name": "j",
+        "Stats": {
+            "Gold": 0,
+            "HP": 100,
+            "Strength": 0,
+            "Luck": 0,
+            "Level": 1,
+            "Vitality": 0,
+            "Exp": 0
+        },
+        "Misc": {
+            "TutorialDone": false
         },
         "Inventory": []
     }

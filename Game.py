@@ -4,6 +4,7 @@ from itertools import cycle
 # Outside Functions For Each Class To Use # 
 def Dialogue(Author, Text, Time):
 	print(f"{Author}: ", end="", flush=True)
+
 	for char in Text:
 		print(char, end="", flush=True)
 		time.sleep(Time)
@@ -53,7 +54,8 @@ class PreGame:
 
 	# << Main Menu Functions >> #
 	def Information(self):
-		print("Information: Clean Up On Isle 9 Please".center(80))
+		print("There's a very specific bug that I CANNOT SEE BRUH".center(80))
+		print("Game By Some 2 People I Forgor".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
@@ -62,7 +64,7 @@ class PreGame:
 		print("Future Plans As Of Currently:".center(80))
 		print("1. Migrate Maps To Json Files For Easier Usage".center(80))
 		print("2. Better Maps And Map Handling".center(80))
-		print("3. Finish Construction Of Game (Currently Under Construction) -> Will Throw Error".center(80))
+		print("3. Finish Construction Of The Lobby And Uh Whatever Matters.".center(80))
 		print("Press enter to return to the main menu.".center(80))
 		input()
 		return self.MainMenu()
@@ -150,7 +152,7 @@ class PreGame:
 			with open('Saves.json', mode='w') as outfile:
 				json.dump(Data, outfile, indent=4)
 
-		return self.SaveMenu(self.GetAllSave())
+		return self.PlayGame()
 
 	def GetSave(self, SaveID):
 		try:
@@ -193,22 +195,14 @@ class PreGame:
 					"Strength": 0,
 					"Luck": 0,
 					"Level": 1,
-					"Vitality": 0
+					"Vitality": 0,
+					"Exp": 0
 				},
 
 				"Misc": {
 					'TutorialDone': False
 				},
 
-				"Armor": {
-					"Name": "None",
-					"Durability": 0
-				},
-
-				"Weapon": {
-					"Name": "None"
-				},
-				
 				"Inventory": [
 
 				],
@@ -261,7 +255,7 @@ class PreGame:
 
 			self.Load("Registered New Save File. Starting Game...", 10)
 
-		return self.SaveMenu(self.GetAllSave())
+		return self.PlayGame()
 
 	def SelectedSave(self, SaveID):
 		os.system('cls')
@@ -359,16 +353,19 @@ class Maps:
 		with open('Maps.json', mode='r', encoding='utf8') as infile:
 			self.AllMapData: list[dict] = json.load(infile)
 
-	def MapMove(self, Map: list[list[str]], Goals: dict, PlayerPosition: list):
+	def MapMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list):
 		os.system('cls')
-		PreviousPosition = PlayerPosition.copy()
-		TargetPosition = PlayerPosition.copy()
+		Map[PlayerPosition[0]][PlayerPosition[1]] == '[P]'
 
 		while True:
 			os.system('cls')
 			PreviousPosition = PlayerPosition.copy()
+			TargetPosition = PlayerPosition.copy()
 
-			Movement = CoolBoxDialogue([''.join(i) for i in Map], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
+			for i in Map:
+				print(''.join(i))
+			
+			Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
 
 			if Movement == 0:
 				TargetPosition[0] -= 1
@@ -378,13 +375,18 @@ class Maps:
 				TargetPosition[0] += 1
 			elif Movement == 3:
 				TargetPosition[1] += 1
+
+			TargetPosition[0] = max(0, TargetPosition[0])
+			TargetPosition[1] = max(0, TargetPosition[1])
 			
 			try:
 				if Map[TargetPosition[0]][TargetPosition[1]] == "[ ]":
 					PlayerPosition = TargetPosition.copy()	
+				else:
+					PlayerPosition = PreviousPosition
 
 			except:
-				pass
+				PlayerPosition = PreviousPosition
 
 			Map[PreviousPosition[0]][PreviousPosition[1]] = "[ ]"
 			Map[PlayerPosition[0]][PlayerPosition[1]] = "[P]"
@@ -392,8 +394,9 @@ class Maps:
 			os.system('cls')
 
 			for key, value in Goals.items():
-				if PlayerPosition == value:
-					return key
+				for val in value:
+					if TargetPosition == val:
+						return key
 				
 	def TutorialMap(self):
 		Map = [["[ ]" for i in range(5)] for i in range(5)]
@@ -409,14 +412,105 @@ class Maps:
 		time.sleep(3)
 		os.system('cls')		
 
-		self.MapMove(Map, {'G': [Goal[0], Goal[1]]}, [2, 2])
+		return self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2])
 	
+	def DungeonMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list):
+		os.system('cls')
+		Map[PlayerPosition[0]][PlayerPosition[1]] == '[P]'
+		CanLeave = False
+
+		while True:
+			os.system('cls')
+			PreviousPosition = PlayerPosition.copy()
+			TargetPosition = PlayerPosition.copy()
+
+			for i in Map:
+				print(''.join(i))
+			
+			Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right', 'I - Inventory', 'E - Exit'], ['W', 'A', 'S', 'D', 'I', 'E'], 88)
+
+			if Movement == 0:
+				TargetPosition[0] -= 1
+			elif Movement == 1:
+				TargetPosition[1] -= 1
+			elif Movement == 2:
+				TargetPosition[0] += 1
+			elif Movement == 3:
+				TargetPosition[1] += 1
+			elif Movement == 4:
+				pass
+			elif Movement == 5:
+				if CanLeave:
+					return "Exit"
+
+
+			TargetPosition[0] = max(0, TargetPosition[0])
+			TargetPosition[1] = max(0, TargetPosition[1])
+			
+			try:
+				if Map[TargetPosition[0]][TargetPosition[1]] == "[ ]":
+					PlayerPosition = TargetPosition.copy()	
+				else:
+					PlayerPosition = PreviousPosition
+
+			except:
+				PlayerPosition = PreviousPosition
+
+			Map[PreviousPosition[0]][PreviousPosition[1]] = "[ ]"
+			Map[PlayerPosition[0]][PlayerPosition[1]] = "[P]"
+			
+			os.system('cls')
+
+			for key, value in Goals.items():
+				for val in value:
+					if TargetPosition == val:
+						return key
+					
 	def LobbyMap(self):
 		for MapData in self.AllMapData:
 			if MapData['name'] == 'Lobby':
 				LobbyData = MapData
-		
 
+		LobbyMap = LobbyData['map']
+		LobbyMap[LobbyData['StartY']][LobbyData['StartX']] = '[P]'
+
+		# For Guard #
+		LobbyMap[12][14] = "[G]"
+		LobbyMap[12][15] = "[G]"
+		LobbyMap[12][16] = "[G]"
+
+		return self.MapMove(
+			LobbyMap, 
+			{
+				"G": [[12, 14], [12, 15], [12, 16]],
+				}, 
+			[LobbyData['StartY'], LobbyData['StartX']]
+			)
+	
+	def DungeonMap(self, DungeonData):
+
+		with open('Maps.json', mode='r') as infile:
+			AllDungeonsMaps = json.load(infile)
+
+		for map in AllDungeonsMaps:
+			if map['name'] == DungeonData['Dungeon']:
+				AllMapData = map
+				Map = map['map']
+
+		Map[AllMapData['Trial1'][0]][AllMapData['Trial1'][1]] = "1"
+		Map[AllMapData['Trial2'][0]][AllMapData['Trial2'][1]] = "1"
+		Map[AllMapData['Trial3'][0]][AllMapData['Trial3'][1]] = "1"
+
+		for i in Map:
+			print(''.join(Map))		
+
+		Choice = self.DungeonMove(Map, {
+			"Trial1": AllMapData['Trial1'],
+			"Trial2": AllMapData['Trial2'],
+			"Trial3": AllMapData['Trial3']
+		}, [AllMapData['StartY'], AllMapData['StartX']])
+
+		return Choice
 
 class PostMenu:
 	def __init__(self, SaveID, SaveData):
@@ -445,10 +539,62 @@ class PostMenu:
 
 		os.system('cls')
 		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
+		Dialogue('Villager', "I mean it's technically my job to explain the rest of the game but...", 0.05)
 		Dialogue('Villager', "I'm kinda too lazy to explain the rest of the game so yeah.\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
+
+	def SystemServices(self):
+		pass
+
+	def Guard(self):
+		os.system('cls')
+
+		current_selection = 0
+		PlayerLevel = 1  # This will be replaced with the actual player level
+
+		with open('DData.json', mode='r') as infile:
+			Dungeons: list[dict] = json.load(infile)
+
+		while True:
+			os.system('cls')
+			dialogues = ["Select Dungeon:"]
+
+			for i, dungeon in enumerate(Dungeons):
+
+				if PlayerLevel >= dungeon['LevelReq']:
+					print("Enough Level", dungeon['Dungeon'])
+					dialogue = f"Dungeon {i}: {dungeon['Dungeon']}"
+				else:
+					print("Not Enough Level", dungeon['Dungeon'])
+					dialogue = f"Dungeon {i}: {dungeon['Dungeon']} (Locked!)"
+
+				if i == current_selection and PlayerLevel >= dungeon['LevelReq']:
+					dialogue += ' <--'
+
+				dialogues.append(dialogue)
+
+			actions = ["W/S - Move Up/Down Respectively", "P - Select Dungeon", "R - Return"]
+			answers = ["W", "S", "P", "R"]
+
+			DungeonChoice = CoolBoxDialogue(dialogues, actions, answers, 80)
+
+			if DungeonChoice == 0 and current_selection > 0:
+				if PlayerLevel >= Dungeons[current_selection - 1]['LevelReq']:
+					current_selection -= 1
+
+			elif DungeonChoice == 1 and current_selection < len(Dungeons) - 1:
+				if PlayerLevel >= Dungeons[current_selection + 1]['LevelReq']:
+					current_selection += 1
+			
+			elif DungeonChoice == 2:
+				return Dungeoner(Dungeons[current_selection])
+
+			else:
+				print("Exiting!!")
+				time.sleep(5)
+				return "GET OUT OF MY SKIN"
 
 	def TavernStart(self):
 		
@@ -459,21 +605,35 @@ class PostMenu:
 
 		os.system('cls')
 
-		# MAPPP
+		while True:
+			Decision = Maps().LobbyMap()
 
-class Dungeon:
-	def __init__(self, dungeon, PlayerClass) -> None:
+			if Decision == "G":
+				Decision = None
+				print(self.Guard())
+
+class Dungeoner:
+	def __init__(self, dungeon, PlayerClass, Difficulty) -> None:
 		self.dungeonData = dungeon
 		self.Player = PlayerClass
+		self.Difficulty = Difficulty
 		self.Enemies = {"tester": {"CurrentEffects": {"Burn": {}}}}
 		self.PlayerTurn = random.choice([False, True])
 
 	def StartDungeon(self):
+		TrialChoice = Maps().DungeonMap(self.dungeonData)
+		
+		if TrialChoice == 'Exit':
+			return
 
-		with open("DData.json", mode='r') as infile:
-			AllDungeonData = json.load(infile)
+	def Trial1(self):
+		pass
 
-		self.dungeonData = AllDungeonData[self.dungeon]
+	def Trial2(self):
+		pass
+
+	def Trial3(self):
+		pass
 
 	def PlayerTurn(self):
 		pass
