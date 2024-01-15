@@ -22,9 +22,9 @@ playerStats = []
 
 def enemyInfo(dungeonNum,enemyNum):
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Name'])
-    enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Hp'])
-    enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Attack'])
-    enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Exp'])
+    enemy.append(round(data[dungeonNum]['Enemies'][enemyNum]['Hp']*statMultiplier))
+    enemy.append(round(data[dungeonNum]['Enemies'][enemyNum]['Attack']*statMultiplier))
+    enemy.append(round(data[dungeonNum]['Enemies'][enemyNum]['Exp']*statMultiplier))
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Chance'])
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['MovementChance'])
     enemy.append(data[dungeonNum]['Enemies'][enemyNum]['Desc'])
@@ -440,7 +440,13 @@ def leveling():
         data2[SaveID]['Stats']['HP'] = 100 + data2[SaveID]['Stats']['Vitality']*10
         print("You are now LEVEL "+str(data2[SaveID]['Stats']['Level']))
         
-
+def Trialthing(TrialNum):
+    if TrialNum == 1:
+        statMultiplier = 0.5
+    elif TrialNum == 3:
+        statMultiplier = 2
+    
+    return statMultiplier
 
 
 
@@ -448,7 +454,7 @@ def leveling():
         
 dungeonNum = testingCombatInit.Dungeon_Enemy_SaveID[0]
 enemyNum = testingCombatInit.Dungeon_Enemy_SaveID[1]
-
+statMultiplier = Trialthing(testingCombatInit.TrialNum)
 
 enemyInfo(dungeonNum,enemyNum)
 playerStats = playerInfo(testingCombatInit.Dungeon_Enemy_SaveID[2])
