@@ -1,4 +1,4 @@
-import Game, Effects, Enemy, Player, os #, #win11toast
+import Game, Enemy, Player, os #, #win11toast
 
 def Main():
     #win11toast.toast("I hate haobin")
