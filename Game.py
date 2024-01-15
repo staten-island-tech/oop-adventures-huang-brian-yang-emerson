@@ -202,7 +202,13 @@ class PreGame:
 				"Misc": {
 					'TutorialDone': False
 				},
-
+        		"Armor": {
+        		    "Name": "None",
+        		    "Durability": 0
+        		},
+        		"Weapon": {
+        		    "Name": "None"
+        		},
 				"Inventory": [
 
 				],
@@ -539,7 +545,7 @@ class PostMenu:
 
 		os.system('cls')
 		Dialogue('Villager', "Oh, Nice You Actually Did It. I Was Not Expecting That.\n", 0.05)
-		Dialogue('Villager', "I mean it's technically my job to explain the rest of the game but...", 0.05)
+		Dialogue('Villager', "I mean it's technically my job to explain the rest of the game but...\n", 0.05)
 		Dialogue('Villager', "I'm kinda too lazy to explain the rest of the game so yeah.\n", 0.05)
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)

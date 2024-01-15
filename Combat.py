@@ -491,6 +491,7 @@ for i in range(len(E.UsedItems)):
 
 data2[SaveID]['Armor']['Name'] = You.Stats[7]
 data2[SaveID]['Armor']['Durability'] = You.Stats[8]
+data2[SaveID]['HP'] = You.Stats[1]
 
 with open('Saves.json', mode='w') as outfile:
     json.dump(data2, outfile, indent=4)

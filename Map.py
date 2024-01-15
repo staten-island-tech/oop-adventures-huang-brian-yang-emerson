@@ -62,7 +62,7 @@ with open("Maps.json", "r", encoding= 'utf-8') as f:
     data = json.load(f)
     ##Call classes in here
                
-Name = "Dark Purgatory"
+Name = "Lobby"
 Num = Map.DetermineMapNum(Name)
 dungeon = data[Num]['map']
 x = data[Num]['StartX']

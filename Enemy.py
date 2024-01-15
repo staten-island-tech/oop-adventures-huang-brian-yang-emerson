@@ -72,6 +72,8 @@ class Enemy:
             dialogue = KrakenDialogue
         elif self.name == "Death":
             dialogue = DeathDialogue
+        else:
+            dialogue = None
 
         if dialogue != None:
             print(f"{self.name}: ", end="", flush=True)
@@ -89,41 +91,28 @@ class Enemy:
             time.sleep(3)
     
     def BossDeath(self):
+        DeadBossDialogue = []
         if self.name == "Pharoah":
-            for i in range(len(PharoahDeath)):
+            DeadBossDialogue = PharoahDeath
+        elif self.name == "Eyed Coffin":
+            DeadBossDialogue = EyedCoffinDeath
+        elif self.name == "Shark-man":
+            DeadBossDialogue = SharkManDeath
+        elif self.name == "Kraken":
+            DeadBossDialogue = KrakenDeath
+        elif self.name == "Death":
+            DeadBossDialogue = DeathofDeath
+        else:
+            DeadBossDialogue = None
+
+        if DeadBossDialogue != None:
+            for i in range(len(DeadBossDialogue)):
                 print(f"{self.name}: ", end="", flush=True)
-                for char in PharoahDeath[i]:
+                for char in DeadBossDialogue[i]:
                     print(char, end="", flush=True)
                     time.sleep(0.25)
                 time.sleep(1)
-        if self.name == "Eyed Coffin":
-            for i in range(len(EyedCoffinDeath)):
-                print(f"{self.name}: ", end="", flush=True)
-                for char in EyedCoffinDeath[i]:
-                    print(char, end="", flush=True)
-                time.sleep(1)
-        if self.name == "Shark-man":
-            for i in range(len(SharkManDeath)):
-                print(f"{self.name}: ", end="", flush=True)
-                for char in SharkManDeath[i]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.25)
-                time.sleep(1)
-        if self.name == "Kraken":
-            for i in range(len(KrakenDeath)):
-                print(f"{self.name}: ", end="", flush=True)
-                for char in KrakenDeath[i]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.25)
-                time.sleep(1)
-        if self.name == "Death":
-            for i in range(len(DeathofDeath)):
-                print(f"{self.name}: ", end="", flush=True)
-                for char in DeathofDeath[i]:
-                    print(char, end="", flush=True)
-                    time.sleep(0.25)
-                time.sleep(1)
-        time.sleep(3)
+            time.sleep(3)
 
 PharoahDialogue = [
     "WHO ARE YOU TO AWAKEN ME FROM MY SLUMBER?\n",
