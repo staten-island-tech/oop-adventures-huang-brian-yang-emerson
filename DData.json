@@ -16,16 +16,16 @@
             {
                 "Name": "Spear Goblin",
                 "Hp": 50,
-                "Attack": 5,
+                "Attack": 15,
                 "Exp": 10,
                 "Chance": 20,
-                "MovementChance": 50,
+                "MovementChance": 67,
                 "Desc": "Enemy with pokey stick"
             },                
             {
                 "Name": "Goblin Brawler",
                 "Hp": 25,
-                "Attack": 10,
+                "Attack": 20,
                 "Exp": 10,
                 "Chance": 5,
                 "MovementChance": 50,
@@ -34,7 +34,7 @@
             {
                 "Name": "Chief Goblin",
                 "Hp": 75,
-                "Attack": 20,
+                "Attack": 50,
                 "Exp": 15,
                 "Chance": 4,
                 "MovementChance": 50,
@@ -43,10 +43,10 @@
             {
                 "Name": "Goblin Gang",
                 "Hp": 100,
-                "Attack": 2,
+                "Attack": 10,
                 "Exp": 25,
                 "Chance": 1,
-                "MovementChance": 50,
+                "MovementChance": 100,
                 "Desc": "A group of Goblin gangs up on you!"
             }
         ],
@@ -55,7 +55,8 @@
             {
                 "Name": "Spider Eye",
                 "Type": "Scrap",
-                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?"
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 5
             },
             {
                 "Name": "Simple Spear",
@@ -75,7 +76,7 @@
                 "Rarity": "Uncommon",
                 "Quantity": 1,
                 "Chance": 0,
-                "Value": 10
+                "Value": 20
             },
             {
                 "Name": "Club",
@@ -85,16 +86,25 @@
                 "Rarity": "Rare",
                 "Quantity": 1,
                 "Chance": 0,
+                "Value": 30
+            },
+            {
+                "Name": "Flimsy Leather Armor",
+                "Type": "Armor",
+                "Durability": 25,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Chance": 0,
                 "Value": 10
             },
             {
                 "Name": "Vine Plates",
                 "Type": "Armor",
-                "Durability": 1000,
-                "Rarity": "Rare",
+                "Durability": 100,
+                "Rarity": "Uncommon",
                 "Quantity": 1,
                 "Chance": 0,
-                "Value": 10
+                "Value": 20
             }
         ]
     },
@@ -149,6 +159,53 @@
                 "MovementChance": 100,
                 "Desc": "The darkness touches all..."
             }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Hourglass",
+                "Type": "Scrap",
+                "Description": "It is broken...looks nice though",
+                "Value": 5
+            },
+            {
+                "Name": "Bow (and arrow)",
+                "Damage": 25,
+                "Type": "Weapon",
+                "Durability": 50,
+                "Rarity": "Uncommon",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 20
+            },
+            {
+                "Name": "Pharoah Sceptor",
+                "Damage": 40,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 40
+            },
+            {
+                "Name": "Magical bandage wraps",
+                "Type": "Armor",
+                "Durability": 100,
+                "Rarity": "Uncommon",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 10
+            },
+            {
+                "Name": "Sarcophagus",
+                "Type": "Armor",
+                "Durability": 200,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 30
+            }
         ]
     },
     {
@@ -200,6 +257,50 @@
                 "Chance": 1,
                 "MovementChance": 90,
                 "Desc": "Monster from the depths. It just wants hugs..."
+            }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Sea Rock",
+                "Type": "Scrap",
+                "Description": "It's a sea rock",
+                "Value": 10
+            },
+            {
+                "Name": "Small squid",
+                "Type": "Scrap",
+                "Description": "Burb burb burb",
+                "Value": 30
+            },
+            {
+                "Name": "Pickaxe",
+                "Damage": 30,
+                "Type": "Weapon",
+                "Durability": 50,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 20
+            },
+            {
+                "Name": "Rusty Katana",
+                "Damage": 80,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Mythical",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 80
+            },
+            {
+                "Name": "Barnicles Armor",
+                "Type": "Armor",
+                "Durability": 250,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 20
             }
         ]
     },
@@ -253,6 +354,50 @@
                 "MovementChance": 100,
                 "Desc": "The End... NO MERCY"
             }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Broken helmet",
+                "Type": "Scrap",
+                "Description": "The only thing they fear is you",
+                "Value": 50
+            },
+            {
+                "Name": "Maxwell",
+                "Type": "Scrap",
+                "Description": "Maxwell",
+                "Value": 100
+            },
+            {
+                "Name": "Large Axe",
+                "Damage": 100,
+                "Type": "Weapon",
+                "Durability": 50,
+                "Rarity": "Mythical",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 20
+            },
+            {
+                "Name": "Shotgun",
+                "Damage": 200,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Legendary",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 80
+            },
+            {
+                "Name": "DOOM Armor",
+                "Type": "Armor",
+                "Durability": 500,
+                "Rarity": "Legendary",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 200
+            }
         ]
     },
     {
@@ -268,6 +413,15 @@
                 "Chance": 100,
                 "MovementChance": 100,
                 "Desc": "It's You."
+            }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Completion Badge",
+                "Type": "Scrap",
+                "Description": "Congrats",
+                "Value": 200
             }
         ]
     }

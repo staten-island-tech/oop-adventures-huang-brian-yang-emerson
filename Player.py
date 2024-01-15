@@ -88,7 +88,7 @@ class Player:
             attack = random.randint(round(0.9 * data[i]['Attack']), round(1.1 * data[i]['Attack']))
             attack += self.Stats[2]
         else:
-            attack = random.randint(9*(self.Stats[2]+1), 11*(self.Stats[2]+1))
+            attack = random.randint(9+(self.Stats[2]), 11+(self.Stats[2]))
 
         return attack
 

@@ -9,13 +9,13 @@ with open("Saves.json", "r") as f:
     # Serialize the updated Python list to a JSON string
     data2 = json.load(f)
 
-with open("ItemList.json", "r") as f:
-    # Serialize the updated Python list to a JSON string
-    data3 = json.load(f)
-
-with open("StatusList.json", "r") as f:
-    # Serialize the updated Python list to a JSON string
-    data4 = json.load(f)
+#with open("ItemList.json", "r") as f:
+#    # Serialize the updated Python list to a JSON string
+#    data3 = json.load(f)
+#
+#with open("StatusList.json", "r") as f:
+#    # Serialize the updated Python list to a JSON string
+#    data4 = json.load(f)
 
 enemy = []
 playerStats = []
@@ -44,16 +44,16 @@ def playerInfo(SaveID):
     playerStats.append([])
     return playerStats
 
-def ConsumableItems():
-    items = []
-    print(playerStats[6])
-
-    for i in range(len(playerStats[6])):
-        for e in range(len(data3)):
-            if playerStats[6][i] == data3[e]['Name']:
-                items.append(playerStats[6][i])
-                
-    return items
+#def ConsumableItems():
+#    items = []
+#    print(playerStats[6])
+#
+#    for i in range(len(playerStats[6])):
+#        for e in range(len(data3)):
+#            if playerStats[6][i] == data3[e]['Name']:
+#                items.append(playerStats[6][i])
+#                
+#    return items
 
 def EnemySpecialAbilities(name):
     if name == "Cursed Mummy":
@@ -175,11 +175,11 @@ class Battle:
                     os.system("cls")
                     x = "You used "+useitem+"."                   
                     print(x.center(80))
-                    E.itemEffect(useitem)
-                    E.PdetermineStatChange(useitem,'HP',1)
-                    E.PdetermineStatChange(useitem,'Attack',2)
-                    E.PdetermineStatChange(useitem,'Defense',0)
-                    E.PdetermineStatChange(useitem,'Stamina',0)
+                    #E.itemEffect(useitem)
+                    #E.PdetermineStatChange(useitem,'HP',1)
+                    #E.PdetermineStatChange(useitem,'Attack',2)
+                    #E.PdetermineStatChange(useitem,'Defense',0)
+                    #E.PdetermineStatChange(useitem,'Stamina',0)
                     
                     E.UsedItems.append(useitem)
                     items.remove(useitem)
@@ -309,7 +309,7 @@ class Battle:
                     You.Stats[10].append([EnemyAbilities[i][0],EnemyAbilities[i][2]])
                     x = "You have been inflicted with "+EnemyAbilities[i][0].upper()+"!"
 
-                    E.initialEffect()
+                    #E.initialEffect()
                 else:
                     You.Stats[10][e][1] = EnemyAbilities[i][2]
                     x = EnemyAbilities[i][0].upper()+" has been reapplied."
@@ -429,7 +429,16 @@ class Battle:
             time.sleep(3)
 
 
-
+def leveling():
+    data2[SaveID]['Stats']['Exp'] += Opponent.exp
+    if data2[SaveID]['Stats']['Exp'] >= data2[SaveID]['Stats']['Level'] * 10:
+        print("You leveled up!")
+        data2[SaveID]['Stats']['Exp'] = 0
+        data2[SaveID]['Stats']['Level'] += 1
+        data2[SaveID]['Stats']['Strength'] += 1
+        data2[SaveID]['Stats']['Vitality'] += 1
+        data2[SaveID]['Stats']['HP'] = 100 + data2[SaveID]['Stats']['Vitality']*10
+        print("You are now LEVEL "+str(data2[SaveID]['Stats']['Level']))
         
 
 
@@ -437,13 +446,14 @@ class Battle:
 
 
         
-dungeonNum = 2
-enemyNum = 3
+dungeonNum = 0
+enemyNum = 0
 
 
 enemyInfo(dungeonNum,enemyNum)
 playerStats = playerInfo(0)
-items = ConsumableItems()
+#items = ConsumableItems()
+items = []
 
 PlayerMaxHP = 100 + playerStats[5]*10
 PMaxStamina = 10 + playerStats[4]*5
@@ -475,7 +485,7 @@ while Opponent.hp > 0:
         if Opponent.hp < 1:
             break
 
-    E.Effects()
+    #E.Effects()
     Turn += 1
 
 os.system("cls")
@@ -487,11 +497,12 @@ os.system("cls")
 print("You gained "+str(Opponent.exp)+" EXP!")
 
 for i in range(len(E.UsedItems)):
-        data2[SaveID]['Inventory'].remove(E.UsedItems[i])
+    data2[SaveID]['Inventory'].remove(E.UsedItems[i])
 
 data2[SaveID]['Armor']['Name'] = You.Stats[7]
 data2[SaveID]['Armor']['Durability'] = You.Stats[8]
-data2[SaveID]['HP'] = You.Stats[1]
+data2[SaveID]['Stats']['HP'] = You.Stats[1]
+leveling()
 
 with open('Saves.json', mode='w') as outfile:
     json.dump(data2, outfile, indent=4)
