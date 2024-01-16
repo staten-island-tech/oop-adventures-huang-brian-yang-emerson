@@ -51,34 +51,64 @@ def Inventory(SaveID):
     current_page = 0
 
     with open('Saves.json', mode='r') as infile:
-        Inventory = json.load(infile)[SaveID]['Inventory']
+        Data = json.load(infile)
+        Inventory = Data[SaveID]['Inventory']
 
     while True:
+        os.system('cls')
+        
+        with open('Saves.json', mode='r') as infile:
+            Inventory: list = json.load(infile)[SaveID]['Inventory']
+              
         start_index = current_page * 10
         end_index = start_index + 10
 
         current_page_items = Inventory[start_index:end_index]
 
-        dialogue_list = [f'Item {i}: {item["Name"]}' + (' <---' if i == current_selection else '') for i, item in enumerate(current_page_items)]
+        dialogue_list = [f'Item {start_index + i}: {item["Name"]}' + (' <---' if start_index + i == current_selection else '') for i, item in enumerate(current_page_items)]
         
-        Choicer = CoolBoxDialogue(dialogue_list, ['W - Move Up', 'S - Move down', 'A - Previous Page', 'D - Next Page'], ['W', 'S', 'A', 'D'], 88)
+        Choicer = CoolBoxDialogue(dialogue_list, ['W - Move Up', 'S - Move down', 'A - Previous Page', 'D - Next Page', 'I - Inspect', 'U - Equip Item (If Applicable)', 'P - Sell Item'], ['W', 'S', 'A', 'D', 'I', 'U', 'P'], 88)
 
         if Choicer == 0:  
             current_selection = max(0, current_selection - 1) 
 
         elif Choicer == 1:
-            current_selection = min(len(current_page_items) - 1, current_selection + 1) 
+            current_selection = min(len(Inventory) - 1, current_selection + 1) 
 
         elif Choicer == 2:
             current_page = max(0, current_page - 1)
-            current_selection = 0
+            current_selection = start_index 
 
         elif Choicer == 3:
-            # Next page
             current_page = min(len(Inventory) // 10, current_page + 1)
-            current_selection = 0
+            current_selection = start_index
+		
+        elif Choicer == 4:
+            print(Inventory[current_selection])
+            time.sleep(3)
+            
+        elif Choicer == 5:
+            Item = Inventory[current_selection]
+            if Item['Type'] == "Armor":
+                for Items in Inventory:
+                    if Items['Type'] != "Armor":
+                        continue
+                    Items['Equipped'] = False
+                Item['Equipped'] = True
+                        
+        if Item['Type'] == "Weapon":
+            for Items in Inventory:
+                if Items['Type'] != "Weapon":
+                    continue
+                Items['Equipped'] = False
+            Item['Equipped'] = True
 
-
+        elif Choicer == 6:
+            Value = Item["Value"]
+            Inventory.remove(Value)
+        
+        with open('Saves.json', mode='w') as outfile:
+            json.dump(Data, indent=4)
 
 class PreGame:
 	def __init__(self):
@@ -236,7 +266,13 @@ class PreGame:
 				"Misc": {
 					'TutorialDone': False
 				},
-
+        		"Armor": {
+        		    "Name": "None",
+        		    "Durability": 0
+        		},
+        		"Weapon": {
+        		    "Name": "None"
+        		},
 				"Inventory": [
 
 				],
@@ -387,7 +423,7 @@ class Maps:
 		with open('Maps.json', mode='r', encoding='utf8') as infile:
 			self.AllMapData: list[dict] = json.load(infile)
 
-	def MapMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list):
+	def MapMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list, Tutorial, SaveID):
 		os.system('cls')
 		Map[PlayerPosition[0]][PlayerPosition[1]] == '[P]'
 
@@ -399,7 +435,12 @@ class Maps:
 			for i in Map:
 				print(''.join(i))
 			
-			Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
+			if Tutorial:
+				Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
+			else:
+				Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right', 'I - Inventory', 'H - Heal'], ['W', 'A', 'S', 'D', 'I', 'H'], 88)
+				with open('Saves.json', mode='r') as infile:
+					TTTData = json.load(infile)
 
 			if Movement == 0:
 				TargetPosition[0] -= 1
@@ -409,6 +450,33 @@ class Maps:
 				TargetPosition[0] += 1
 			elif Movement == 3:
 				TargetPosition[1] += 1
+			elif Movement == 4:
+				Inventory(SaveID=SaveID)
+			elif Movement == 5:
+				Choice = CoolBoxDialogue(["You Wish To Heal?", f"Current Health: {TTTData[SaveID]['Stats']['HP']}", f"Max Health: {100 + ((TTTData[SaveID]['Stats']['Level'] - 1) * 50)}"], ['Y - Yes', 'N - No'], ['Y', 'N'], 88)
+				if Choice == 0:
+					while True:
+						try:
+							Amount = int(input("How much to heal? (1 gold per health)"))
+							break
+						except ValueError:
+							print("Please enter a valid integer.")
+					
+					max_health = 100 + ((TTTData[SaveID]['Stats']['Level'] - 1) * 50)
+					current_health = TTTData[SaveID]['Stats']['HP']
+					current_gold = TTTData[SaveID]['Stats']['Gold']
+
+					if current_health + Amount > max_health:
+						Amount = max_health - current_health
+
+					if Amount > current_gold:
+						Amount = current_gold
+
+					TTTData[SaveID]['Stats']['HP'] += Amount
+					TTTData[SaveID]['Stats']['Gold'] -= Amount
+					
+				with open('Saves.json', mode='w') as outfile:
+					json.dump(TTTData, outfile)
 
 			TargetPosition[0] = max(0, TargetPosition[0])
 			TargetPosition[1] = max(0, TargetPosition[1])
@@ -446,7 +514,7 @@ class Maps:
 		time.sleep(3)
 		os.system('cls')		
 
-		return self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2])
+		return self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2], True, 0)
 	
 	def DungeonMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list, CurrentTrial):
 		os.system('cls')
@@ -498,7 +566,7 @@ class Maps:
 					if TargetPosition == val:
 						return key
 					
-	def LobbyMap(self):
+	def LobbyMap(self, SaveID):
 		for MapData in self.AllMapData:
 			if MapData['name'] == 'Lobby':
 				LobbyData = MapData
@@ -516,7 +584,7 @@ class Maps:
 			{
 				"G": [[12, 14], [12, 15], [12, 16]],
 				}, 
-			[LobbyData['StartY'], LobbyData['StartX']]
+			[LobbyData['StartY'], LobbyData['StartX']], False, SaveID
 			)
 	
 	def DungeonMap(self, DungeonData, CurrentTrial):
