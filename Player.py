@@ -22,11 +22,32 @@ class Player:
         AllData[self.SaveID] = self.Stats
 
         with open('Saves.json', mode='w') as outfile:
-            json.dump(AllData, outfile)
+            json.dump(AllData, outfile, indent=4)
+    
+    def AddExp(self, exp):
+        NeededExp = self.Stats['Stats']['Level'] * 100
+        CurrentExp = self.Stats['Stats']['Exp']
+
+        TargetExp = CurrentExp + exp
+
+        if TargetExp >= NeededExp:
+            LeftOverExp = NeededExp - TargetExp
+            self.Stats['Stats']['Level'] += 1
+            self.Stats['Stats']['Hp'] = 100 + (self.Stats['Stats']['Level'] * 50)
+
+        else:
+            LeftOverExp = TargetExp
+        
+        self.Stats['Stats']['Exp'] = LeftOverExp
+
+        self.UpdateStats()    
     
     def ETakeDamage(self, EnemyAttack):
-        for item in self.Stats[len(self.Stats)-1]:
-            if item["Type"] == "Armor" and item.get("Wearing", None) == True:
+        found = False
+
+        for item in self.Stats['Inventory']:
+            if item["Type"] == "Armor" and item.get("Equipped", None) == True:
+                found = True
                 Damage *= ((EnemyAttack - item["Defense"]) / 100)
                 item['Durability'] -= Damage.round()
                 
@@ -40,6 +61,9 @@ class Player:
 
                 else:
                     self.UpdateStats()
+
+        if not found:
+            self.Stats['Stats']['HP'] -= EnemyAttack
     
     def TakeDamage(self, EnemyAttack):
         Damage = int(round(EnemyAttack,0))
@@ -74,8 +98,8 @@ class Player:
                 Found = True
                 return random.randint(0.9 * item['Attack'], 1.1 * item['Attack'])
 
-            if not Found:
-                return random.randint(9, 11)
+        if not Found:
+            return random.randint(9, 11)
 
 
     def Attack(self):
@@ -92,7 +116,7 @@ class Player:
 
         return attack
 
-# The Final Boss Should Be A Perfect Copy Of Yourself
+# The Final Boss Should Be A Perfect Copy Of Yourself. Just simply inherit the saveId and Stats.
 class FinalBoss(Player):
     def __init__(self, SaveID, Stats):
         super().__init__(SaveID, Stats)

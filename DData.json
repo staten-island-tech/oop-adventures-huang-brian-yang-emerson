@@ -50,53 +50,55 @@
                 "Desc": "A group of Goblin gangs up on you!"
             }
         ],
-        "Loot":
-        [
+        "Loot": [
             {
                 "Name": "Spider Eye",
                 "Type": "Scrap",
-                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?"
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
             },
             {
                 "Name": "Simple Spear",
                 "Damage": 15,
+                "Equipped": false,
                 "Type": "Weapon",
                 "Durability": 100,
                 "Rarity": "Common",
                 "Quantity": 1,
-                "Chance": 0,
-                "Value": 10
+                "Chance": 30
             },
             {
                 "Name": "Slingshot",
                 "Damage": 20,
+                "Equipped": false,
                 "Type": "Weapon",
                 "Durability": 50,
                 "Rarity": "Uncommon",
                 "Quantity": 1,
-                "Chance": 0,
-                "Value": 10
+                "Chance": 20 
             },
             {
                 "Name": "Club",
                 "Damage": 25,
+                "Equipped": false,
                 "Type": "Weapon",
                 "Durability": 100,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Chance": 0,
-                "Value": 10
+                "Chance": 10
             },
             {
                 "Name": "Vine Plates",
                 "Type": "Armor",
+                "Equipped": false,
                 "Durability": 1000,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Chance": 0,
-                "Value": 10
+                "Chance": 10
             }
         ]
+        
     },
     
     {
