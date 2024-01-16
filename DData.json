@@ -100,7 +100,6 @@
         ]
         
     },
-    
     {
         "Dungeon": "Desert Pyramid",
         "LevelReq": 25,
@@ -255,6 +254,50 @@
                 "MovementChance": 100,
                 "Desc": "The End... NO MERCY"
             }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Broken helmet",
+                "Type": "Scrap",
+                "Description": "The only thing they fear is you",
+                "Value": 50
+            },
+            {
+                "Name": "Maxwell",
+                "Type": "Scrap",
+                "Description": "Maxwell",
+                "Value": 100
+            },
+            {
+                "Name": "Large Axe",
+                "Damage": 100,
+                "Type": "Weapon",
+                "Durability": 50,
+                "Rarity": "Mythical",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 20
+            },
+            {
+                "Name": "Shotgun",
+                "Damage": 200,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Legendary",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 80
+            },
+            {
+                "Name": "DOOM Armor",
+                "Type": "Armor",
+                "Durability": 500,
+                "Rarity": "Legendary",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 250
+            }
         ]
     },
     {
@@ -270,6 +313,15 @@
                 "Chance": 100,
                 "MovementChance": 100,
                 "Desc": "It's You."
+            }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Completion Badge",
+                "Type": "Scrap",
+                "Description": "Congrats",
+                "Value": 500
             }
         ]
     }
