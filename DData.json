@@ -150,6 +150,53 @@
                 "MovementChance": 100,
                 "Desc": "The darkness touches all..."
             }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Hourglass",
+                "Type": "Scrap",
+                "Description": "It is broken...looks nice though",
+                "Value": 5
+            },
+            {
+                "Name": "Bow (and arrow)",
+                "Damage": 25,
+                "Type": "Weapon",
+                "Durability": 50,
+                "Rarity": "Uncommon",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 20
+            },
+            {
+                "Name": "Pharoah Sceptor",
+                "Damage": 40,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 50
+            },
+            {
+                "Name": "Magical bandage wraps",
+                "Type": "Armor",
+                "Durability": 100,
+                "Rarity": "Uncommon",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 10
+            },
+            {
+                "Name": "Sarcophagus",
+                "Type": "Armor",
+                "Durability": 200,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 50
+            }
         ]
     },
     {
@@ -201,6 +248,50 @@
                 "Chance": 1,
                 "MovementChance": 90,
                 "Desc": "Monster from the depths. It just wants hugs..."
+            }
+        ],
+        "Loot":
+        [
+            {
+                "Name": "Sea Rock",
+                "Type": "Scrap",
+                "Description": "It's a sea rock",
+                "Value": 10
+            },
+            {
+                "Name": "Small squid",
+                "Type": "Scrap",
+                "Description": "Burb burb burb",
+                "Value": 30
+            },
+            {
+                "Name": "Pickaxe",
+                "Damage": 30,
+                "Type": "Weapon",
+                "Durability": 50,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 20
+            },
+            {
+                "Name": "Rusty Katana",
+                "Damage": 80,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Mythical",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 80
+            },
+            {
+                "Name": "Barnicles Armor",
+                "Type": "Armor",
+                "Durability": 250,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 0,
+                "Value": 50
             }
         ]
     },
