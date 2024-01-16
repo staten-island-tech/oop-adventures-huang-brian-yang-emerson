@@ -185,7 +185,7 @@
                 "Rarity": "Rare",
                 "Quantity": 1,
                 "Chance": 0,
-                "Value": 40
+                "Value": 50
             },
             {
                 "Name": "Magical bandage wraps",
@@ -203,7 +203,7 @@
                 "Rarity": "Rare",
                 "Quantity": 1,
                 "Chance": 0,
-                "Value": 30
+                "Value": 50
             }
         ]
     },
@@ -299,7 +299,7 @@
                 "Rarity": "Rare",
                 "Quantity": 1,
                 "Chance": 0,
-                "Value": 20
+                "Value": 50
             }
         ]
     },
