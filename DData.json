@@ -157,7 +157,8 @@
                 "Name": "Hourglass",
                 "Type": "Scrap",
                 "Description": "It is broken...looks nice though",
-                "Value": 5
+                "Value": 5,
+                "Chance": 40
             },
             {
                 "Name": "Bow (and arrow)",
@@ -166,7 +167,7 @@
                 "Durability": 50,
                 "Rarity": "Uncommon",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 20,
                 "Value": 20
             },
             {
@@ -176,7 +177,7 @@
                 "Durability": 100,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 10,
                 "Value": 50
             },
             {
@@ -186,7 +187,7 @@
                 "Rarity": "Uncommon",
                 "Quantity": 1,
                 "Chance": 0,
-                "Value": 10
+                "Value": 20
             },
             {
                 "Name": "Sarcophagus",
@@ -194,7 +195,7 @@
                 "Durability": 200,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 10,
                 "Value": 50
             }
         ]
@@ -256,13 +257,15 @@
                 "Name": "Sea Rock",
                 "Type": "Scrap",
                 "Description": "It's a sea rock",
-                "Value": 10
+                "Value": 10,
+                "Chance": 45
             },
             {
                 "Name": "Small squid",
                 "Type": "Scrap",
                 "Description": "Burb burb burb",
-                "Value": 30
+                "Value": 20,
+                "Chance": 20
             },
             {
                 "Name": "Pickaxe",
@@ -271,7 +274,7 @@
                 "Durability": 50,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 10,
                 "Value": 20
             },
             {
@@ -281,7 +284,7 @@
                 "Durability": 100,
                 "Rarity": "Mythical",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 5,
                 "Value": 80
             },
             {
@@ -290,7 +293,7 @@
                 "Durability": 250,
                 "Rarity": "Rare",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 10,
                 "Value": 50
             }
         ]
@@ -349,16 +352,25 @@
         "Loot":
         [
             {
+                "Name": "Vial of blood",
+                "Type": "Scrap",
+                "Description": "Delicious",
+                "Value": 50,
+                "Chance": 50
+            },
+            {
                 "Name": "Broken helmet",
                 "Type": "Scrap",
-                "Description": "The only thing they fear is you",
-                "Value": 50
+                "Description": "A broken helmet of a long gone hero...",
+                "Value": 50,
+                "Chance": 20
             },
             {
                 "Name": "Maxwell",
                 "Type": "Scrap",
                 "Description": "Maxwell",
-                "Value": 100
+                "Value": 100,
+                "Chance": 10
             },
             {
                 "Name": "Large Axe",
@@ -367,7 +379,7 @@
                 "Durability": 50,
                 "Rarity": "Mythical",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 10,
                 "Value": 20
             },
             {
@@ -377,7 +389,7 @@
                 "Durability": 100,
                 "Rarity": "Legendary",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 5,
                 "Value": 80
             },
             {
@@ -386,7 +398,7 @@
                 "Durability": 500,
                 "Rarity": "Legendary",
                 "Quantity": 1,
-                "Chance": 0,
+                "Chance": 5,
                 "Value": 250
             }
         ]
@@ -412,7 +424,8 @@
                 "Name": "Completion Badge",
                 "Type": "Scrap",
                 "Description": "Congrats",
-                "Value": 500
+                "Value": 500,
+                "Chance": 100
             }
         ]
     }
