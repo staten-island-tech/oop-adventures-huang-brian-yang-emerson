@@ -327,5 +327,28 @@
                 "Chance": 30
             }
         ]
+    },
+    {
+        "Name": "DEBUG",
+        "Stats": {
+            "Gold": 0,
+            "HP": 100,
+            "Strength": 5,
+            "Luck": 0,
+            "Level": 1000,
+            "Vitality": 0,
+            "Exp": 0
+        },
+        "Misc": {
+            "TutorialDone": true
+        },
+        "Armor": {
+            "Name": "None",
+            "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
+        },
+        "Inventory": []
     }
 ]
