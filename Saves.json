@@ -120,13 +120,13 @@
     {
         "Name": "Cook it up young blud",
         "Stats": {
-            "Gold": 50,
-            "HP": 100,
+            "Gold": 350,
+            "HP": 83,
             "Strength": 0,
             "Luck": 0,
             "Level": 1,
             "Vitality": 0,
-            "Exp": 2
+            "Exp": 24
         },
         "Misc": {
             "TutorialDone": true
@@ -140,6 +140,60 @@
                 "Rarity": "Rare",
                 "Quantity": 1,
                 "Chance": 10
+            },
+            {
+                "Name": "Slingshot",
+                "Damage": 20,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 50,
+                "Rarity": "Uncommon",
+                "Quantity": 1,
+                "Chance": 20
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
+            },
+            {
+                "Name": "Club",
+                "Damage": 25,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 10
+            },
+            {
+                "Name": "Simple Spear",
+                "Damage": 15,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Chance": 30
+            },
+            {
+                "Name": "Simple Spear",
+                "Damage": 15,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Chance": 30
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
             }
         ]
     },
