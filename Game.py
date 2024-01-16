@@ -46,6 +46,15 @@ def GenerateTip():
 
 	return "Tip: " + random.choice(Tips)
 
+def Inventory(SaveID):
+	current_selection = 0
+
+	with open('Saves.json', mode='r') as infile:
+		Inventory = json.load(infile)['Inventory']
+
+	Dialogue = ["Items In Inventory: "]
+	Dialogue.extend(item['Name'] for item in Inventory)
+
 class PreGame:
 	def __init__(self):
 		self.loading_done = False
@@ -259,7 +268,7 @@ class PreGame:
 			with open('Saves.json', mode='w') as outfile:
 				json.dump(Data, outfile, indent=4)
 
-			self.Load("Registered New Save File. Starting Game...", 10)
+			self.Load("Registered New Save File Name....", 10)
 
 		return self.PlayGame()
 
@@ -420,10 +429,9 @@ class Maps:
 
 		return self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2])
 	
-	def DungeonMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list):
+	def DungeonMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list, CurrentTrial):
 		os.system('cls')
 		Map[PlayerPosition[0]][PlayerPosition[1]] == '[P]'
-		CanLeave = False
 
 		while True:
 			os.system('cls')
@@ -446,9 +454,8 @@ class Maps:
 			elif Movement == 4:
 				pass
 			elif Movement == 5:
-				if CanLeave:
+				if CurrentTrial != "Trial1":
 					return "Exit"
-
 
 			TargetPosition[0] = max(0, TargetPosition[0])
 			TargetPosition[1] = max(0, TargetPosition[1])
@@ -493,9 +500,9 @@ class Maps:
 			[LobbyData['StartY'], LobbyData['StartX']]
 			)
 	
-	def DungeonMap(self, DungeonData):
-
-		with open('Maps.json', mode='r') as infile:
+	def DungeonMap(self, DungeonData, CurrentTrial):
+	
+		with open('Maps.json', mode='r', encoding='utf8') as infile:
 			AllDungeonsMaps = json.load(infile)
 
 		for map in AllDungeonsMaps:
@@ -503,26 +510,45 @@ class Maps:
 				AllMapData = map
 				Map = map['map']
 
-		Map[AllMapData['Trial1'][0]][AllMapData['Trial1'][1]] = "1"
-		Map[AllMapData['Trial2'][0]][AllMapData['Trial2'][1]] = "1"
-		Map[AllMapData['Trial3'][0]][AllMapData['Trial3'][1]] = "1"
+		Map[AllMapData['StartY']][AllMapData['StartX']] = "[P]"
 
-		for i in Map:
-			print(''.join(Map))		
+		if CurrentTrial == "Trial1":
+			Map[AllMapData['Trial1'][0]][AllMapData['Trial1'][1]] = "[1]"
 
-		Choice = self.DungeonMove(Map, {
-			"Trial1": AllMapData['Trial1'],
-			"Trial2": AllMapData['Trial2'],
-			"Trial3": AllMapData['Trial3']
-		}, [AllMapData['StartY'], AllMapData['StartX']])
+			for i in Map:
+				print(''.join(i))	
+
+			Choice = self.DungeonMove(Map, {
+				"Trial1": [AllMapData['Trial1']],
+			}, [AllMapData['StartY'], AllMapData['StartX']], CurrentTrial)	
+
+		elif CurrentTrial == "Trial2":
+			Map[AllMapData['Trial2'][0]][AllMapData['Trial2'][1]] = "[2]"
+
+			for i in Map:
+				print(''.join(i))		
+
+			Choice = self.DungeonMove(Map, {
+				"Trial2": [AllMapData['Trial2']]
+			}, [AllMapData['StartY'], AllMapData['StartX']], CurrentTrial)
+
+		else:
+			Map[AllMapData['Trial3'][0]][AllMapData['Trial3'][1]] = "[3]"
+
+			for i in Map:
+				print(''.join(i))		
+
+			Choice = self.DungeonMove(Map, {
+				"Trial3": [AllMapData['Trial3']]
+			}, [AllMapData['StartY'], AllMapData['StartX']], CurrentTrial)
 
 		return Choice
 
 class PostMenu:
-	def __init__(self, SaveID, SaveData):
+	def __init__(self, SaveID, SaveData, PlayerClass):
 		self.SaveID = SaveID
 		self.SaveData = SaveData
-
+		self.PlayerClass = PlayerClass
 		
 	def Tutorial(self):
 		Dialogue("Villager", "Ah Hello! You Don't Seem To Be Around Here. Well In That Case I'll formally welcome you into our town, Windmill Town\n", 0.05)
@@ -558,7 +584,7 @@ class PostMenu:
 		os.system('cls')
 
 		current_selection = 0
-		PlayerLevel = 1  # This will be replaced with the actual player level
+		PlayerLevel = self.SaveData['Stats']['Level']
 
 		with open('DData.json', mode='r') as infile:
 			Dungeons: list[dict] = json.load(infile)
@@ -570,10 +596,8 @@ class PostMenu:
 			for i, dungeon in enumerate(Dungeons):
 
 				if PlayerLevel >= dungeon['LevelReq']:
-					print("Enough Level", dungeon['Dungeon'])
 					dialogue = f"Dungeon {i}: {dungeon['Dungeon']}"
 				else:
-					print("Not Enough Level", dungeon['Dungeon'])
 					dialogue = f"Dungeon {i}: {dungeon['Dungeon']} (Locked!)"
 
 				if i == current_selection and PlayerLevel >= dungeon['LevelReq']:
@@ -595,9 +619,9 @@ class PostMenu:
 					current_selection += 1
 			
 			elif DungeonChoice == 2:
-				return Dungeoner(Dungeons[current_selection])
-
-			else:
+				return Dungeoner(Dungeons[current_selection], self.PlayerClass).StartDungeon()
+			
+			elif DungeonChoice == 3:
 				print("Exiting!!")
 				time.sleep(5)
 				return "GET OUT OF MY SKIN"
@@ -618,31 +642,210 @@ class PostMenu:
 				Decision = None
 				print(self.Guard())
 
+# In progress #
 class Dungeoner:
-	def __init__(self, dungeon, PlayerClass, Difficulty) -> None:
+	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeonData = dungeon
 		self.Player = PlayerClass
-		self.Difficulty = Difficulty
-		self.Enemies = {"tester": {"CurrentEffects": {"Burn": {}}}}
-		self.PlayerTurn = random.choice([False, True])
+		self.Enemies = []
+		self.PlayerTurns = random.choice([False, True])
+		self.CurrentTrial = "Trial1"
+
+		if self.dungeonData['Dungeon'] == "END":
+			pass
 
 	def StartDungeon(self):
-		TrialChoice = Maps().DungeonMap(self.dungeonData)
+
+		while True:
+			if self.CurrentTrial != "Trial4":
+				TrialChoice = Maps().DungeonMap(self.dungeonData, CurrentTrial=self.CurrentTrial)
+				print("Get up, there's more work to do. Your health does not regen between trials.")
+				
+				if TrialChoice == 'Exit':
+					return
+				
+				else:
+					return self.Trials()
+
+			elif self.CurrentTrial == "Trial4":
+				return
+	
+	def RandomEnemies(self, Trial):
+		Enemies = self.dungeonData["Enemies"].copy()
+		EnemyList = []
+		Tempt = []
+
+		if Trial == "Trial1":
+			Multiplier = 0.5
+
+		elif Trial == "Trial2":
+			Multiplier = 1
+
+		elif Trial == "Trial3":
+			Multiplier = 1.25
+
+		while len(EnemyList) < 1:
+			for Enemy in Enemies:
+				Chance = Enemy['Chance']
+
+				Enemy['Hp'] = int(Enemy['Hp'] * Multiplier)
+				Enemy['Attack'] = int(Enemy['Attack'] * Multiplier)
+				Enemy['Exp'] = int(Enemy['Exp'] * Multiplier)
+				Enemy['MovementChance'] = int(Enemy['MovementChance'] * Multiplier)
+
+				Tempt.extend(Enemy for i in range(Chance))
+				Tempt.extend(0 for i in range(100 - len(Tempt)))
+
+				Choice = random.choice(Tempt)
+
+				while Choice != 0:
+					EnemyList.append(Choice)
+
+					Tempt = []
+
+					Chance = int(Chance/2)
+					Tempt.extend(Enemy for i in range(Chance))
+					Tempt.extend(0 for i in range(100 - len(Tempt)))
+
+					Choice = random.choice(Tempt)
+
+		self.Enemies = EnemyList
 		
-		if TrialChoice == 'Exit':
-			return
+		return EnemyList
 
-	def Trial1(self):
-		pass
+	def Trials(self):
+		self.Enemies = self.RandomEnemies(self.CurrentTrial)
+		self.PlayerTurns = True
+		print(self.Player)
+		
+		while len(self.Enemies) > 0: 
+			if self.PlayerTurns:
+				self.PlayerTurn()
+				self.PlayerTurns = False
 
-	def Trial2(self):
-		pass
+			if not self.PlayerTurns:
+				self.EnemyTurn()
+				self.PlayerTurns = True
 
-	def Trial3(self):
-		pass
+		if self.CurrentTrial == "Trial1":
+			self.CurrentTrial == "Trial2"
+			return self.StartDungeon()
+
+		elif self.CurrentTrial == "Trial2":
+			self.CurrentTrial == "Trial3"
+			return self.StartDungeon()
+
+		elif self.CurrentTrial == "Trial3":
+			return self.CurrentTrial == "Trial4"
 
 	def PlayerTurn(self):
-		pass
+		current_selection = 0
+		selected_enemies = []
+
+		while True:
+			os.system('cls')
+			enemydesc = [f'Enemy {i}: {enemy["Name"]}' + (' (selected)' if i in selected_enemies else '') + (' <---' if i == current_selection else '') for i, enemy in enumerate(self.Enemies)]
+			
+			Choicer = CoolBoxDialogue(
+				enemydesc, 
+				['W - Move Up', 'S - Move down', 'P - Select/Deselect Enemy', 'I - Inspect Selected Enemies', 'A - Attack'],
+				['W', 'S', 'P', 'I', 'A'],
+				88
+			)
+
+			if Choicer == 0:  
+				current_selection = max(0, current_selection - 1) 
+
+			elif Choicer == 1:
+				current_selection = min(len(self.Enemies) - 1, current_selection + 1) 
+
+			elif Choicer == 2:
+				if current_selection in selected_enemies: 
+					selected_enemies.remove(current_selection) 
+				else: 
+					selected_enemies.append(current_selection)  
+
+			elif Choicer == 3:
+				os.system('cls')
+				Dialogue = ["Enemies: "]
+				for id in selected_enemies:
+					Enemy = self.Enemies[id]
+					Dialogue.append(f"Enemy {id} Name: {Enemy['Name']}")
+					Dialogue.append(f"Enemy {id} Hp: {Enemy['Hp']}")
+					Dialogue.append(f"Enemy {id} Exp Drop: {Enemy['Exp']}")
+					Dialogue.append(f"Enemy {id} Chance: {Enemy['Chance']}")
+					Dialogue.append(f"Enemy {id} Movement Chance: {Enemy['MovementChance']}")
+					Dialogue.append(f"Enemy {id} Descriptiong: {Enemy['Desc']}")
+					Dialogue.append("----------------------------------------")
+
+				CoolBoxDialogue(Dialogue, ['R - Return To Turn'], ['R'], 100)
+
+			elif Choicer == 4:
+				if len(selected_enemies) > 0:
+					AttackDamge = self.Player.attack()
+					AttackPerEnemy = int(AttackDamge/len(selected_enemies))
+					print(f"Attack Success! Each Enemy Took {AttackPerEnemy} Damage...")
+
+					for id in selected_enemies:
+						Enemy = self.Enemies[id]
+						Enemy['Hp'] -= AttackPerEnemy
+						AtLeastOneDead = False
+						
+
+						if Enemy['Hp'] < 1:
+							AtLeastOneDead = True
+							self.Player.Stats['Stats']['Gold'] += 50
+							self.Player.UpdateStats()
+							self.Player.AddExp(Enemy['Exp'])
+							self.Enemies.pop(id)
+
+							LootDecider = []
+							GottenLoot = []
+
+							for Item in self.dungeonData['Loot']:
+								LootDecider.extend(Item for i in range(Item['Chance']))
+
+							Loot = random.choice(LootDecider)
+							self.Player.Stats['Inventory'].append(Loot)
+							GottenLoot.append(Loot)
+							self.Player.UpdateStats()
+
+						if AtLeastOneDead:
+							print(f"Attack Success! Each Enemy Took {AttackPerEnemy} Damage...")
+							os.system('cls')
+							Dialogue = ["Gotten Loot"]
+							Dialogue.extend([item['Name'] for item in GottenLoot])
+
+							CoolBoxDialogue(Dialogue, ['O - Ok.'], ['O'], 88)
+							break
+
+					time.sleep(3)
+					break
 
 	def EnemyTurn(self):
-		pass
+		os.system('cls')
+		movement_decisions = []
+		previoushealth = self.Player.Stats['Stats']['HP']
+		Attacked = False
+
+		for Enemy in self.Enemies:
+			Tempt = []
+			Tempt.extend([1] * Enemy['MovementChance'])
+			Tempt.extend([0] * (100 - len(Tempt)))
+
+			MoveOrNot = (True if random.choice(Tempt) == 1 else False)
+
+			if MoveOrNot:
+				movement_decisions.append(Enemy)
+
+		for Enemy in movement_decisions:
+			attack = random.randint(int(Enemy['Attack'] * 0.9), int(Enemy['Attack'] * 1.1))
+			self.Player.ETakeDamage(attack)
+			print(f"You Took {attack} damage. {previoushealth} -> {self.Player.Stats['Stats']['HP']}")
+			previoushealth = self.Player.Stats['Stats']['HP']
+
+		if len(movement_decisions) < 1:
+			print("No one attacked. That's weird.")
+
+		input("Press Enter To Continue: ")
+

@@ -18,9 +18,10 @@ def Main():
     player = Player.Player(SaveID, SaveData)
 
     # << Start The Game >> # 
-    PostMainMenu = Game.PostMenu(SaveID, SaveData)
+    PostMainMenu = Game.PostMenu(SaveID, SaveData, player)
 
     PostMainMenu.TavernStart()
 
 if __name__ == "__main__":
     Main()
+
