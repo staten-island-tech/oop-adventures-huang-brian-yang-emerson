@@ -1,1 +1,36 @@
-[]
+[
+    {
+        "Name": "Brian Huang",
+        "Stats": {
+            "Gold": 50,
+            "HP": 91,
+            "Strength": 0,
+            "Luck": 0,
+            "Level": 1,
+            "Vitality": 0,
+            "Exp": 5
+        },
+        "Misc": {
+            "TutorialDone": true
+        },
+        "Armor": {
+            "Name": "None",
+            "Durability": 0
+        },
+        "Weapon": {
+            "Name": "None"
+        },
+        "Inventory": [
+            {
+                "Name": "Simple Spear",
+                "Damage": 15,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Chance": 30
+            }
+        ]
+    }
+]

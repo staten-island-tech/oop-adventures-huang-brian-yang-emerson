@@ -12,15 +12,23 @@ def Main():
         print(e)
 
     # << PreGame Should Return The Data >> #
-    SaveID, SaveData = PreGame.MainMenu()
+    try:
+        SaveID, SaveData = PreGame.MainMenu()
 
-    # << Register The Player >> # 
-    player = Player.Player(SaveID, SaveData)
+        # << Register The Player >> # 
+        player = Player.Player(SaveID, SaveData)
 
-    # << Start The Game >> # 
-    PostMainMenu = Game.PostMenu(SaveID, SaveData, player)
+        # << Start The Game >> # 
+        PostMainMenu = Game.PostMenu(SaveID, SaveData, player)
 
-    PostMainMenu.TavernStart()
+        PostMainMenu.TavernStart()
+
+    except Exception as e:
+        os.system("cls")
+        print("HOME RUN!!!!!! YOU got A ERROR WOOO HOOO")
+        print("NOW LEAVE THE GAME FOREVER")
+        print(e)
+        os.abort()
 
 if __name__ == "__main__":
     Main()
