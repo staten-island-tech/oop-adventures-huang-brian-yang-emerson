@@ -1,7 +1,6 @@
 import time, os, random, json
 from itertools import cycle
 
-# Outside Functions For Each Class To Use # 
 def Dialogue(Author, Text, Time):
 	print(f"{Author}: ", end="", flush=True)
 
@@ -50,16 +49,13 @@ def Inventory(SaveID):
     current_selection = 0
     current_page = 0
 
-    with open('Saves.json', mode='r') as infile:
-        Data = json.load(infile)
-        Inventory = Data[SaveID]['Inventory']
-
     while True:
         os.system('cls')
         
         with open('Saves.json', mode='r') as infile:
-            Inventory: list = json.load(infile)[SaveID]['Inventory']
-              
+            Data = json.load(infile)
+            Inventory = Data[SaveID]['Inventory']
+
         start_index = current_page * 10
         end_index = start_index + 10
 
@@ -67,7 +63,7 @@ def Inventory(SaveID):
 
         dialogue_list = [f'Item {start_index + i}: {item["Name"]}' + (' <---' if start_index + i == current_selection else '') for i, item in enumerate(current_page_items)]
         
-        Choicer = CoolBoxDialogue(dialogue_list, ['W - Move Up', 'S - Move down', 'A - Previous Page', 'D - Next Page', 'I - Inspect', 'U - Equip Item (If Applicable)', 'P - Sell Item'], ['W', 'S', 'A', 'D', 'I', 'U', 'P'], 88)
+        Choicer = CoolBoxDialogue(dialogue_list, ['W - Move Up', 'S - Move down', 'A - Previous Page', 'D - Next Page', 'I - Inspect', 'U - Equip Item (If Applicable)', 'P - Sell Item', 'E - Exit'], ['W', 'S', 'A', 'D', 'I', 'U', 'P', 'E'], 88)
 
         if Choicer == 0:  
             current_selection = max(0, current_selection - 1) 
@@ -106,9 +102,16 @@ def Inventory(SaveID):
         elif Choicer == 6:
             Value = Item["Value"]
             Inventory.remove(Value)
-        
-        with open('Saves.json', mode='w') as outfile:
-            json.dump(Data, indent=4)
+            Data[SaveID]['Stats']['Gold'] += Value
+		
+        elif Choicer == 7:
+            return
+		
+        try:			
+            with open('Saves.json', mode='w') as outfile:
+                json.dump(Data, outfile, indent=4)
+        except:
+            pass
 
 class PreGame:
 	def __init__(self):
@@ -667,9 +670,7 @@ class PostMenu:
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
-
-	def SystemServices(self):
-		pass
+		self.SaveData['Misc']['TutorialDone'] = True
 
 	def Guard(self):
 		os.system('cls')
@@ -761,6 +762,7 @@ class Dungeoner:
 	
 	def RandomEnemies(self, Trial):
 		Enemies = self.dungeonData["Enemies"].copy()
+		self.Enemies = []
 		EnemyList = []
 		Tempt = []
 
@@ -857,6 +859,7 @@ class Dungeoner:
 
 			elif Choicer == 3:
 				os.system('cls')
+
 				Dialogue = ["Enemies: "]
 				for id in selected_enemies:
 					Enemy = self.Enemies[id]
@@ -871,22 +874,24 @@ class Dungeoner:
 				CoolBoxDialogue(Dialogue, ['R - Return To Turn'], ['R'], 100)
 
 			elif Choicer == 4:
+				Dead = []
 				if len(selected_enemies) > 0:
 					AttackDamge = self.Player.attack()
 					AttackPerEnemy = int(AttackDamge/len(selected_enemies))
 					print(f"Attack Success! Each Enemy Took {AttackPerEnemy} Damage...")
 					for id in selected_enemies:
 						Enemy = self.Enemies[id]
+						print(Enemy)
+						time.sleep(5)
 						Enemy['Hp'] -= AttackPerEnemy
 						AtLeastOneDead = False
 						
-
 						if Enemy['Hp'] < 1:
 							AtLeastOneDead = True
 							self.Player.Stats['Stats']['Gold'] += 50
 							self.Player.UpdateStats()
 							self.Player.AddExp(Enemy['Exp'])
-							self.Enemies.pop(id)
+							Dead.append(Enemy)
 
 							LootDecider = []
 							GottenLoot = []
@@ -908,6 +913,9 @@ class Dungeoner:
 							CoolBoxDialogue(Dialogue, ['O - Ok.'], ['O'], 88)
 							break
 
+					for dead in Dead:
+						self.Enemies.remove(Dead)
+					
 					time.sleep(3)
 					break
 

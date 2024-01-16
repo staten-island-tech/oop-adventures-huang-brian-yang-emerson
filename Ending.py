@@ -7,6 +7,7 @@ def EndPrompt(Text,Delay):
         time.sleep(Delay)
     time.sleep(3)
     os.system("cls")
+
 def RedSquare():
     for i in range(10):
         print("                          ".center(180))
@@ -32,6 +33,7 @@ RedSquare()
 time.sleep(3)
 EndPrompt("Will you press it?".center(180),0.1)
 Answer = None
+
 while Answer == None:
     RedSquare()
     Answer = str(input("Will you press it? [Y/N]"))

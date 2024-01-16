@@ -66,7 +66,7 @@ class Player:
         if not Found:
             return random.randint(9, 11)
 
-# The Final Boss Should Be A Perfect Copy Of Yourself. Just simply inherit the saveId and Stats.
+# The Final Boss Should Be A Perfect Copy Of Yourself. Just simply inherit the saveId and Stats And Methods Maybe Use Methods To Get The Damage And Take Damage. #
 class FinalBoss(Player):
     def __init__(self, SaveID, Stats):
         super().__init__(SaveID, Stats)
