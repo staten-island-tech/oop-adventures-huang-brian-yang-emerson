@@ -1,7 +1,6 @@
 import time, os, random, json
 from itertools import cycle
 
-# Outside Functions For Each Class To Use # 
 def Dialogue(Author, Text, Time):
 	print(f"{Author}: ", end="", flush=True)
 
@@ -50,16 +49,13 @@ def Inventory(SaveID):
     current_selection = 0
     current_page = 0
 
-    with open('Saves.json', mode='r') as infile:
-        Data = json.load(infile)
-        Inventory = Data[SaveID]['Inventory']
-
     while True:
         os.system('cls')
         
         with open('Saves.json', mode='r') as infile:
-            Inventory: list = json.load(infile)[SaveID]['Inventory']
-              
+            Data = json.load(infile)
+            Inventory = Data[SaveID]['Inventory']
+
         start_index = current_page * 10
         end_index = start_index + 10
 
@@ -106,9 +102,10 @@ def Inventory(SaveID):
         elif Choicer == 6:
             Value = Item["Value"]
             Inventory.remove(Value)
+            Data[SaveID]['Stats']['Gold'] += Value
         
         with open('Saves.json', mode='w') as outfile:
-            json.dump(Data, indent=4)
+            json.dump(Data, outfile, indent=4)
 
 class PreGame:
 	def __init__(self):
@@ -667,9 +664,7 @@ class PostMenu:
 		Dialogue('Villager', 'Remember, To QUIT the game, please click the red square thingy.\n', 0.05)
 		Dialogue('Villager', "Try To Quit The Game As Soon As Possible. Please Don't Stay Any Longer.\n", 0.05)
 		Dialogue("Villager", "Goodbye.", 0.5) 
-
-	def SystemServices(self):
-		pass
+		self.SaveData['Misc']['TutorialDone'] = True
 
 	def Guard(self):
 		os.system('cls')
@@ -746,6 +741,8 @@ class Dungeoner:
 
 	def StartDungeon(self):
 		while True:
+			print(self.Enemies) 
+			time.sleep(5)
 			if self.CurrentTrial != "Trial4":
 				TrialChoice = Maps().DungeonMap(self.dungeonData, CurrentTrial=self.CurrentTrial)
 				print("Get up, there's more work to do. Your health does not regen between trials.")
@@ -761,6 +758,7 @@ class Dungeoner:
 	
 	def RandomEnemies(self, Trial):
 		Enemies = self.dungeonData["Enemies"].copy()
+		self.Enemies = []
 		EnemyList = []
 		Tempt = []
 
