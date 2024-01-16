@@ -19,7 +19,7 @@
                 "Attack": 5,
                 "Exp": 10,
                 "Chance": 20,
-                "MovementChance": 50,
+                "MovementChance": 70,
                 "Desc": "Enemy with pokey stick"
             },                
             {
@@ -28,7 +28,7 @@
                 "Attack": 10,
                 "Exp": 10,
                 "Chance": 5,
-                "MovementChance": 50,
+                "MovementChance": 60,
                 "Desc": "This brawler packs a punch"
             },
             {
@@ -37,7 +37,7 @@
                 "Attack": 20,
                 "Exp": 15,
                 "Chance": 4,
-                "MovementChance": 50,
+                "MovementChance": 60,
                 "Desc": "The big boss"
             },
             {
@@ -46,7 +46,7 @@
                 "Attack": 2,
                 "Exp": 25,
                 "Chance": 1,
-                "MovementChance": 50,
+                "MovementChance": 90,
                 "Desc": "A group of Goblin gangs up on you!"
             }
         ],
@@ -111,7 +111,7 @@
                 "Attack": 10,
                 "Exp": 25,
                 "Chance": 70,
-                "MovementChance": 50,
+                "MovementChance": 75,
                 "Desc": "A man that is made of sand"
             },
             {
@@ -120,7 +120,7 @@
                 "Attack": 15,
                 "Exp": 30,
                 "Chance": 20,
-                "MovementChance": 40,
+                "MovementChance": 50,
                 "Desc": "Made of very sturdy and compact sandstone."
             },
             {
@@ -129,7 +129,7 @@
                 "Attack": 30,
                 "Exp": 30,
                 "Chance": 5,
-                "MovementChance": 50,
+                "MovementChance": 70,
                 "Desc": "A sinister presence wrapped under many layers of bandages."
             },
             {
@@ -138,7 +138,7 @@
                 "Attack": 20,
                 "Exp": 40,
                 "Chance": 4,
-                "MovementChance": 60,
+                "MovementChance": 80,
                 "Desc": "The last king of this dungeon."
             },
             {

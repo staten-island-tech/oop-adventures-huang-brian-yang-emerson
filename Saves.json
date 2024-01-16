@@ -200,13 +200,13 @@
     {
         "Name": "You're an disappointment to the family...",
         "Stats": {
-            "Gold": 250,
-            "HP": 88,
+            "Gold": 650,
+            "HP": 86,
             "Strength": 0,
             "Luck": 0,
             "Level": 1,
             "Vitality": 0,
-            "Exp": 15
+            "Exp": 40
         },
         "Misc": {
             "TutorialDone": true
@@ -259,6 +259,71 @@
                 "Type": "Scrap",
                 "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
                 "Value": 20,
+                "Chance": 30
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
+            },
+            {
+                "Name": "Simple Spear",
+                "Damage": 15,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Chance": 30
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
+            },
+            {
+                "Name": "Simple Spear",
+                "Damage": 15,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
+                "Chance": 30
+            },
+            {
+                "Name": "Simple Spear",
+                "Damage": 15,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Common",
+                "Quantity": 1,
                 "Chance": 30
             }
         ]
