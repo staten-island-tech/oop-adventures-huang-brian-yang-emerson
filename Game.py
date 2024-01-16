@@ -728,11 +728,11 @@ class Dungeoner:
 				self.PlayerTurns = True
 
 		if self.CurrentTrial == "Trial1":
-			self.CurrentTrial == "Trial2"
+			self.CurrentTrial = "Trial2"
 			return self.StartDungeon()
 
 		elif self.CurrentTrial == "Trial2":
-			self.CurrentTrial == "Trial3"
+			self.CurrentTrial = "Trial3"
 			return self.StartDungeon()
 
 		elif self.CurrentTrial == "Trial3":
