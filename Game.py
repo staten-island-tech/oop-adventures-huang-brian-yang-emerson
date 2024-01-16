@@ -63,7 +63,7 @@ def Inventory(SaveID):
 
         dialogue_list = [f'Item {start_index + i}: {item["Name"]}' + (' <---' if start_index + i == current_selection else '') for i, item in enumerate(current_page_items)]
         
-        Choicer = CoolBoxDialogue(dialogue_list, ['W - Move Up', 'S - Move down', 'A - Previous Page', 'D - Next Page', 'I - Inspect', 'U - Equip Item (If Applicable)', 'P - Sell Item'], ['W', 'S', 'A', 'D', 'I', 'U', 'P'], 88)
+        Choicer = CoolBoxDialogue(dialogue_list, ['W - Move Up', 'S - Move down', 'A - Previous Page', 'D - Next Page', 'I - Inspect', 'U - Equip Item (If Applicable)', 'P - Sell Item', 'E - Exit'], ['W', 'S', 'A', 'D', 'I', 'U', 'P', 'E'], 88)
 
         if Choicer == 0:  
             current_selection = max(0, current_selection - 1) 
@@ -103,9 +103,15 @@ def Inventory(SaveID):
             Value = Item["Value"]
             Inventory.remove(Value)
             Data[SaveID]['Stats']['Gold'] += Value
-        
-        with open('Saves.json', mode='w') as outfile:
-            json.dump(Data, outfile, indent=4)
+		
+        elif Choicer == 7:
+            return
+		
+        try:			
+            with open('Saves.json', mode='w') as outfile:
+                json.dump(Data, outfile, indent=4)
+        except:
+            pass
 
 class PreGame:
 	def __init__(self):
@@ -741,8 +747,6 @@ class Dungeoner:
 
 	def StartDungeon(self):
 		while True:
-			print(self.Enemies) 
-			time.sleep(5)
 			if self.CurrentTrial != "Trial4":
 				TrialChoice = Maps().DungeonMap(self.dungeonData, CurrentTrial=self.CurrentTrial)
 				print("Get up, there's more work to do. Your health does not regen between trials.")
@@ -855,6 +859,7 @@ class Dungeoner:
 
 			elif Choicer == 3:
 				os.system('cls')
+
 				Dialogue = ["Enemies: "]
 				for id in selected_enemies:
 					Enemy = self.Enemies[id]
@@ -869,6 +874,7 @@ class Dungeoner:
 				CoolBoxDialogue(Dialogue, ['R - Return To Turn'], ['R'], 100)
 
 			elif Choicer == 4:
+				Dead = []
 				if len(selected_enemies) > 0:
 					AttackDamge = self.Player.attack()
 					AttackPerEnemy = int(AttackDamge/len(selected_enemies))
@@ -876,16 +882,17 @@ class Dungeoner:
 
 					for id in selected_enemies:
 						Enemy = self.Enemies[id]
+						print(Enemy)
+						time.sleep(5)
 						Enemy['Hp'] -= AttackPerEnemy
 						AtLeastOneDead = False
 						
-
 						if Enemy['Hp'] < 1:
 							AtLeastOneDead = True
 							self.Player.Stats['Stats']['Gold'] += 50
 							self.Player.UpdateStats()
 							self.Player.AddExp(Enemy['Exp'])
-							self.Enemies.pop(id)
+							Dead.append(Enemy)
 
 							LootDecider = []
 							GottenLoot = []
@@ -907,6 +914,9 @@ class Dungeoner:
 							CoolBoxDialogue(Dialogue, ['O - Ok.'], ['O'], 88)
 							break
 
+					for dead in Dead:
+						self.Enemies.remove(Dead)
+					
 					time.sleep(3)
 					break
 
