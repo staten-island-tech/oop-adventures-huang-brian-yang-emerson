@@ -647,7 +647,7 @@ class PostMenu:
 		TutorialChoice = Answer(['Y', 'N'])
 
 		if TutorialChoice != 0:
-			Dialogue("Villager", "Oh well in that case I guess you're own your own.\n", 0.1)
+			Dialogue("Villager", "Oh well in that case I guess you're on your own.\n", 0.1)
 			time.sleep(3)
 			self.SaveData['Misc']['TutorialDone'] = True
 			return
@@ -875,7 +875,6 @@ class Dungeoner:
 					AttackDamge = self.Player.attack()
 					AttackPerEnemy = int(AttackDamge/len(selected_enemies))
 					print(f"Attack Success! Each Enemy Took {AttackPerEnemy} Damage...")
-
 					for id in selected_enemies:
 						Enemy = self.Enemies[id]
 						Enemy['Hp'] -= AttackPerEnemy

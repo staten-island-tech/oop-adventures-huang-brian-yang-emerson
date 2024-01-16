@@ -16,7 +16,7 @@
             {
                 "Name": "Spear Goblin",
                 "Hp": 50,
-                "Attack": 5,
+                "Attack": 10,
                 "Exp": 10,
                 "Chance": 20,
                 "MovementChance": 70,
