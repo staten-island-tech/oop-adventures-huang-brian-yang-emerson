@@ -64,31 +64,6 @@ class Player:
 
         if not found:
             self.Stats['Stats']['HP'] -= EnemyAttack
-    
-    def TakeDamage(self, EnemyAttack):
-        Damage = int(round(EnemyAttack,0))
-        if self.Stats[7] != "None" and Damage != 0:
-
-            Damage *= ((Damage-self.Stats[8]))/Damage
-            Damage = int(Damage)
-
-            self.Stats[8] = self.Stats[8] - int(round(EnemyAttack,0))
-
-            if Damage < 0:
-                Damage = 0
-
-
-            if self.Stats[8] < 1:
-                self.Stats[7] = "None"
-                print("Your Armor Has Broke! You Will No Longer Get Reduced Damage Until Another Armor Is Equipped")
-
-        self.Stats[1] -= int(Damage)
-
-        print("You took "+str(Damage)+" damage.")
-
-        if self.Stats[1] < 1:
-            print("You Have Died! Your Last Health Points Have Been Saved. Please quit the game forever and leave.")
-            os.abort()
 
     def attack(self):
         Found = False
@@ -100,21 +75,6 @@ class Player:
 
         if not Found:
             return random.randint(9, 11)
-
-
-    def Attack(self):
-
-        for i in range(len(data)):
-            if data[i]['Name'] == self.Stats[9]:
-                break
-
-        if self.Stats[9] != "None":
-            attack = random.randint(round(0.9 * data[i]['Attack']), round(1.1 * data[i]['Attack']))
-            attack += self.Stats[2]
-        else:
-            attack = random.randint(9*(self.Stats[2]+1), 11*(self.Stats[2]+1))
-
-        return attack
 
 # The Final Boss Should Be A Perfect Copy Of Yourself. Just simply inherit the saveId and Stats.
 class FinalBoss(Player):
