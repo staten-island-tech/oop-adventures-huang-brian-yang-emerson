@@ -47,13 +47,68 @@ def GenerateTip():
 	return "Tip: " + random.choice(Tips)
 
 def Inventory(SaveID):
-	current_selection = 0
+    current_selection = 0
+    current_page = 0
 
-	with open('Saves.json', mode='r') as infile:
-		Inventory = json.load(infile)['Inventory']
+    with open('Saves.json', mode='r') as infile:
+        Data = json.load(infile)
+        Inventory = Data[SaveID]['Inventory']
 
-	Dialogue = ["Items In Inventory: "]
-	Dialogue.extend(item['Name'] for item in Inventory)
+    while True:
+        os.system('cls')
+        
+        with open('Saves.json', mode='r') as infile:
+            Inventory: list = json.load(infile)[SaveID]['Inventory']
+              
+        start_index = current_page * 10
+        end_index = start_index + 10
+
+        current_page_items = Inventory[start_index:end_index]
+
+        dialogue_list = [f'Item {start_index + i}: {item["Name"]}' + (' <---' if start_index + i == current_selection else '') for i, item in enumerate(current_page_items)]
+        
+        Choicer = CoolBoxDialogue(dialogue_list, ['W - Move Up', 'S - Move down', 'A - Previous Page', 'D - Next Page', 'I - Inspect', 'U - Equip Item (If Applicable)', 'P - Sell Item'], ['W', 'S', 'A', 'D', 'I', 'U', 'P'], 88)
+
+        if Choicer == 0:  
+            current_selection = max(0, current_selection - 1) 
+
+        elif Choicer == 1:
+            current_selection = min(len(Inventory) - 1, current_selection + 1) 
+
+        elif Choicer == 2:
+            current_page = max(0, current_page - 1)
+            current_selection = start_index 
+
+        elif Choicer == 3:
+            current_page = min(len(Inventory) // 10, current_page + 1)
+            current_selection = start_index
+		
+        elif Choicer == 4:
+            print(Inventory[current_selection])
+            time.sleep(3)
+            
+        elif Choicer == 5:
+            Item = Inventory[current_selection]
+            if Item['Type'] == "Armor":
+                for Items in Inventory:
+                    if Items['Type'] != "Armor":
+                        continue
+                    Items['Equipped'] = False
+                Item['Equipped'] = True
+                        
+        if Item['Type'] == "Weapon":
+            for Items in Inventory:
+                if Items['Type'] != "Weapon":
+                    continue
+                Items['Equipped'] = False
+            Item['Equipped'] = True
+
+        elif Choicer == 6:
+            Value = Item["Value"]
+            Inventory.remove(Value)
+        
+        with open('Saves.json', mode='w') as outfile:
+            json.dump(Data, indent=4)
 
 class PreGame:
 	def __init__(self):
@@ -368,7 +423,7 @@ class Maps:
 		with open('Maps.json', mode='r', encoding='utf8') as infile:
 			self.AllMapData: list[dict] = json.load(infile)
 
-	def MapMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list):
+	def MapMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list, Tutorial, SaveID):
 		os.system('cls')
 		Map[PlayerPosition[0]][PlayerPosition[1]] == '[P]'
 
@@ -380,7 +435,12 @@ class Maps:
 			for i in Map:
 				print(''.join(i))
 			
-			Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
+			if Tutorial:
+				Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right'], ['W', 'A', 'S', 'D'], 88)
+			else:
+				Movement = CoolBoxDialogue(["Where To Now?"], ['W - Up', 'A - Left', 'S - Down', 'D - Right', 'I - Inventory', 'H - Heal'], ['W', 'A', 'S', 'D', 'I', 'H'], 88)
+				with open('Saves.json', mode='r') as infile:
+					TTTData = json.load(infile)
 
 			if Movement == 0:
 				TargetPosition[0] -= 1
@@ -390,6 +450,33 @@ class Maps:
 				TargetPosition[0] += 1
 			elif Movement == 3:
 				TargetPosition[1] += 1
+			elif Movement == 4:
+				Inventory(SaveID=SaveID)
+			elif Movement == 5:
+				Choice = CoolBoxDialogue(["You Wish To Heal?", f"Current Health: {TTTData[SaveID]['Stats']['HP']}", f"Max Health: {100 + ((TTTData[SaveID]['Stats']['Level'] - 1) * 50)}"], ['Y - Yes', 'N - No'], ['Y', 'N'], 88)
+				if Choice == 0:
+					while True:
+						try:
+							Amount = int(input("How much to heal? (1 gold per health)"))
+							break
+						except ValueError:
+							print("Please enter a valid integer.")
+					
+					max_health = 100 + ((TTTData[SaveID]['Stats']['Level'] - 1) * 50)
+					current_health = TTTData[SaveID]['Stats']['HP']
+					current_gold = TTTData[SaveID]['Stats']['Gold']
+
+					if current_health + Amount > max_health:
+						Amount = max_health - current_health
+
+					if Amount > current_gold:
+						Amount = current_gold
+
+					TTTData[SaveID]['Stats']['HP'] += Amount
+					TTTData[SaveID]['Stats']['Gold'] -= Amount
+					
+				with open('Saves.json', mode='w') as outfile:
+					json.dump(TTTData, outfile)
 
 			TargetPosition[0] = max(0, TargetPosition[0])
 			TargetPosition[1] = max(0, TargetPosition[1])
@@ -427,7 +514,7 @@ class Maps:
 		time.sleep(3)
 		os.system('cls')		
 
-		return self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2])
+		return self.MapMove(Map, {'G': [[Goal[0], Goal[1]]]}, [2, 2], True, 0)
 	
 	def DungeonMove(self, Map: list[list[str]], Goals: dict[list[list]], PlayerPosition: list, CurrentTrial):
 		os.system('cls')
@@ -479,7 +566,7 @@ class Maps:
 					if TargetPosition == val:
 						return key
 					
-	def LobbyMap(self):
+	def LobbyMap(self, SaveID):
 		for MapData in self.AllMapData:
 			if MapData['name'] == 'Lobby':
 				LobbyData = MapData
@@ -497,7 +584,7 @@ class Maps:
 			{
 				"G": [[12, 14], [12, 15], [12, 16]],
 				}, 
-			[LobbyData['StartY'], LobbyData['StartX']]
+			[LobbyData['StartY'], LobbyData['StartX']], False, SaveID
 			)
 	
 	def DungeonMap(self, DungeonData, CurrentTrial):
@@ -652,10 +739,9 @@ class Dungeoner:
 		self.CurrentTrial = "Trial1"
 
 		if self.dungeonData['Dungeon'] == "END":
-			pass
+			FinalBosser(self.Player)
 
 	def StartDungeon(self):
-
 		while True:
 			if self.CurrentTrial != "Trial4":
 				TrialChoice = Maps().DungeonMap(self.dungeonData, CurrentTrial=self.CurrentTrial)
@@ -738,7 +824,8 @@ class Dungeoner:
 			return self.StartDungeon()
 
 		elif self.CurrentTrial == "Trial3":
-			return self.CurrentTrial == "Trial4"
+			self.CurrentTrial = "Trial4"
+			return self.StartDungeon()
 
 	def PlayerTurn(self):
 		current_selection = 0
@@ -851,3 +938,118 @@ class Dungeoner:
 
 		input("Press Enter To Continue: ")
 
+class FinalBosser:
+	def __init__(self, PlayerClass) -> None:
+		import Player
+		FinalBosserer = Player.FinalBoss(PlayerClass.SaveID, PlayerClass.Stats)
+		
+		self.Player = PlayerClass
+		self.Enemies = [FinalBosserer]
+
+	def FinalBattle(self):
+		PlayerTurn = True
+
+		if PlayerTurn:
+			self.PlayerTurn()
+			PlayerTurn = False
+
+		elif not PlayerTurn:
+			self.EnemyTurn()
+
+		os.system('cls')
+		print("Finally you stand atop the world beneath your feet")
+		print("Do you feel satisfied? Finally? Finally???")
+		print("Ima go to sleep. I dont get paid enough to do this.")
+		os.abort()
+		
+
+	def PlayerTurn(self):
+		current_selection = 0
+		selected_enemies = []
+
+		while True:
+			os.system('cls')
+			enemydesc = [f'Enemy {i}: {enemy["Name"]}' + (' (selected)' if i in selected_enemies else '') + (' <---' if i == current_selection else '') for i, enemy in enumerate(self.Enemies)]
+			
+			Choicer = CoolBoxDialogue(
+				enemydesc, 
+				['W - Move Up', 'S - Move down', 'P - Select/Deselect Enemy', 'I - Inspect Selected Enemies', 'A - Attack'],
+				['W', 'S', 'P', 'I', 'A'],
+				88
+			)
+
+			if Choicer == 0:  
+				current_selection = max(0, current_selection - 1) 
+
+			elif Choicer == 1:
+				current_selection = min(len(self.Enemies) - 1, current_selection + 1) 
+
+			elif Choicer == 2:
+				if current_selection in selected_enemies: 
+					selected_enemies.remove(current_selection) 
+				else: 
+					selected_enemies.append(current_selection)  
+
+			elif Choicer == 3:
+				os.system('cls')
+				Dialogue = ["Enemies: "]
+				for id in selected_enemies:
+					Enemy = self.Enemies[id]
+					Dialogue.append(f"Enemy {id} Name: {Enemy['Name']}")
+					Dialogue.append(f"Enemy {id} Hp: {Enemy['Hp']}")
+					Dialogue.append(f"Enemy {id} Exp Drop: {Enemy['Exp']}")
+					Dialogue.append(f"Enemy {id} Chance: {Enemy['Chance']}")
+					Dialogue.append(f"Enemy {id} Movement Chance: {Enemy['MovementChance']}")
+					Dialogue.append(f"Enemy {id} Descriptiong: {Enemy['Desc']}")
+					Dialogue.append("----------------------------------------")
+
+				CoolBoxDialogue(Dialogue, ['R - Return To Turn'], ['R'], 100)
+
+			elif Choicer == 4:
+				if len(selected_enemies) > 0:
+					AttackDamge = self.Player.attack()
+					AttackPerEnemy = int(AttackDamge/len(selected_enemies))
+					print(f"Attack Success! Each Enemy Took {AttackPerEnemy} Damage...")
+
+					for id in selected_enemies:
+						Enemy = self.Enemies[id]
+						Enemy['Hp'] -= AttackPerEnemy
+						AtLeastOneDead = False
+						
+
+						if Enemy['Hp'] < 1:
+							AtLeastOneDead = True
+							self.Player.Stats['Stats']['Gold'] += 50
+							self.Player.UpdateStats()
+							self.Player.AddExp(Enemy['Exp'])
+							self.Enemies.pop(id)
+
+							LootDecider = []
+							GottenLoot = []
+
+							for Item in self.dungeonData['Loot']:
+								LootDecider.extend(Item for i in range(Item['Chance']))
+
+							Loot = random.choice(LootDecider)
+							self.Player.Stats['Inventory'].append(Loot)
+							GottenLoot.append(Loot)
+							self.Player.UpdateStats()
+
+						if AtLeastOneDead:
+							print(f"Attack Success! Each Enemy Took {AttackPerEnemy} Damage...")
+							os.system('cls')
+							Dialogue = ["Gotten Loot"]
+							Dialogue.extend([item['Name'] for item in GottenLoot])
+
+							CoolBoxDialogue(Dialogue, ['O - Ok.'], ['O'], 88)
+							break
+
+					time.sleep(3)
+					break
+	
+	def EnemyTurn(self):
+		Damage = self.FinalBosser.attack * 1.2
+		self.Player.ETakeDamage(Damage)
+		print(f"You Took {Damage} damage. {previoushealth} -> {self.Player.Stats['Stats']['HP']}")
+		previoushealth = self.Player.Stats['Stats']['HP']
+		input("Press Enter To Continue: ")
