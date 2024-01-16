@@ -146,16 +146,16 @@
     {
         "Name": "You're an disappointment to the family...",
         "Stats": {
-            "Gold": 200,
+            "Gold": 250,
             "HP": 88,
             "Strength": 0,
             "Luck": 0,
             "Level": 1,
             "Vitality": 0,
-            "Exp": 13
+            "Exp": 15
         },
         "Misc": {
-            "TutorialDone": false
+            "TutorialDone": true
         },
         "Armor": {
             "Name": "None",
@@ -199,6 +199,13 @@
                 "Rarity": "Rare",
                 "Quantity": 1,
                 "Chance": 10
+            },
+            {
+                "Name": "Spider Eye",
+                "Type": "Scrap",
+                "Description": "A eye from a spider. Abnormally big. I wonder what they used it for?",
+                "Value": 20,
+                "Chance": 30
             }
         ]
     }
