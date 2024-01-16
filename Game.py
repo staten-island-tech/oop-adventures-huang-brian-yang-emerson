@@ -96,12 +96,12 @@ def Inventory(SaveID):
                     Items['Equipped'] = False
                 Item['Equipped'] = True
                         
-        if Item['Type'] == "Weapon":
-            for Items in Inventory:
-                if Items['Type'] != "Weapon":
-                    continue
-                Items['Equipped'] = False
-            Item['Equipped'] = True
+            if Item['Type'] == "Weapon":
+                for Items in Inventory:
+                    if Items['Type'] != "Weapon":
+                        continue
+                    Items['Equipped'] = False
+                Item['Equipped'] = True
 
         elif Choicer == 6:
             Value = Item["Value"]
@@ -474,7 +474,7 @@ class Maps:
 
 					TTTData[SaveID]['Stats']['HP'] += Amount
 					TTTData[SaveID]['Stats']['Gold'] -= Amount
-					
+
 				with open('Saves.json', mode='w') as outfile:
 					json.dump(TTTData, outfile)
 
@@ -504,6 +504,10 @@ class Maps:
 		Map = [["[ ]" for i in range(5)] for i in range(5)]
 		Map[2][2] = "[P]"
 		Goal = [random.randint(0, 4), random.randint(0, 4)]
+
+		while Goal == [2, 2]:
+			Goal = [random.randint(0, 4), random.randint(0, 4)]
+			
 		Map[Goal[0]][Goal[1]] = '[G]'
 
 		for i in Map:
@@ -723,13 +727,12 @@ class PostMenu:
 		os.system('cls')
 
 		while True:
-			Decision = Maps().LobbyMap()
+			Decision = Maps().LobbyMap(self.SaveID)
 
 			if Decision == "G":
 				Decision = None
 				print(self.Guard())
 
-# In progress #
 class Dungeoner:
 	def __init__(self, dungeon, PlayerClass) -> None:
 		self.dungeonData = dungeon
@@ -754,8 +757,6 @@ class Dungeoner:
 					return self.Trials()
 
 			elif self.CurrentTrial == "Trial4":
-				if self.dungeonData['Dungeon'] == "END":
-					exec('Ending')
 				return
 	
 	def RandomEnemies(self, Trial):
@@ -816,11 +817,11 @@ class Dungeoner:
 				self.PlayerTurns = True
 
 		if self.CurrentTrial == "Trial1":
-			self.CurrentTrial == "Trial2"
+			self.CurrentTrial = "Trial2"
 			return self.StartDungeon()
 
 		elif self.CurrentTrial == "Trial2":
-			self.CurrentTrial == "Trial3"
+			self.CurrentTrial = "Trial3"
 			return self.StartDungeon()
 
 		elif self.CurrentTrial == "Trial3":
