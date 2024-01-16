@@ -62,7 +62,11 @@ class Enemy:
     
     def BossDialogue(self,turn):
         dialogue = []
-        if self.name == "Pharoah":
+        if self.name == "Chief Goblin":
+            dialogue = GoblinChiefDialogue
+        elif self.name == "Goblin Gang":
+            dialogue = GoblinGangDialogue
+        elif self.name == "Pharoah":
             dialogue = PharoahDialogue
         elif self.name == "Eyed Coffin":
             dialogue = EyedCoffinDialogue
@@ -70,6 +74,8 @@ class Enemy:
             dialogue = SharkManDialogue
         elif self.name == "Kraken":
             dialogue = KrakenDialogue
+        elif self.name == "Demon king":
+            dialogue = DemonLordDialogue
         elif self.name == "Death":
             dialogue = DeathDialogue
         else:
@@ -92,7 +98,11 @@ class Enemy:
     
     def BossDeath(self):
         DeadBossDialogue = []
-        if self.name == "Pharoah":
+        if self.name == "Chief Goblin":
+            DeadBossDialogue = GoblinChiefDeath
+        elif self.name == "Goblin Gang":
+            DeadBossDialogue = GoblinGangDeath
+        elif self.name == "Pharoah":
             DeadBossDialogue = PharoahDeath
         elif self.name == "Eyed Coffin":
             DeadBossDialogue = EyedCoffinDeath
@@ -100,6 +110,8 @@ class Enemy:
             DeadBossDialogue = SharkManDeath
         elif self.name == "Kraken":
             DeadBossDialogue = KrakenDeath
+        elif self.name == "Demon king":
+            DeadBossDialogue = DemonLordDeath
         elif self.name == "Death":
             DeadBossDialogue = DeathofDeath
         else:
@@ -114,6 +126,22 @@ class Enemy:
                 time.sleep(1)
             time.sleep(3)
 
+GoblinChiefDialogue = [
+    "Ooga Booga?! (You dare enter my territory?!)\n",
+    "Ooga Booga! (Begone!)\n"
+],
+GoblinChiefDeath = [
+    "...",
+    "Ouch."
+]
+GoblinGangDialogue = [
+    "Ooga Booga! Ooga Booga!!! (Look over there! It's the person who killed our chief)\n",
+    "Ooga Booga! (We will avenge the chief!)\n",
+    "OOGA BOOGA! (Die!!!)\n"
+],
+GoblinGangDeath = [
+    "*All of them die*\n"
+]
 PharoahDialogue = [
     "WHO ARE YOU TO AWAKEN ME FROM MY SLUMBER?\n",
     "YOU SURE HAVE ALOT OF GUTS!\n",
@@ -191,6 +219,31 @@ KrakenDialogue = [
     "OwO\n",
     "UwU\n",
     "OwO\n"
+]
+DemonLordDialogue = [
+    "...\n",
+    "I'm honestly surprised...\n",
+    "You're much eviler than I am...\n",
+    "Damn...\n",
+    "...\n",
+    "Let's make a deal.\n",
+    "Give me your soul...\n",
+    "And together we'll rule the world!\n",
+    "...\n",
+    "No?\n",
+    "Then burn.\n",
+    "...\n"
+]
+DemonLordDeath = [
+    "...\n",
+    "Hey...\n",
+    "Let's make a deal...\n",
+    "Let me live and...\n",
+    "...\n",
+    "....\n",
+    "Forget it...\n",
+    "Not that you'll listen anyways...\n",
+    "...\n"
 ]
 KrakenDeath = [
     "O_O\n",
