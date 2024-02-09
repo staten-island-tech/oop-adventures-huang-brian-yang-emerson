@@ -2,13 +2,13 @@
     {
         "Name": "Brian Huang",
         "Stats": {
-            "Gold": 50,
-            "HP": 91,
+            "Gold": 100,
+            "HP": 87,
             "Strength": 0,
             "Luck": 0,
             "Level": 1,
             "Vitality": 0,
-            "Exp": 5
+            "Exp": 7
         },
         "Misc": {
             "TutorialDone": true
@@ -30,6 +30,16 @@
                 "Rarity": "Common",
                 "Quantity": 1,
                 "Chance": 30
+            },
+            {
+                "Name": "Club",
+                "Damage": 25,
+                "Equipped": false,
+                "Type": "Weapon",
+                "Durability": 100,
+                "Rarity": "Rare",
+                "Quantity": 1,
+                "Chance": 10
             }
         ]
     }
